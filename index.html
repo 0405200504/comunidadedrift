@@ -4,1199 +4,1429 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<!-- ============ META / SEO / OG ============ -->
+<!-- ═══════════ META ═══════════ -->
 <title>Drive Club — Você vê o Drive dos vídeos. Aqui você entra no carro.</title>
-<meta name="description" content="Comunidade fechada do @driveitlikestoleit. Bastidores sem filtro, garagem dos membros, rifa 10x, ranking, experiências e descontos com parceiros. Fora daqui você é fã. Aqui você é membro.">
-<meta name="theme-color" content="#0B0B0C">
+<meta name="description" content="Comunidade fechada do @driveitlikestoleit. Bastidores sem filtro, garagem dos membros, rifa 10x, ranking, experiências e descontos com parceiros.">
+<meta name="theme-color" content="#0A0A0A">
 <link rel="canonical" href="https://driveclub.com.br/"><!-- TROCAR: domínio final -->
-
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Drive Club">
 <meta property="og:title" content="Drive Club — Aqui você entra no carro.">
 <meta property="og:description" content="Real Underground · Comunidade fechada. O rolê continua depois que a câmera desliga.">
-<meta property="og:url" content="https://driveclub.com.br/"><!-- TROCAR: domínio final -->
-<meta property="og:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR: og image 1200x630 -->
+<meta property="og:url" content="https://driveclub.com.br/"><!-- TROCAR -->
+<meta property="og:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR: 1200x630 -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Drive Club — Aqui você entra no carro.">
-<meta name="twitter:description" content="Real Underground · Comunidade fechada. O rolê continua depois que a câmera desliga.">
-<meta name="twitter:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR: og image 1200x630 -->
+<meta name="twitter:description" content="Real Underground · Comunidade fechada.">
+<meta name="twitter:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0A0A'/%3E%3Cpath d='M3 26C10 26 8 6 16 6s6 20 13 20' stroke='%23FF4A0F' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 
-<!-- favicon inline: marca de pneu laranja sobre asfalto -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0B0C'/%3E%3Cpath d='M4 25C10 25 9 8 16 8s6 17 12 17' stroke='%23FF4A0F' stroke-width='3.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-
-<!-- ============ FONTES: 2 famílias, só os pesos usados ============ -->
+<!-- ═══════════ FONTES ═══════════ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500;75..125,700;75..125,900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Space+Grotesk:wght@400;500;700&family=Martian+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script>
-  /* marca que o JS está vivo (estados iniciais escondidos só existem com .js)
-     e respeita reduced-motion desde o primeiro frame — evita CLS e FOUC */
-  (function(){
-    var r = document.documentElement;
-    r.classList.add('js');
-    try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('rm'); }catch(e){}
-  })();
+  /* .js habilita os estados iniciais de animação; .rm é o interruptor de "estado final"
+     (reduced-motion OU CDN fora do ar). Sem JS, a página renderiza inteira. */
+  (function(){var r=document.documentElement;r.classList.add('js');
+   try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)r.classList.add('rm');}catch(e){}})();
 </script>
 
 <style>
-/* =========================================================
-   DRIVE CLUB — tokens
-   ========================================================= */
+/* ═══════════════════════════════════════════════════════════
+   TOKENS  ·  três cores, só três
+   ═══════════════════════════════════════════════════════════ */
 :root{
-  /* --- cor: asfalto + 2 acentos + neutros (hex à mão) --- */
-  --asfalto:#0B0B0C;
-  --breu:#131215;
-  --oleo:#1C1A1E;
-  --rubber:#332E29;      /* borracha da marca de pneu */
-  --giz:#EDE7DE;
-  --poeira:#8C857C;
-  --sinal:#FF4A0F;       /* laranja de sinalização / lanterna */
-  --fita:#C6F24E;        /* verde-refletivo, dose mínima */
+  --preto:#0A0A0A;
+  --branco:#F2EFE9;
+  --laranja:#FF4A0F;
+  /* cinzas: só derivação do preto, nunca cor de texto principal */
+  --preto-2:#141414;
+  --preto-3:#1E1E1E;
 
-  /* --- radius: três valores, três contextos --- */
-  --r-lasca:2px;         /* filetes, tags, botões retos */
-  --r-cartao:16px;       /* carteirinha de membro */
-  --r-selo:999px;        /* selo/adesivo */
+  --display:'Archivo', system-ui, sans-serif;
+  --corpo:'Space Grotesk', system-ui, sans-serif;
+  --mono:'Martian Mono', ui-monospace, monospace;
 
-  /* --- escala de espaço --- */
-  --s1:8px; --s2:16px; --s3:32px; --s4:64px; --s5:120px; --s6:200px;
+  --gut:clamp(18px, 4.2vw, 72px);
+  --diag:3.2vw;                 /* altura da divisa diagonal entre seções */
 
-  --disp:'Archivo', system-ui, -apple-system, sans-serif;
-  --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-
-  --gutter:clamp(20px, 4vw, 64px);
-  --linha:1px solid rgba(237,231,222,.14);
+  /* ── PARÂMETROS DE MOVIMENTO (ajuste rápido aqui) ── */
+  --skew-max:8;                 /* graus máx. de skew das headlines na velocidade */
+  --marquee-base:0.9;           /* px por frame do marquee parado */
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%; overflow-x:clip}  /* clip-path não corta overflow de layout: os fantasmas sangram */
 body{
-  margin:0; background:var(--asfalto); color:var(--giz);
-  font-family:var(--disp); font-variation-settings:'wdth' 100,'wght' 500;
-  font-size:clamp(15px,1.05vw,17px); line-height:1.55;
+  margin:0; background:var(--preto); color:var(--branco);
+  font-family:var(--corpo); font-size:clamp(16px,1.1vw,18px); line-height:1.55;
   overflow-x:clip; -webkit-font-smoothing:antialiased;
 }
-img,svg{display:block; max-width:100%}
-a{color:inherit; text-decoration:none}
-h1,h2,h3,p,ul,figure,blockquote{margin:0; padding:0}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,ul,figure,blockquote{margin:0;padding:0}
 ul{list-style:none}
+:focus-visible{outline:3px solid var(--laranja); outline-offset:3px}
+.t-laranja :focus-visible{outline-color:var(--preto)}
+::selection{background:var(--laranja);color:var(--preto)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* foco visível customizado — nunca outline:none seco */
-:focus-visible{outline:2px solid var(--fita); outline-offset:4px; border-radius:var(--r-lasca)}
-
-::selection{background:var(--sinal); color:#0B0B0C}
-
-/* =========================================================
-   Tipografia utilitária
-   ========================================================= */
-.display{
-  font-family:var(--disp); font-variation-settings:'wdth' 118,'wght' 900;
-  line-height:.9; letter-spacing:-.03em; text-transform:uppercase;
+/* ═══════════════════════════════════════════════════════════
+   TIPOGRAFIA
+   ═══════════════════════════════════════════════════════════ */
+.d{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 125,'wght' 900;
+  text-transform:uppercase; letter-spacing:-.02em; line-height:.92;
+  margin:0;
 }
-.condensada{font-variation-settings:'wdth' 79,'wght' 700}
-.rotulo{
-  font-family:var(--mono); font-size:11px; font-weight:400;
-  letter-spacing:.2em; text-transform:uppercase; color:var(--poeira);
-}
-.num-secao{
-  font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--poeira);
-}
-.num-secao b{color:var(--sinal); font-weight:700}
-.corpo{color:#BDB6AC; font-size:clamp(16px,1.35vw,20px); line-height:1.6; font-variation-settings:'wdth' 100,'wght' 500}
+.d--slant{transform:skewX(-4deg)}          /* inclinação = velocidade */
+.d--out{ -webkit-text-stroke:2px var(--fg,#F2EFE9); color:transparent }
+.xl{font-size:clamp(2.8rem,8.2vw,8.4rem)}
+.lg{font-size:clamp(2.2rem,5.4vw,5.6rem)}
+.md{font-size:clamp(1.7rem,3.2vw,3rem); font-variation-settings:'wdth' 112,'wght' 800}
 
-/* filete + marca de corte */
-.filete{height:1px; background:rgba(237,231,222,.14); transform-origin:left}
-.corte{position:absolute; width:9px; height:9px; border:1px solid rgba(237,231,222,.35); pointer-events:none}
-.corte.tl{top:-1px;left:-1px;border-right:0;border-bottom:0}
-.corte.tr{top:-1px;right:-1px;border-left:0;border-bottom:0}
-.corte.bl{bottom:-1px;left:-1px;border-right:0;border-top:0}
-.corte.br{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.rot{ font-family:var(--mono); font-weight:500; font-size:clamp(10px,.78vw,12px);
+      letter-spacing:.14em; text-transform:uppercase; line-height:1.6 }
+.dado{ font-family:var(--mono); font-weight:700; font-size:13px; letter-spacing:.14em; text-transform:uppercase }
+.corpo{ max-width:62ch; font-size:clamp(17px,1.22vw,19px); line-height:1.55; font-weight:400 }
+.corpo strong{font-weight:700}
 
-/* texto rotacionado na lateral */
-.lateral{
-  position:absolute; top:var(--s4); left:calc(var(--gutter) * -1 + 6px);
-  writing-mode:vertical-rl; transform:rotate(180deg);
-  font-family:var(--mono); font-size:10px; letter-spacing:.32em;
-  color:rgba(237,231,222,.3); text-transform:uppercase; pointer-events:none;
+/* eyebrow: 02 / 06 ────────── LABEL */
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:clamp(20px,3vw,38px)}
+.eyebrow .n{color:var(--ac);font-weight:700}
+.eyebrow .fio{flex:1;height:2px;background:currentColor;opacity:.22;transform-origin:left}
+html.js:not(.rm) .eyebrow .fio{transform:scaleX(0)}
+
+/* ═══════════════════════════════════════════════════════════
+   SEÇÕES  ·  o fundo alterna, a divisa é diagonal
+   ═══════════════════════════════════════════════════════════ */
+.sec{
+  --bg:var(--preto); --fg:var(--branco); --ac:var(--laranja);
+  position:relative; background:var(--bg); color:var(--fg);
+  padding:clamp(90px,11vw,190px) 0;
+  isolation:isolate;
 }
-@media (max-width:1100px){ .lateral{display:none} }
+.t-branco{ --bg:var(--branco); --fg:var(--preto); --ac:var(--laranja) }
+.t-laranja{ --bg:var(--laranja); --fg:var(--preto); --ac:var(--preto) }
 
-/* =========================================================
-   Grão fixo (feTurbulence gerado uma vez, estático)
-   ========================================================= */
+/* divisa: cada seção sobe por cima da anterior com um corte enviesado.
+   O ângulo alterna de lado pra página não virar um zigue-zague previsível. */
+.sec + .sec{
+  margin-top:calc(var(--diag) * -1);
+  padding-top:calc(clamp(90px,11vw,190px) + var(--diag));
+  clip-path:polygon(0 var(--diag), 100% 0, 100% 100%, 0 100%);
+}
+.sec + .sec.corte-inv{ clip-path:polygon(0 0, 100% var(--diag), 100% 100%, 0 100%) }
+
+.wrap{width:min(1560px,100%); margin-inline:auto; padding-inline:var(--gut); position:relative; z-index:2}
+.wrap--largo{width:min(1760px,100%)}
+
+/* número fantasma gigante, atrás do conteúdo, cortado pela borda */
+.fantasma{
+  position:absolute; z-index:0; pointer-events:none; user-select:none;
+  font-family:var(--display); font-variation-settings:'wdth' 125,'wght' 900;
+  font-size:clamp(9rem,26vw,22rem); line-height:.72;
+  -webkit-text-stroke:2px var(--laranja); color:transparent; opacity:.5;
+}
+.t-laranja .fantasma{-webkit-text-stroke-color:var(--preto);opacity:.22}
+
+/* ═══════════════════════════════════════════════════════════
+   TEXTURAS  ·  grão, hachura, vinheta, riscos
+   ═══════════════════════════════════════════════════════════ */
 .grao{
-  position:fixed; inset:0; z-index:60; pointer-events:none;
-  opacity:.055; mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:220px 220px;
+  position:fixed; inset:0; z-index:95; pointer-events:none;
+  opacity:.045; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
 }
-/* mobile: sem blend — recompor o backdrop a cada frame custa caro */
-@media (max-width:860px){ .grao{mix-blend-mode:normal; opacity:.04} }
+@media (max-width:820px){ .grao{mix-blend-mode:normal;opacity:.035} }
 
-/* =========================================================
-   Layout base das seções
-   ========================================================= */
-.pista{position:relative} /* wrapper que carrega a marca de pneu de ponta a ponta */
-.wrap{width:min(1280px,100%); margin-inline:auto; padding-inline:var(--gutter); position:relative; z-index:2}
-section{position:relative}
-
-.cabeca{display:flex; align-items:baseline; gap:var(--s2); margin-bottom:var(--s3)}
-.cabeca .filete{flex:1; opacity:.55}
-
-/* “troca de marcha”: filete que dispara ao entrar na seção */
-.marcha{transform:scaleX(0)}
-html.js:not(.rm) .marcha{transform:scaleX(0)}
-html.rm .marcha, html:not(.js) .marcha{transform:scaleX(1)}
-
-/* =========================================================
-   Marca de pneu (fio condutor)
-   ========================================================= */
-.skid{position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
-.skid path{fill:none; stroke-linecap:round}
-
-/* =========================================================
-   Botões
-   ========================================================= */
-.btn{
-  --bg:var(--sinal);
-  position:relative; display:inline-flex; align-items:center; gap:14px;
-  min-height:56px; padding:0 26px; border-radius:var(--r-lasca);
-  background:var(--bg); color:#0B0B0C; overflow:hidden;
-  font-family:var(--mono); font-weight:700; font-size:13px;
-  letter-spacing:.16em; text-transform:uppercase;
-  border:1px solid var(--bg);
+/* hachura diagonal fina — blocos secundários */
+.hachura{
+  background-image:repeating-linear-gradient(-45deg,
+    currentColor 0 1px, transparent 1px 8px);
+  opacity:.09;
 }
-.btn::after{ /* sweep de farol */
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
-  transform:translateX(-120%); transition:transform .5s cubic-bezier(.22,1,.36,1);
+/* vinheta radial nos cantos das seções pretas */
+.sec:not(.t-branco):not(.t-laranja)::after{
+  content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(120% 85% at 50% 45%, transparent 40%, rgba(0,0,0,.72) 100%);
 }
-.btn .seta{transition:transform .3s cubic-bezier(.22,1,.36,1)}
-.btn:hover::after{transform:translateX(120%)}
-.btn:hover .seta{transform:translateX(5px)}
-.btn:hover{animation:engate .08s linear 1} /* micro-shake de engate, 80ms */
-@keyframes engate{0%{transform:translate(0,0)}33%{transform:translate(-1.5px,1px)}66%{transform:translate(1.5px,-1px)}100%{transform:translate(0,0)}}
-.btn.vazado{background:transparent; color:var(--giz); border-color:rgba(237,231,222,.3)}
-.btn.vazado::after{background:linear-gradient(105deg,transparent 30%,rgba(255,74,15,.35) 50%,transparent 70%)}
-.btn.grande{min-height:72px; font-size:15px; padding:0 34px}
+/* riscos/scratch: 3 linhas finas irregulares */
+.scratch{position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden}
+.scratch i{position:absolute; display:block; height:1px; background:currentColor; opacity:.08}
+.scratch i:nth-child(1){width:52%; top:18%; left:-4%; transform:rotate(-1.4deg)}
+.scratch i:nth-child(2){width:34%; top:63%; right:-6%; transform:rotate(2.2deg)}
+.scratch i:nth-child(3){width:22%; top:86%; left:22%; transform:rotate(-.7deg)}
 
-/* =========================================================
-   00 · ABERTURA — varredura do tacômetro (<=1,2s, pulável)
-   ========================================================= */
-.abertura{
-  position:fixed; inset:0; z-index:90; background:var(--asfalto);
-  display:grid; place-content:center; justify-items:center; gap:var(--s3);
-}
-.abertura .marca{font-family:var(--mono); font-size:11px; letter-spacing:.34em; color:var(--poeira)}
-.abertura .pular{
-  position:absolute; bottom:28px; right:var(--gutter);
-  font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:rgba(237,231,222,.4);
-  background:none; border:0; cursor:pointer; padding:12px; min-height:44px;
-}
-html.rm .abertura, html:not(.js) .abertura{display:none}
-
-/* =========================================================
-   TACÔMETRO fixo (desktop) + barra fina (mobile)
-   ========================================================= */
-.tac{
-  position:fixed; right:22px; bottom:22px; z-index:55; width:104px; height:104px;
-  pointer-events:none; opacity:.9;
-}
-.tac .agulha{transform-origin:52px 52px; transform:rotate(-124deg)}
-.tac .leitura{
-  position:absolute; inset:auto 0 26px 0; text-align:center;
-  font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--poeira);
-}
-.tac .leitura b{color:var(--giz); font-weight:700}
-.barra{
-  position:fixed; top:0; left:0; right:0; height:2px; z-index:55;
-  background:var(--sinal); transform:scaleX(0); transform-origin:left; display:none;
-}
-@media (max-width:860px){ .tac{display:none} .barra{display:block} }
-
-/* marca fixa no topo */
-.brand{
-  position:fixed; top:20px; left:var(--gutter); z-index:56;
-  font-family:var(--mono); font-size:11px; letter-spacing:.26em; text-transform:uppercase;
-  color:var(--giz); mix-blend-mode:difference;
-}
-.brand i{color:var(--sinal); font-style:normal}
-
-/* =========================================================
-   01 · HERO
-   ========================================================= */
-.hero{min-height:100svh; display:flex; flex-direction:column; padding-top:clamp(84px,10vh,132px); overflow:clip}
-.hero .ticker{margin-top:auto}
-.hero .wrap{display:grid; grid-template-columns:repeat(12,1fr); gap:var(--s2); padding-bottom:var(--s3)}
-.hero .texto{grid-column:1 / 9}
-/* mobile: 12 colunas + gap somam mais que a largura da tela — vira bloco */
-@media (max-width:900px){ .hero .wrap{display:block} }
-
-.eyebrow{display:flex; align-items:center; gap:10px; margin-bottom:var(--s3)}
-.eyebrow .pt{width:7px; height:7px; background:var(--sinal); border-radius:var(--r-selo)}
-html.js:not(.rm) .eyebrow .pt{animation:pisca 2.4s steps(1,end) infinite}
-@keyframes pisca{0%,55%{opacity:1}56%,100%{opacity:.15}}
-
-h1{margin:0; max-width:19ch}
-h1 .l1{
-  display:block; font-family:var(--disp); font-variation-settings:'wdth' 82,'wght' 500;
-  font-size:clamp(19px,2.4vw,30px); line-height:1.15; color:var(--poeira);
-  text-transform:none; letter-spacing:-.01em; margin-bottom:.35em;
-}
-h1 .l2{
-  display:block; font-size:clamp(34px,6.4vw,92px);
-  font-family:var(--disp); font-variation-settings:'wdth' 120,'wght' 900;
-  /* .92 e não .84: em português o acento bate na linha de cima */
-  line-height:.92; letter-spacing:-.035em; text-transform:uppercase;
-  margin-left:-.045em;
-}
-h1 .l2 em{font-style:normal; color:var(--sinal)}
-.hero .corpo{max-width:46ch; font-size:clamp(15px,1.15vw,18px); margin-top:clamp(20px,3vh,32px)}
-.hero .acao{margin-top:clamp(24px,4vh,52px); display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap}
-.hero .assin{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--poeira)}
-
-/* fumaça: 4 blobs de blur + noise, movimento lento — sem partículas, sem canvas */
-.fumaca{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+/* ═══════════════════════════════════════════════════════════
+   CAMADA DO CARRO  ·  fixa, cobre a viewport, acima do conteúdo
+   ═══════════════════════════════════════════════════════════ */
+.pista{position:fixed; inset:0; z-index:70; pointer-events:none}
+.pista svg{width:100%; height:100%; display:block}
+/* as duas marcas ficam na tela até o fim. Blend resolve o fundo que alterna:
+   multiply some no preto e marca no branco/laranja; screen faz o inverso. */
+#marcas-escura{mix-blend-mode:multiply}
+#marcas-clara{mix-blend-mode:screen}
+#trajeto{fill:none;stroke:none}
 .fumaca b{
-  position:absolute; display:block; border-radius:var(--r-selo);
-  background:radial-gradient(circle at 50% 50%, rgba(237,231,222,.14), rgba(237,231,222,0) 68%);
-  filter:blur(26px);
-}
-.fumaca b:nth-child(1){width:520px;height:520px; right:-4%; bottom:2%}
-.fumaca b:nth-child(2){width:380px;height:380px; right:22%; bottom:-6%; background:radial-gradient(circle,rgba(255,74,15,.10),transparent 68%)}
-.fumaca b:nth-child(3){width:300px;height:300px; right:38%; bottom:16%}
-.fumaca b:nth-child(4){width:240px;height:240px; right:8%; bottom:34%; opacity:.7}
-html.js:not(.rm) .fumaca b{animation:deriva 22s ease-in-out infinite alternate}
-html.js:not(.rm) .fumaca b:nth-child(2){animation-duration:28s; animation-delay:-6s}
-html.js:not(.rm) .fumaca b:nth-child(3){animation-duration:19s; animation-delay:-11s}
-html.js:not(.rm) .fumaca b:nth-child(4){animation-duration:25s; animation-delay:-3s}
-@keyframes deriva{
-  from{transform:translate3d(0,0,0) scale(1); opacity:.55}
-  to{transform:translate3d(-70px,-40px,0) scale(1.22); opacity:.9}
+  position:fixed; top:0; left:0; width:64px; height:64px; margin:-32px 0 0 -32px;
+  border-radius:50%; background:rgba(242,239,233,.5); filter:blur(11px);
+  opacity:0; z-index:69; pointer-events:none;
 }
 
-/* carro do hero — sangra pra fora da margem direita */
-.carro-hero{
-  position:absolute; right:3%; bottom:20%; height:clamp(230px,42vh,430px); width:auto;
-  z-index:1; pointer-events:none;
+/* ═══════════════════════════════════════════════════════════
+   HEADER  ·  encolhe e ganha blur depois de 100px
+   ═══════════════════════════════════════════════════════════ */
+.topo{
+  position:fixed; top:0; left:0; right:0; z-index:90;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:22px var(--gut);
+  transition:padding .28s cubic-bezier(.2,.8,.2,1), background-color .28s, backdrop-filter .28s;
+  mix-blend-mode:difference; color:#fff;
 }
-@media (max-width:900px){ .carro-hero{right:-12%; bottom:auto; top:9%; height:34vh; opacity:.45} }
+.topo.encolhido{
+  padding:11px var(--gut); mix-blend-mode:normal; color:var(--branco);
+  background:rgba(10,10,10,.72); backdrop-filter:blur(14px) saturate(1.2);
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);
+}
+.marca{font-family:var(--display); font-variation-settings:'wdth' 118,'wght' 900;
+  font-size:16px; letter-spacing:.02em; text-transform:uppercase; white-space:nowrap}
+.marca b{color:var(--laranja)}
+.topo .meio{font-family:var(--mono);font-size:11px;letter-spacing:.14em;opacity:.75}
+@media (max-width:720px){ .topo .meio{display:none} }
+.topo .btn-topo{
+  display:none; font-family:var(--mono); font-weight:700; font-size:11px;
+  letter-spacing:.14em; text-transform:uppercase; padding:11px 16px; min-height:44px;
+  align-items:center; background:var(--laranja); color:var(--preto);
+}
+.topo.encolhido .btn-topo{display:inline-flex}
+/* barra de progresso com cauda que sobra e recolhe */
+.prog{position:absolute; left:0; bottom:0; height:3px; width:100%; overflow:hidden}
+.prog i{position:absolute; inset:0; background:var(--laranja); transform-origin:left; transform:scaleX(0)}
+.prog i.cauda{opacity:.38}
 
-/* ticker CSS puro */
-.ticker{border-top:var(--linha); border-bottom:var(--linha); overflow:hidden; position:relative; z-index:2; background:rgba(11,11,12,.6)}
-.ticker ul{display:flex; width:max-content; padding:13px 0}
-html.js:not(.rm) .ticker ul{animation:corre 26s linear infinite}
-@keyframes corre{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-.ticker li{font-family:var(--mono); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--poeira); padding-inline:22px; white-space:nowrap}
-.ticker li i{color:var(--sinal); font-style:normal}
+/* ═══════════════════════════════════════════════════════════
+   CONTA-GIROS  ·  indicador de scroll, fixo, a página inteira
+   ═══════════════════════════════════════════════════════════ */
+.giro{position:fixed; right:18px; bottom:18px; z-index:88; width:104px; height:104px; pointer-events:none;
+  color:var(--branco); transition:color .3s}
+html[data-tema="branco"] .giro, html[data-tema="laranja"] .giro{color:var(--preto)}
+html[data-tema="laranja"] .giro .redline{stroke:var(--preto)}
+.giro .agulha{transform-origin:52px 52px; transform:rotate(-118deg)}
+.giro .rpm{position:absolute; left:0; right:0; bottom:20px; text-align:center;
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em}
+@media (max-width:820px){ .giro{width:60px;height:60px;right:8px;bottom:8px;opacity:.85} .giro .rpm{display:none} }
 
-/* rastro de fumaça do cursor (desktop) */
-.rastro{position:fixed; inset:0; z-index:1; pointer-events:none}
-.rastro b{
-  position:absolute; top:0; left:0; width:120px; height:120px; margin:-60px 0 0 -60px;
-  border-radius:var(--r-selo); opacity:0;
-  background:radial-gradient(circle,rgba(237,231,222,.11),transparent 70%);
-  filter:blur(14px); will-change:transform,opacity;
-}
+/* ═══════════════════════════════════════════════════════════
+   CURSOR  ·  crosshair que se alonga na direção do movimento
+   ═══════════════════════════════════════════════════════════ */
+.cursor{position:fixed; top:0; left:0; z-index:99; pointer-events:none;
+  width:34px; height:34px; margin:-17px 0 0 -17px; opacity:0;
+  mix-blend-mode:difference; color:#fff}
+@media (hover:none), (pointer:coarse){ .cursor{display:none} }
 
-/* =========================================================
-   02 · CONTRASTE
-   ========================================================= */
-.contraste{padding-block:var(--s6) var(--s5)}
-.contraste h2{font-size:clamp(34px,6.4vw,104px); max-width:14ch; line-height:.94}
-.split{
-  display:grid; grid-template-columns:1.05fr 1.35fr; gap:clamp(24px,5vw,90px);
-  margin-top:var(--s5); align-items:start;
-}
-@media (max-width:900px){ .split{grid-template-columns:1fr; gap:var(--s4)} }
+/* linhas de velocidade nas bordas */
+.veloz{position:fixed; inset:0; z-index:68; pointer-events:none; opacity:0}
+.veloz i{position:absolute; height:2px; background:var(--laranja); transform-origin:left; opacity:.85}
+.veloz i:nth-child(even){background:var(--branco); opacity:.5}
 
-.la-fora{position:relative; padding-top:var(--s4)} /* deslocado pra baixo de propósito */
-.la-fora .pilha{display:grid; gap:var(--s2)}
-.la-fora .tile:nth-child(2){margin-left:18%}
-.la-fora .tile:nth-child(3){margin-left:6%; margin-right:14%}
-.aqui-dentro{position:relative}
-.aqui-dentro .tile:nth-child(2){margin-left:-8%; width:76%}
+/* ═══════════════════════════════════════════════════════════
+   BOTÕES  ·  chevron duplo com rastro fantasma
+   ═══════════════════════════════════════════════════════════ */
+.btn{
+  position:relative; display:inline-flex; align-items:center; gap:16px;
+  min-height:62px; padding:0 30px; border:2px solid var(--laranja);
+  background:var(--laranja); color:var(--preto);
+  font-family:var(--mono); font-weight:700; font-size:13px;
+  letter-spacing:.14em; text-transform:uppercase; overflow:hidden;
+}
+.btn .chev{position:relative; display:block; width:26px; height:12px; flex:none}
+.btn .chev svg{position:absolute; inset:0; transition:transform .4s cubic-bezier(.2,.9,.25,1), opacity .4s}
+.btn .chev svg:nth-child(2){opacity:0} .btn .chev svg:nth-child(3){opacity:0}
+.btn:hover .chev svg:nth-child(1){transform:translateX(12px)}
+.btn:hover .chev svg:nth-child(2){transform:translateX(7px); opacity:.5}
+.btn:hover .chev svg:nth-child(3){transform:translateX(2px); opacity:.22}
+html.js:not(.rm) .btn--respira{animation:respira 3.4s ease-in-out infinite}
+@keyframes respira{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
+.btn--preto{background:var(--preto); border-color:var(--preto); color:var(--branco)}
+.btn--vazado{background:transparent; color:var(--fg); border-color:currentColor}
+.btn--g{min-height:74px; padding:0 38px; font-size:14px}
 
-.tile{
-  position:relative; border:var(--linha); border-radius:var(--r-lasca);
-  background:var(--breu); display:grid; place-items:center; overflow:hidden;
-}
-.tile span{font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:rgba(237,231,222,.46); text-transform:uppercase; text-align:center; padding:10px}
-/* tratamento “feed”: scanline + pixel */
-.la-fora .tile::after{
-  content:''; position:absolute; inset:0; pointer-events:none;
-  background:
-    repeating-linear-gradient(to bottom, rgba(0,0,0,.42) 0 1px, transparent 1px 3px),
-    repeating-conic-gradient(rgba(255,255,255,.03) 0% 25%, transparent 0% 50%) 0 0/6px 6px;
-}
-.la-fora{filter:saturate(.85)}
-.aqui-dentro .tile{border-color:rgba(237,231,222,.28); background:var(--oleo)}
-.aqui-dentro .tile::after{
-  content:''; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(115deg, rgba(255,74,15,.07), transparent 55%);
-}
-.selo-lado{
-  display:inline-flex; gap:8px; align-items:center; margin-bottom:var(--s2);
-  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--poeira);
-}
-.selo-lado::before{content:''; width:22px; height:1px; background:var(--poeira)}
-.aqui-dentro .selo-lado{color:var(--sinal)}
-.aqui-dentro .selo-lado::before{background:var(--sinal)}
+/* ═══════════════════════════════════════════════════════════
+   MARQUEE  ·  velocidade base + velocidade do scroll
+   ═══════════════════════════════════════════════════════════ */
+.esteira{overflow:hidden; border-block:2px solid currentColor; padding:14px 0; position:relative; z-index:2}
+.esteira ul{display:flex; width:max-content; will-change:transform}
+.esteira li{font-family:var(--display); font-variation-settings:'wdth' 118,'wght' 800;
+  text-transform:uppercase; font-size:clamp(15px,1.6vw,22px); letter-spacing:.01em;
+  padding-inline:20px; white-space:nowrap; display:flex; align-items:center; gap:20px}
+.esteira li em{font-style:normal; color:var(--laranja)}
 
-.contraste .meio{margin-top:var(--s4); max-width:56ch}
-.contraste .fecho{
-  margin-top:var(--s5); font-size:clamp(22px,3.4vw,46px); line-height:1.15;
-  font-variation-settings:'wdth' 92,'wght' 700; max-width:22ch; margin-left:auto; text-align:right;
+/* ═══════════════════════════════════════════════════════════
+   01 · HERO
+   ═══════════════════════════════════════════════════════════ */
+.hero{min-height:100svh; display:flex; flex-direction:column;
+  padding:clamp(104px,14vh,168px) 0 0; overflow:clip}
+.hero .esteira{margin-top:auto}
+.hero .wrap{padding-bottom:clamp(28px,5vh,64px)}
+.hero-silhueta{position:absolute; right:-8%; top:50%; width:min(74vw,1180px);
+  transform:translateY(-50%); opacity:.12; z-index:0; pointer-events:none; color:var(--branco)}
+h1{max-width:none; font-size:clamp(2.4rem,7.2vw,7.2rem); line-height:.94}
+@media (min-width:900px){ h1 .li{white-space:nowrap} }
+h1 .li{display:block; position:relative}
+h1 .li--a{margin-left:0}
+h1 .li--b{margin-left:.14em}
+h1 .li--c{margin-left:-.02em; color:var(--laranja); font-variation-settings:'wdth' 125,'wght' 900}
+h1 .li--d{margin-left:.2em; color:var(--laranja)}
+html.js:not(.rm) h1 .li{opacity:0}
+.hero .corpo{margin-top:clamp(24px,3.4vh,40px)}
+.hero .acao{margin-top:clamp(26px,4vh,48px); display:flex; align-items:center; gap:clamp(16px,2.4vw,34px); flex-wrap:wrap}
+.hero .vagas{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; opacity:.72}
+/* glitch: 2 frames de deslocamento RGB, uma vez na entrada e a cada 8s */
+@keyframes glitch{
+  0%,100%{text-shadow:none; transform:translateX(0)}
+  2%{text-shadow:-3px 0 var(--branco), 3px 0 var(--laranja); transform:translateX(2px)}
+  4%{text-shadow:3px 0 var(--branco), -3px 0 var(--laranja); transform:translateX(-2px)}
+  6%{text-shadow:none; transform:translateX(0)}
 }
-.contraste .fecho b{color:var(--sinal); font-weight:inherit}
-@media (max-width:900px){ .contraste .fecho{text-align:left; margin-left:0} }
+html.js:not(.rm) .glitch{animation:glitch 8s steps(1,end) infinite}
 
-/* =========================================================
-   03 · O QUE TÁ DENTRO — manifesto, não grid de cards
-   ========================================================= */
-.dentro{padding-block:var(--s5) var(--s6)}
-.dentro h2{font-size:clamp(38px,8vw,132px)}
-.lista{margin-top:var(--s4); border-top:var(--linha)}
-.faixa{
-  position:relative; display:grid; grid-template-columns:minmax(84px,11%) 1fr;
-  gap:clamp(16px,3vw,54px); align-items:start;
-  padding:clamp(28px,4vw,56px) 0; border-bottom:var(--linha); overflow:hidden;
-}
-html.js:not(.rm) .faixa{clip-path:inset(100% 0 0 0)}
-/* larguras e recuos variam entre os itens — nada de 6 iguais */
-.faixa:nth-child(2){padding-left:clamp(0px,4vw,72px)}
-.faixa:nth-child(3){padding-right:clamp(0px,10vw,180px)}
-.faixa:nth-child(4){padding-left:clamp(0px,8vw,130px)}
-.faixa:nth-child(6){padding-right:clamp(0px,6vw,110px)}
-.faixa .n{
-  font-family:var(--mono); font-weight:700; color:rgba(237,231,222,.38);
-  font-size:clamp(30px,5.4vw,74px); line-height:.9; letter-spacing:-.04em;
-  transition:transform .45s cubic-bezier(.22,1,.36,1), color .45s;
-}
-.faixa h3{
-  font-family:var(--disp); font-variation-settings:'wdth' 112,'wght' 900;
-  text-transform:uppercase; letter-spacing:-.02em; line-height:.95;
-  font-size:clamp(24px,3.6vw,52px);
-}
-.faixa:nth-child(3) h3, .faixa:nth-child(5) h3{font-size:clamp(22px,3vw,44px); font-variation-settings:'wdth' 88,'wght' 900}
-.faixa p{margin-top:12px; max-width:56ch; color:#B4ADA3; font-size:clamp(15px,1.25vw,18px)}
-.faixa .tag{
-  display:inline-block; margin-top:14px; padding:5px 10px; border:var(--linha);
-  border-radius:var(--r-lasca); font-family:var(--mono); font-size:10px;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--poeira);
-}
-/* sweep de farol no hover — só desktop com ponteiro fino */
-@media (hover:hover) and (pointer:fine){
-  .faixa::before{
-    content:''; position:absolute; inset:0; pointer-events:none;
-    background:linear-gradient(100deg, transparent 0%, rgba(255,74,15,.14) 42%, rgba(237,231,222,.10) 52%, transparent 78%);
-    transform:translateX(-105%); transition:transform .75s cubic-bezier(.22,1,.36,1);
-  }
-  .faixa:hover::before{transform:translateX(105%)}
-  .faixa:hover .n{color:var(--sinal); transform:translateX(10px)}
-  .faixa:hover h3{color:#fff}
-}
+/* ═══════════════════════════════════════════════════════════
+   02 · O CORTE E O RESTO  (branco sujo)
+   ═══════════════════════════════════════════════════════════ */
+.corte h2{max-width:11ch}
+.corte .duas{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px,4vw,80px);
+  margin-top:clamp(36px,5vw,72px); align-items:start}
+@media (max-width:900px){ .corte .duas{grid-template-columns:1fr} }
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px}
+.tags li{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; padding:9px 12px; background:var(--laranja); color:var(--preto)}
+.corte .frase{margin-top:clamp(40px,6vw,96px); max-width:20ch}
 
-/* =========================================================
-   04 · PRA QUEM É / NÃO É
-   ========================================================= */
-.filtro{padding-block:var(--s5)}
-.filtro .duplo{display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(20px,3vw,52px); margin-top:var(--s4)}
-@media (max-width:900px){ .filtro .duplo{grid-template-columns:1fr} }
-.coluna{position:relative; padding:clamp(24px,3vw,46px); border:var(--linha); border-radius:var(--r-lasca)}
-.coluna.sim{background:linear-gradient(180deg,rgba(255,74,15,.05),transparent 60%); border-color:rgba(237,231,222,.26)}
-.coluna.nao{
-  background-color:var(--breu); color:var(--poeira);
-  background-image:repeating-linear-gradient(-45deg, rgba(237,231,222,.035) 0 1px, transparent 1px 9px);
-}
-.coluna h3{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; margin-bottom:var(--s3); font-weight:700}
-.coluna.sim h3{color:var(--fita)}
-.coluna li{display:flex; gap:16px; align-items:flex-start; padding:16px 0; border-bottom:1px dashed rgba(237,231,222,.12)}
-.coluna li:last-child{border-bottom:0}
-.coluna.sim li{font-size:clamp(17px,1.7vw,23px); font-variation-settings:'wdth' 96,'wght' 700; line-height:1.25}
-.coluna.nao li{display:block; font-size:clamp(15px,1.35vw,19px)} /* block: senão o flex blockifica o .risco e a risca some na 2ª linha */
-.check{flex:none; width:22px; height:22px; margin-top:2px}
-.check path{fill:none; stroke:var(--fita); stroke-width:2.4; stroke-linecap:square}
-html.js:not(.rm) .check path{stroke-dasharray:34; stroke-dashoffset:34}
-.risco{
-  display:inline; -webkit-box-decoration-break:clone; box-decoration-break:clone;
-  background-image:linear-gradient(var(--sinal),var(--sinal));
-  background-repeat:no-repeat; background-position:0 .62em;
-  background-size:100% 2px; /* estado final: vale sem JS e com reduced-motion */
-}
-.filtro .veredito{
-  margin-top:var(--s5); font-size:clamp(28px,5.6vw,88px);
-  font-variation-settings:'wdth' 116,'wght' 900; text-transform:uppercase;
-  line-height:.96; letter-spacing:-.03em;
-}
-.filtro .veredito b{color:var(--sinal); font-weight:inherit}
+/* frames de câmera (placeholders) — nunca retângulo cinza vazio */
+.frames{display:grid; gap:clamp(12px,1.6vw,22px); grid-template-columns:repeat(6,1fr); margin-top:clamp(36px,5vw,72px)}
+.frame{position:relative; grid-column:span 2; background:var(--preto); color:var(--branco); overflow:hidden}
+.frame:nth-child(1){grid-column:span 3}
+.frame:nth-child(2){grid-column:span 3}
+.frame:nth-child(4){grid-column:span 4}
+@media (max-width:760px){ .frames{grid-template-columns:repeat(2,1fr)}
+  .frame,.frame:nth-child(1),.frame:nth-child(2),.frame:nth-child(4){grid-column:span 2} }
+.frame .miolo{position:absolute; inset:0; background:
+  repeating-linear-gradient(-45deg, rgba(242,239,233,.045) 0 1px, transparent 1px 9px)}
+.frame .canto{position:absolute; width:16px; height:16px; border:2px solid var(--laranja)}
+.frame .canto.a{top:10px;left:10px;border-right:0;border-bottom:0}
+.frame .canto.b{top:10px;right:10px;border-left:0;border-bottom:0}
+.frame .canto.c{bottom:10px;left:10px;border-right:0;border-top:0}
+.frame .canto.d{bottom:10px;right:10px;border-left:0;border-top:0}
+.frame .tc{position:absolute; top:14px; left:36px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.1em; color:var(--laranja)}
+.frame .rec{position:absolute; top:14px; right:36px; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--branco)}
+.frame .rec b{width:7px;height:7px;border-radius:50%;background:var(--laranja)}
+html.js:not(.rm) .frame .rec b{animation:respira 1.6s ease-in-out infinite}
+.frame .prop{position:absolute; bottom:14px; left:36px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.12em; color:rgba(242,239,233,.62)}
+.frame .mira{position:absolute; inset:0; margin:auto; width:26px; height:26px; opacity:.5}
 
-/* =========================================================
-   05 · OFERTA — cartão de membro
-   ========================================================= */
-.oferta{padding-block:var(--s6); }
-.oferta .grade{display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(24px,4vw,80px); align-items:center}
-@media (max-width:900px){ .oferta .grade{grid-template-columns:1fr; gap:var(--s4)} }
-.oferta h2{font-size:clamp(40px,8.4vw,126px)}
-.oferta .nota{margin-top:var(--s3); max-width:40ch}
+/* ═══════════════════════════════════════════════════════════
+   03 · O QUE TÁ DENTRO  (preto)
+   ═══════════════════════════════════════════════════════════ */
+.dentro .grade{display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(12px,1.4vw,20px);
+  margin-top:clamp(40px,6vw,90px)}
+.bloco{
+  position:relative; grid-column:span 4; padding:clamp(26px,2.6vw,44px);
+  border:2px solid rgba(242,239,233,.16); background:var(--preto-2);
+  overflow:hidden; isolation:isolate;
+}
+.bloco:nth-child(1){grid-column:span 7}
+.bloco:nth-child(2){grid-column:span 5}
+.bloco:nth-child(6){grid-column:span 12; display:grid; grid-template-columns:auto 1fr; gap:clamp(20px,3vw,56px); align-items:center}
+@media (max-width:980px){ .bloco,.bloco:nth-child(1),.bloco:nth-child(2){grid-column:span 6} }
+@media (max-width:640px){ .bloco,.bloco:nth-child(1),.bloco:nth-child(2),.bloco:nth-child(6){grid-column:span 12; grid-template-columns:1fr} }
+html.js:not(.rm) .bloco{opacity:0}
+/* luz laranja seguindo o cursor */
+.bloco::before{
+  content:''; position:absolute; inset:-1px; z-index:-1; opacity:0; transition:opacity .35s;
+  background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%), rgba(255,74,15,.22), transparent 62%);
+}
+@media (hover:hover) and (pointer:fine){ .bloco:hover::before{opacity:1} .bloco:hover{border-color:var(--laranja)} }
+.bloco .n{
+  position:absolute; top:-.16em; right:.02em; z-index:-1;
+  font-family:var(--display); font-variation-settings:'wdth' 125,'wght' 900;
+  font-size:clamp(5.4rem,9vw,9.5rem); line-height:.8;
+  -webkit-text-stroke:2px var(--laranja); color:transparent; opacity:.55;
+}
+.bloco .ico{margin-bottom:22px; color:var(--laranja)}
+.bloco h3{margin-bottom:12px; max-width:15ch}
+.bloco p{max-width:46ch; font-size:clamp(15.5px,1.05vw,17px); color:rgba(242,239,233,.82)}
+.bloco .marcar{margin-top:18px; display:inline-block; font-family:var(--mono); font-weight:700;
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--laranja)}
 
-.cartao{
-  position:relative; border-radius:var(--r-cartao); padding:clamp(26px,3.2vw,52px);
-  background:
-    linear-gradient(180deg, rgba(237,231,222,.06), rgba(237,231,222,.015)),
-    var(--oleo);
-  border:1px solid rgba(237,231,222,.2);
-  transform-style:preserve-3d; will-change:transform;
-}
-.cartao::before{ /* cartela de largada: xadrez no topo */
-  content:''; position:absolute; top:0; left:0; right:0; height:10px;
-  border-radius:var(--r-cartao) var(--r-cartao) 0 0;
-  background:repeating-conic-gradient(var(--giz) 0% 25%, #0B0B0C 0% 50%) 0 0/16px 16px;
-  opacity:.8;
-}
-.cartao .topo{display:flex; justify-content:space-between; align-items:baseline; margin-top:var(--s2)}
-.cartao .membro{font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:var(--fita)}
-.cartao .inclui{margin:var(--s3) 0 var(--s2); display:flex; flex-wrap:wrap; gap:8px}
-.cartao .inclui li{
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
-  color:#C9C2B8; border:var(--linha); border-radius:var(--r-lasca); padding:7px 10px;
-}
-.preco{display:flex; align-items:flex-end; gap:8px; margin:var(--s3) 0 var(--s1)}
-.preco .moeda{font-family:var(--mono); font-size:clamp(16px,1.8vw,24px); color:var(--poeira); padding-bottom:.9em}
-.odometro{display:flex; overflow:hidden; height:1em; line-height:1;
-  font-family:var(--disp); font-variation-settings:'wdth' 120,'wght' 900;
-  font-size:clamp(62px,11vw,150px); letter-spacing:-.05em;
-}
-.odometro .dig{overflow:hidden; height:1em}
-.odometro .rolo{display:block; will-change:transform}
-.odometro .rolo span{display:block; height:1em}
-.preco .mes{font-family:var(--mono); font-size:clamp(13px,1.3vw,17px); color:var(--poeira); padding-bottom:1.1em}
-.cartao .cta{margin-top:var(--s3); width:100%; justify-content:space-between}
-.cartao .rodape{margin-top:var(--s2); font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:rgba(237,231,222,.62)}
+/* ═══════════════════════════════════════════════════════════
+   04 · PRA QUEM É / NÃO É  (branco sujo, bloco preto invertido dentro)
+   ═══════════════════════════════════════════════════════════ */
+.filtro .duas{display:grid; grid-template-columns:1.25fr .75fr; gap:clamp(20px,3vw,56px); margin-top:clamp(36px,5vw,76px); align-items:start}
+@media (max-width:900px){ .filtro .duas{grid-template-columns:1fr} }
+.lista-sim li{display:flex; gap:20px; align-items:flex-start; padding:22px 0; border-bottom:2px solid rgba(10,10,10,.14)}
+.lista-sim li:last-child{border-bottom:0}
+.lista-sim .txt{font-family:var(--display); font-variation-settings:'wdth' 100,'wght' 800;
+  text-transform:uppercase; font-size:clamp(1.05rem,1.7vw,1.6rem); line-height:1.06; letter-spacing:-.01em}
+.lista-sim .ico{flex:none; margin-top:2px}
+.bloco-nao{background:var(--preto); color:var(--branco); padding:clamp(26px,2.8vw,44px); position:relative; overflow:hidden}
+.bloco-nao h3{color:var(--laranja); margin-bottom:26px}
+.bloco-nao li{position:relative; padding:20px 0 20px 46px; border-bottom:1px solid rgba(242,239,233,.14)}
+.bloco-nao li:last-child{border-bottom:0}
+.bloco-nao .ico{position:absolute; left:0; top:16px; color:var(--laranja)}
+.risca{position:relative; display:inline}
+.risca-svg{position:absolute; inset:0; z-index:3; pointer-events:none; overflow:visible}
+.risca-svg line{stroke:var(--laranja); stroke-width:2.5; stroke-linecap:round}
+.filtro .veredito{margin-top:clamp(48px,7vw,110px); max-width:24ch}
+.filtro .veredito b{color:var(--laranja); font-weight:inherit}
 
-.adesivo{
-  position:absolute; top:-26px; right:-14px; z-index:3; width:236px; text-align:center;
-  transform:rotate(-6deg); background:var(--sinal); color:#0B0B0C;
-  border-radius:var(--r-selo); padding:12px 18px;
-  font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
-  box-shadow:0 0 0 1px rgba(11,11,12,.6);
-  line-height:1.4;
+/* ═══════════════════════════════════════════════════════════
+   05 · OFERTA  (laranja chapado — contraste máximo do site)
+   ═══════════════════════════════════════════════════════════ */
+.oferta{text-align:left}
+.oferta .cartela{display:grid; grid-template-columns:1fr auto; gap:clamp(24px,4vw,70px); align-items:end; margin-top:clamp(34px,5vw,70px)}
+@media (max-width:900px){ .oferta .cartela{grid-template-columns:1fr; align-items:start} }
+.inclui{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; max-width:62ch}
+.inclui li{font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; padding:9px 12px; border:2px solid var(--preto)}
+.preco{text-align:center; border:3px solid var(--preto); padding:clamp(20px,2.4vw,34px) clamp(26px,3vw,48px); background:transparent}
+.preco .rot{opacity:.72}
+.preco .valor{display:flex; align-items:flex-start; justify-content:center; gap:6px; margin:10px 0 4px}
+.preco .cifra{font-family:var(--display); font-variation-settings:'wdth' 112,'wght' 900; font-size:clamp(1.6rem,2.6vw,2.6rem); padding-top:.16em}
+.odo{display:flex; overflow:hidden; height:1em; line-height:1;
+  font-family:var(--display); font-variation-settings:'wdth' 125,'wght' 900;
+  font-size:clamp(4.6rem,10vw,9rem); letter-spacing:-.045em; font-variant-numeric:tabular-nums}
+.odo .col{overflow:hidden; height:1em}
+.odo .rolo{display:block}
+.odo .rolo span{display:block; height:1em}
+.preco .mes{font-family:var(--mono); font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase}
+.oferta .selo{
+  display:inline-block; margin-bottom:20px; padding:11px 16px; background:var(--preto); color:var(--laranja);
+  font-family:var(--mono); font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  transform:rotate(-2deg);
 }
-@media (max-width:560px){ .adesivo{right:-4px; top:-28px; width:200px; font-size:9.5px} }
+.oferta .acao{margin-top:clamp(28px,4vw,52px); display:flex; align-items:center; gap:24px; flex-wrap:wrap}
+.oferta .obs{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.78}
 
-/* =========================================================
-   06 · FECHO
-   ========================================================= */
-.fecho-sec{padding-block:var(--s6) var(--s5); overflow:hidden; position:relative}
-.fecho-sec p{
-  font-size:clamp(38px,7.8vw,112px); font-variation-settings:'wdth' 122,'wght' 900;
-  text-transform:uppercase; line-height:.94; letter-spacing:-.04em;
-  width:110%; margin-left:-5%;
-}
-@media (max-width:900px){ .fecho-sec p{width:106%; margin-left:-3%} }
-.fecho-sec p em{font-style:normal; color:var(--sinal)}
-.carro-fecho{position:absolute; right:8%; bottom:var(--s4); height:clamp(180px,26vh,300px); width:auto; opacity:.85; pointer-events:none}
-@media (max-width:900px){ .carro-fecho{height:20vh; right:2%; bottom:var(--s2); opacity:.45} }
+/* ═══════════════════════════════════════════════════════════
+   06 · FECHAMENTO + FOOTER  (preto)
+   ═══════════════════════════════════════════════════════════ */
+.fim p.grande{max-width:15ch}
+.fim .laranja{color:var(--laranja)}
+.rodape{margin-top:clamp(70px,9vw,150px); padding-top:34px; border-top:2px solid rgba(242,239,233,.18);
+  display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(242,239,233,.66)}
+.rodape a{min-height:44px; display:inline-flex; align-items:center}
+.rodape a:hover{color:var(--laranja)}
 
-footer{border-top:var(--linha); padding:var(--s4) 0 calc(var(--s4) + env(safe-area-inset-bottom))}
-footer .linhas{display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--poeira)}
-footer a{min-height:44px; display:inline-flex; align-items:center}
-footer a:hover{color:var(--sinal)}
-
-/* CTA fixo no rodapé — só mobile, depois que o hero sai */
-.cta-fixo{
-  position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
-  z-index:58; display:none; justify-content:space-between; min-height:56px;
-  transform:translateY(140%); transition:transform .4s cubic-bezier(.22,1,.36,1);
-}
+/* CTA fixo no rodapé — só mobile, depois do hero */
+.cta-fixo{position:fixed; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom));
+  z-index:89; display:none; justify-content:space-between; transform:translateY(150%);
+  transition:transform .4s cubic-bezier(.2,.9,.25,1)}
 .cta-fixo.on{transform:translateY(0)}
-@media (max-width:860px){ .cta-fixo{display:flex} }
+@media (max-width:820px){ .cta-fixo{display:flex} .giro{bottom:76px} }
 
 
-/* --- estados desenhados da seção 04 (classe + transform, nunca width) --- */
-.risco{transition:background-size .55s cubic-bezier(.22,1,.36,1)}
-html.js:not(.rm) .risco{background-size:0% 2px}
-html.js:not(.rm) .coluna.nao.riscado .risco{background-size:100% 2px}
-html.js:not(.rm) .coluna.nao li{transition:opacity .6s ease .3s}
-html.js:not(.rm) .coluna.nao.riscado li{opacity:.4}
-html.js:not(.rm) .coluna.nao li:nth-child(2) .risco{transition-delay:.16s}
-html.js:not(.rm) .check path{transition:stroke-dashoffset .55s cubic-bezier(.22,1,.36,1)}
-html.js:not(.rm) .coluna.sim.marcada .check path{stroke-dashoffset:0}
-html.js:not(.rm) .coluna.sim.marcada li:nth-child(2) .check path{transition-delay:.12s}
-html.js:not(.rm) .coluna.sim.marcada li:nth-child(3) .check path{transition-delay:.24s}
+/* ── skew das headlines controlado por variável (1 escrita de estilo por frame,
+      em vez de N elementos) ── */
+.d--slant{transform:skewX(-4deg) skewY(var(--sk,0deg))}
+/* ── motion blur direcional nos frames de mídia ── */
+.frame{filter:blur(var(--mb,0px))}
 
-/* --- odômetro: dígitos de largura fixa, senão a coluna “respira” --- */
-.odometro{font-variant-numeric:tabular-nums}
-
-/* --- carro parado (sem JS / reduced-motion) já nasce em ângulo de drift --- */
-.carro-hero{transform:rotate(-16deg)}
-.carro-fecho{transform:rotate(-14deg)}
-
-/* --- mobile: a marca de pneu perde o halo (menos área de repaint) --- */
-@media (max-width:860px){ .skid path.halo{display:none} }
-
-/* =========================================================
-   REDUCED MOTION: tudo em estado final, sem exceção
-   ========================================================= */
-@media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{
-    animation-duration:.001ms !important; animation-iteration-count:1 !important;
-    transition-duration:.001ms !important; scroll-behavior:auto !important;
-  }
-  .faixa{clip-path:none !important}
-  .risco{background-size:100% 2px !important}
-  .check path{stroke-dashoffset:0 !important}
-  .abertura{display:none !important}
-  .rastro{display:none !important}
-  .marcha{transform:scaleX(1) !important}
+/* ── varredura diagonal da troca de seção (a faixa vive na seção que sai,
+      pintada com a cor da que entra) ── */
+.varre{
+  position:absolute; left:-25%; right:-25%; bottom:0; height:64vh; z-index:3;
+  pointer-events:none; transform:skewX(-12deg) translateY(105%); will-change:transform;
 }
+/* ── flash de 60ms: troca de marcha ── */
+#flash{position:fixed; inset:0; z-index:86; pointer-events:none; opacity:0; background:var(--laranja)}
+html.rm .varre, html.rm #flash{display:none}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION  ·  sem carro, sem marca, sem blur, sem skew
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.12s !important; scroll-behavior:auto !important}
+  .pista,.fumaca,.veloz,.cursor{display:none !important}
+  html.js .bloco, html.js h1 .li{opacity:1 !important}
+  html.js .eyebrow .fio{transform:scaleX(1) !important}
+}
+html.rm .pista, html.rm .fumaca, html.rm .veloz, html.rm .cursor{display:none}
+html.rm .bloco, html.rm h1 .li{opacity:1}
+html.rm .eyebrow .fio{transform:scaleX(1)}
 </style>
 </head>
 <body>
 
-<!-- grão fixo por cima de tudo -->
+<!-- textura de grão por cima de tudo -->
 <div class="grao" aria-hidden="true"></div>
 
-<!-- ============ 00 · ABERTURA (varredura de agulha, <=1,2s, pulável) ============ -->
-<div class="abertura" id="abertura" aria-hidden="true">
-  <svg width="150" height="150" viewBox="0 0 104 104" fill="none">
-    <circle cx="52" cy="52" r="47" stroke="rgba(237,231,222,.14)"/>
-    <path d="M13 79A47 47 0 0 1 91 79" stroke="rgba(237,231,222,.22)" stroke-width="1"/>
-    <path d="M78 22a47 47 0 0 1 13 57" stroke="#FF4A0F" stroke-width="2"/>
-    <g id="agulha-abertura" class="agulha">
-      <path d="M52 52 L52 12" stroke="#EDE7DE" stroke-width="2.4" stroke-linecap="round"/>
-      <circle cx="52" cy="52" r="4" fill="#FF4A0F"/>
-    </g>
-  </svg>
-  <p class="marca">DRIVE CLUB · AQUECENDO</p>
-  <button class="pular" id="pular" type="button">PULAR [ESC]</button>
-</div>
+<!-- linhas de velocidade (só em scroll rápido) -->
+<div class="veloz" id="veloz" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<!-- ============ TACÔMETRO / PROGRESSO ============ -->
-<div class="barra" id="barra" aria-hidden="true"></div>
-<div class="tac" id="tac" aria-hidden="true">
-  <svg width="104" height="104" viewBox="0 0 104 104" fill="none">
-    <circle cx="52" cy="52" r="43" stroke="rgba(237,231,222,.12)"/>
-    <g id="tics" stroke="rgba(237,231,222,.28)" stroke-width="1"></g>
-    <path d="M79 24a43 43 0 0 1 10 33" stroke="#FF4A0F" stroke-width="2" opacity=".8"/>
-    <g class="agulha" id="agulha">
-      <path d="M52 52 L52 16" stroke="#EDE7DE" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="52" cy="52" r="3.5" fill="#FF4A0F"/>
-    </g>
-  </svg>
-  <div class="leitura"><b id="tac-num">01</b> / 06</div>
-</div>
-
-<p class="brand">DRIVE<i>·</i>CLUB</p>
-
-<!-- rastro de fumaça do cursor (desktop, injetado por JS) -->
-<div class="rastro" id="rastro" aria-hidden="true"></div>
-
-<!-- ============ SVG do carro: definido uma vez, usado duas ============ -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="carro" viewBox="0 0 140 300">
-    <!-- rodas traseiras -->
-    <rect x="2" y="196" width="18" height="46" rx="4" fill="#0A090B" stroke="#2B2723"/>
-    <rect x="120" y="196" width="18" height="46" rx="4" fill="#0A090B" stroke="#2B2723"/>
-    <!-- rodas dianteiras em contraesterço (é isso que mantém o drift) -->
-    <g transform="rotate(-27 11 74)"><rect x="2" y="52" width="18" height="44" rx="4" fill="#0A090B" stroke="#2B2723"/></g>
-    <g transform="rotate(-27 129 74)"><rect x="120" y="52" width="18" height="44" rx="4" fill="#0A090B" stroke="#2B2723"/></g>
-    <!-- carroceria -->
-    <path d="M70 6C96 6 112 26 116 62c4 34 6 78 6 114 0 38-4 82-12 100-6 14-20 20-40 20s-34-6-40-20C22 258 18 214 18 176c0-36 2-80 6-114C28 26 44 6 70 6Z"
-          fill="#1C1B21" stroke="#4C463E" stroke-width="1.6"/>
-    <!-- para-brisa / vidro traseiro -->
-    <path d="M46 66c10-6 38-6 48 0l8 30c-20-6-44-6-64 0Z" fill="#0C0B0E" stroke="#2A2622"/>
-    <path d="M40 180c18-6 42-6 60 0l4 30c-20-6-48-6-68 0Z" fill="#0C0B0E" stroke="#2A2622"/>
-    <!-- teto -->
-    <rect x="34" y="106" width="72" height="66" rx="6" fill="#141319"/>
-    <!-- reflexo de rua na lateral: dá volume sem sombra difusa -->
-    <path d="M118 70c3 34 4 76 4 106 0 30-2 66-6 92" stroke="#FF4A0F" stroke-width="1.6" opacity=".45" fill="none"/>
-    <!-- lanternas -->
-    <rect x="28" y="272" width="26" height="7" rx="2" fill="#FF4A0F"/>
-    <rect x="86" y="272" width="26" height="7" rx="2" fill="#FF4A0F"/>
-    <!-- risco de baixa lateral -->
-    <path d="M24 120 L24 236" stroke="#2A2622" stroke-width="1.2"/>
-    <path d="M116 120 L116 236" stroke="#2A2622" stroke-width="1.2"/>
-  </symbol>
+<!-- cursor: círculo + crosshair de pista -->
+<svg class="cursor" id="cursor" viewBox="0 0 34 34" aria-hidden="true">
+  <circle cx="17" cy="17" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M17 0v7M17 27v7M0 17h7M27 17h7" stroke="currentColor" stroke-width="1.6"/>
 </svg>
 
-<!-- ============ PISTA: wrapper da marca de pneu ============ -->
-<div class="pista">
-
-  <!-- FIO CONDUTOR: duas marcas paralelas (as duas rodas traseiras), desenhadas pelo scroll -->
-  <svg class="skid" id="skid" viewBox="0 0 100 600" preserveAspectRatio="none" aria-hidden="true">
-    <!-- halo largo, sem blur (barato) -->
-    <path class="halo" vector-effect="non-scaling-stroke" stroke="#332E29" stroke-width="26" opacity=".22"
-      d="M-6 92C18 96 30 78 48 84c22 8 38 24 30 48-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
-    <!-- roda esquerda -->
-    <path class="marca" vector-effect="non-scaling-stroke" stroke="#3A342E" stroke-width="9" opacity=".85"
-      d="M-6 92C18 96 30 78 48 84c22 8 38 24 30 48-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
-    <!-- roda direita, levemente deslocada -->
-    <path class="marca" vector-effect="non-scaling-stroke" stroke="#2C2825" stroke-width="6" opacity=".9"
-      d="M-6 95C18 99 32 81 50 87c22 8 40 25 32 49-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
-    <!-- assinatura laranja: fio fino de sinalização por cima da borracha -->
-    <path class="marca" vector-effect="non-scaling-stroke" stroke="#FF4A0F" stroke-width="1.4" opacity=".34"
-      d="M-6 92C18 96 30 78 48 84c22 8 38 24 30 48-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
+<!-- ═══════════ CAMADA DO CARRO + MARCAS DE PNEU ═══════════ -->
+<div class="pista" id="pista" aria-hidden="true">
+  <svg id="svg-pista" preserveAspectRatio="none">
+    <!-- trajeto invisível: gerado por JS conforme a viewport -->
+    <path id="trajeto"></path>
+    <!-- marcas: mesma geometria em duas camadas de blend, pro fundo que alterna -->
+    <g id="marcas-escura"><path class="mk"/><path class="mk"/></g>
+    <g id="marcas-clara"><path class="mk"/><path class="mk"/></g>
+    <g id="carro" opacity="0">
+      <g transform="translate(-30,-17)">
+        <!-- rodas traseiras -->
+        <rect x="9" y="-1" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
+        <rect x="9" y="29.5" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
+        <!-- rodas dianteiras: contraesterçam na saída da curva -->
+        <g id="rodas-f">
+          <rect x="39" y="-1" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
+          <rect x="39" y="29.5" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
+        </g>
+        <!-- carroceria chapada: preto com contorno claro (lê no branco e no laranja) -->
+        <path d="M8 2.5h25c8.4 0 16.6 3.2 22.6 11.2 1.2 1.6 1.2 4.6 0 6.2-6 8-14.2 11.6-22.6 11.6H8c-3.4 0-5.5-2-5.5-5.4V7.9C2.5 4.5 4.6 2.5 8 2.5Z"
+              fill="#0A0A0A" stroke="#F2EFE9" stroke-width="2"/>
+        <!-- faixa laranja: o que faz o carro existir contra o fundo preto -->
+        <path d="M13 17h33" stroke="#FF4A0F" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M31 6.5 39 17l-8 10.5" fill="none" stroke="#FF4A0F" stroke-width="2"/>
+        <!-- vidros -->
+        <path d="M17 8h9l4 9-4 9h-9z" fill="#F2EFE9" opacity=".9"/>
+      </g>
+    </g>
   </svg>
+</div>
+<div class="fumaca" id="fumaca" aria-hidden="true"></div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="topo" id="topo">
+  <a class="marca" href="#hero">DRIVE<b>·</b>CLUB</a>
+  <span class="meio" id="topo-sec">01 / 06 · REAL UNDERGROUND</span>
+  <!-- TROCAR: {{LINK_CHECKOUT}} -->
+  <a class="btn-topo" href="{{LINK_CHECKOUT}}">Entrar</a>
+  <div class="prog" aria-hidden="true"><i class="cauda" id="prog-cauda"></i><i id="prog-barra"></i></div>
+</header>
+
+<!-- ═══════════ CONTA-GIROS (progresso) ═══════════ -->
+<div class="giro" id="giro" aria-hidden="true">
+  <svg viewBox="0 0 104 104" fill="none">
+    <path d="M14 78A44 44 0 1 1 90 78" stroke="currentColor" stroke-width="2" opacity=".35"/>
+    <path class="redline" d="M78 20a44 44 0 0 1 12 58" stroke="#FF4A0F" stroke-width="4"/>
+    <g id="tics-giro" stroke="currentColor" stroke-width="2" opacity=".55"></g>
+    <g class="agulha" id="agulha">
+      <path d="M52 52 14 68" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="52" cy="52" r="4.5" fill="#FF4A0F"/>
+    </g>
+  </svg>
+  <div class="rpm"><span id="rpm-num">0</span>00 RPM</div>
+</div>
 
 <main>
 
-  <!-- ================= 01 · HERO ================= -->
-  <section class="hero" id="hero" aria-labelledby="titulo">
-    <div class="fumaca" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
-    <svg class="carro-hero" id="carro-hero" viewBox="0 0 140 300" aria-hidden="true"><use href="#carro"/></svg>
+<!-- ═══════════════════════════════════════════════════════════
+     01 · HERO  ·  preto
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec hero" id="hero">
+  <svg class="hero-silhueta" id="hero-silhueta" viewBox="0 0 600 300" aria-hidden="true">
+    <g transform="rotate(-14 300 150)">
+      <path d="M92 176c14-40 44-74 92-92 62-24 148-26 216-8 44 12 78 32 96 56 10 14 8 26-8 32-46 18-134 30-224 30-84 0-152-6-172-18Z" fill="currentColor"/>
+      <rect x="150" y="196" width="72" height="26" rx="12" fill="currentColor"/>
+      <rect x="392" y="196" width="72" height="26" rx="12" fill="currentColor"/>
+      <path d="M210 96c24-14 66-18 104-14l18 42H196Z" fill="#0A0A0A" opacity=".55"/>
+    </g>
+  </svg>
 
-    <div class="wrap">
-      <div class="texto">
-        <p class="eyebrow rotulo"><span class="pt" aria-hidden="true"></span>Real Underground · Comunidade fechada</p>
-        <h1 id="titulo">
-          <span class="l1">Você vê o Drive dos vídeos.</span>
-          <span class="l2 slam">Aqui você <em>entra no carro.</em></span>
-        </h1>
-        <p class="corpo">O Drive Club é onde o rolê continua depois que a câmera desliga. Bastidores sem filtro — porque nem tudo pode ir pro Instagram. Essa é a sua chance de dar um rolê com o melhor professor de drift do Brasil. Fora daqui, você é fã. Aqui você é membro.</p>
-        <div class="acao">
-          <!-- CTA do hero: leva pra oferta (o link de checkout fica num lugar só, na seção 05) -->
-          <a class="btn grande" href="#oferta">Quero entrar no club <span class="seta" aria-hidden="true">→</span></a>
-          <span class="assin">Vagas da primeira leva</span>
-        </div>
-      </div>
+  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <div class="wrap" id="hero-conteudo">
+    <p class="eyebrow rot"><span class="n">■</span> Real Underground · Comunidade fechada <span class="fio"></span></p>
+
+    <h1 class="d xl d--slant">
+      <span class="li li--a">Você vê o Drive</span>
+      <span class="li li--b">dos vídeos.</span>
+      <span class="li li--c glitch">Aqui você entra</span>
+      <span class="li li--d glitch">no carro.</span>
+    </h1>
+
+    <p class="corpo">O Drive Club é onde o rolê continua depois que a câmera desliga. Bastidores sem filtro — porque nem tudo pode ir pro Instagram. Essa é a sua chance de dar um rolê com o melhor professor de drift do Brasil. Fora daqui, você é fã. Aqui você é membro.</p>
+
+    <div class="acao">
+      <a class="btn btn--g btn--respira" href="#oferta">Quero entrar no club
+        <span class="chev" aria-hidden="true">
+          <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+          <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+          <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+        </span>
+      </a>
+      <!-- TROCAR: {{VAGAS}} -->
+      <span class="vagas">{{VAGAS}} vagas na primeira leva</span>
     </div>
+  </div>
 
-    <div class="ticker" aria-hidden="true">
-      <ul>
-        <li>Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i>&nbsp;</li>
-        <li>Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i>&nbsp;</li>
+  <div class="esteira" aria-hidden="true">
+    <ul id="esteira-1">
+      <li>Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em></li>
+      <li>Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     02 · O CORTE E O RESTO  ·  branco sujo (inversão total)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec t-branco corte" id="corte">
+  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
+  <span class="fantasma" style="right:-2vw; top:-2vw" aria-hidden="true">02</span>
+
+  <div class="wrap">
+    <p class="eyebrow rot"><span class="n">02 / 06</span> O corte e o resto <span class="fio"></span></p>
+    <h2 class="d lg d--slant">Todo mundo assiste.<br>Poucos <span class="d--out">entram.</span></h2>
+
+    <div class="duas">
+      <p class="corpo">Lá fora você vê o corte editado, o vídeo pronto, o rosto que ninguém nunca viu. Aqui dentro você vê o resto — o que rola off-camera, a resenha que não pode ir pro feed.</p>
+      <ul class="tags">
+        <li>Off-camera</li><li>Sem filtro</li><li>Resenha</li><li>Não vai pro feed</li>
       </ul>
     </div>
-  </section>
 
-  <!-- ================= 02 · CONTRASTE ================= -->
-  <section class="contraste" id="contraste" aria-labelledby="t2">
-    <div class="wrap">
-      <p class="lateral">Fora / Dentro · 02</p>
-      <div class="cabeca">
-        <span class="num-secao"><b>02</b> / 06</span>
-        <span class="filete marcha"></span>
-        <span class="rotulo">O corte e o resto</span>
-      </div>
-      <h2 id="t2" class="display">Todo mundo assiste.<br>Poucos entram.</h2>
-
-      <div class="split">
-        <!-- lado de fora: o feed -->
-        <div class="la-fora" id="la-fora">
-          <p class="selo-lado">Lá fora · feed</p>
-          <div class="pilha">
-            <!-- PLACEHOLDER: trocar por frame do feed. Mantenha a proporção. -->
-            <figure class="tile" style="aspect-ratio:4/5" data-asset="feed-01.jpg"><span>4:5 · frame do feed</span></figure>
-            <figure class="tile" style="aspect-ratio:1/1" data-asset="feed-02.jpg"><span>1:1 · corte editado</span></figure>
-            <figure class="tile" style="aspect-ratio:4/5" data-asset="feed-03.jpg"><span>4:5 · capa de reels</span></figure>
-          </div>
-        </div>
-
-        <!-- lado de dentro: cru -->
-        <div class="aqui-dentro" id="aqui-dentro">
-          <p class="selo-lado">Aqui dentro · cru</p>
-          <!-- PLACEHOLDER: trocar por frame bruto / bastidor. -->
-          <figure class="tile" style="aspect-ratio:16/9" data-asset="bastidor-01.jpg"><span>16:9 · bastidor sem tratamento</span></figure>
-          <figure class="tile" style="aspect-ratio:1/1; margin-top:16px" data-asset="bastidor-02.jpg"><span>1:1 · off-camera</span></figure>
-          <p class="corpo meio">Lá fora você vê o corte editado, o vídeo pronto, o rosto que ninguém nunca viu. Aqui dentro você vê o resto — o que rola off-camera, a resenha que não pode ir pro feed.</p>
-        </div>
-      </div>
-
-      <p class="fecho display">O Drive faz o que os outros não têm coragem. <b>O Club é o lugar de quem quer estar perto disso de verdade.</b></p>
+    <!-- PLACEHOLDERS DE MÍDIA: trocar por <img>/<video> mantendo a proporção -->
+    <div class="frames">
+      <figure class="frame" style="aspect-ratio:16/9" data-asset="bastidor-01.jpg">
+        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
+        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">16:9 · bastidor</span>
+        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
+      </figure>
+      <figure class="frame" style="aspect-ratio:16/9" data-asset="feed-01.jpg">
+        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
+        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">16:9 · frame do feed</span>
+        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
+      </figure>
+      <figure class="frame" style="aspect-ratio:4/5" data-asset="feed-02.jpg">
+        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
+        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">4:5 · feed</span>
+        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
+      </figure>
+      <figure class="frame" style="aspect-ratio:21/9" data-asset="bastidor-02.jpg">
+        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
+        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">21:9 · off-camera</span>
+        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
+      </figure>
     </div>
-  </section>
 
-  <!-- ================= 03 · O QUE TÁ DENTRO ================= -->
-  <section class="dentro" id="dentro" aria-labelledby="t3">
-    <div class="wrap">
-      <p class="lateral">Manifesto · 03</p>
-      <div class="cabeca">
-        <span class="num-secao"><b>03</b> / 06</span>
-        <span class="filete marcha"></span>
-        <span class="rotulo">Seis portas</span>
-      </div>
-      <h2 id="t3" class="display">O que tá dentro</h2>
+    <p class="d md frase">O Drive faz o que os outros não têm coragem. O Club é o lugar de quem quer estar perto disso de verdade.</p>
+  </div>
+</section>
 
-      <div class="lista" id="lista">
-        <article class="faixa">
-          <p class="n">01</p>
-          <div>
-            <h3>A Drive — o lado oculto</h3>
-            <p>Bastidores reais, Q&amp;A direto com o Drive, e o vota-aí: você decide a próxima mod, o próximo vídeo, o próximo carro.</p>
-            <span class="tag">Bastidor · Q&amp;A · Vota-aí</span>
-          </div>
-        </article>
-        <article class="faixa">
-          <p class="n">02</p>
-          <div>
-            <h3>Garagem — teu carro no club</h3>
-            <p>Mostra teu carro, teu projeto, teu setup, teu antes-e-depois. Do primeiro carro ao trampo pronto. Aqui ninguém vai te julgar.</p>
-            <span class="tag">Projeto · Setup · Antes e depois</span>
-          </div>
-        </article>
-        <article class="faixa">
-          <p class="n">03</p>
-          <div>
-            <h3>Rifa</h3>
-            <p>Sorteio de cotas e promoções especiais. Aqui sua chance de ganhar aumenta em 10x.</p>
-            <span class="tag">Chance 10x</span>
-          </div>
-        </article>
-        <article class="faixa">
-          <p class="n">04</p>
-          <div>
-            <h3>Desafios &amp; Ranking</h3>
-            <p>Melhor mod do mês, melhor foto, melhor projeto. Sobe de nível, ganha prêmio, ganha experiência.</p>
-            <span class="tag">Mensal · Premiado</span>
-          </div>
-        </article>
-        <article class="faixa">
-          <p class="n">05</p>
-          <div>
-            <h3>Experiências</h3>
-            <p>Track day, kart, encontros, gravação com membros. A chance real de estar do lado do Drive.</p>
-            <span class="tag">Presencial</span>
-          </div>
-        </article>
-        <article class="faixa">
-          <p class="n">06</p>
-          <div>
-            <h3>Parceiros &amp; Descontos</h3>
-            <p>Cupom em detailing, oficina, PPF, pneu, acessório. E o desapego: compra e venda de peça e carro entre quem é de dentro.</p>
-            <span class="tag">Cupom · Desapego</span>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+<!-- ═══════════════════════════════════════════════════════════
+     03 · O QUE TÁ DENTRO  ·  preto, números em outline laranja
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec dentro corte-inv" id="dentro">
+  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap wrap--largo">
+    <p class="eyebrow rot"><span class="n">03 / 06</span> Seis portas <span class="fio"></span></p>
+    <h2 class="d xl d--slant">O que tá <span class="d--out">dentro</span></h2>
 
-  <!-- ================= 04 · PRA QUEM É / PRA QUEM NÃO É ================= -->
-  <section class="filtro" id="filtro" aria-labelledby="t4">
-    <div class="wrap">
-      <p class="lateral">Corte · 04</p>
-      <div class="cabeca">
-        <span class="num-secao"><b>04</b> / 06</span>
-        <span class="filete marcha"></span>
-        <span class="rotulo">Sem meio-termo</span>
-      </div>
-      <h2 id="t4" class="display" style="font-size:clamp(32px,6vw,92px); line-height:.98">Pra quem é /<br>pra quem não é</h2>
+    <div class="grade">
+      <article class="bloco">
+        <span class="n" aria-hidden="true">01</span>
+        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-claquete"/></svg>
+        <h3 class="d md">A Drive — o lado oculto</h3>
+        <p>Bastidores reais, Q&amp;A direto com o Drive, e o vota-aí: você decide a próxima mod, o próximo vídeo, o próximo carro.</p>
+        <span class="marcar">Bastidor · Q&amp;A · Vota-aí</span>
+      </article>
 
-      <div class="duplo">
-        <div class="coluna sim">
-          <span class="corte tl"></span><span class="corte tr"></span><span class="corte bl"></span><span class="corte br"></span>
-          <h3>É pra você se:</h3>
-          <ul>
-            <li><svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l5 5L20 6"/></svg><span>Carro pra você é estilo de vida, não meio de transporte</span></li>
-            <li><svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l5 5L20 6"/></svg><span>Você é da rua, do rolê, do drift — não de concessionária</span></li>
-            <li><svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l5 5L20 6"/></svg><span>Você quer estar dentro do Club, não assistindo de fora</span></li>
-          </ul>
-        </div>
-        <div class="coluna nao" id="coluna-nao">
-          <h3>Não é pra você se:</h3>
-          <ul>
-            <li><span class="risco">Acha que carro é só pra ir e voltar</span></li>
-            <li><span class="risco">Tá procurando grupo automotivo que tem medo de moer</span></li>
-          </ul>
-        </div>
-      </div>
+      <article class="bloco">
+        <span class="n" aria-hidden="true">02</span>
+        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-carro"/></svg>
+        <h3 class="d md">Garagem — teu carro no club</h3>
+        <p>Mostra teu carro, teu projeto, teu setup, teu antes-e-depois. Do primeiro carro ao trampo pronto. Aqui ninguém vai te julgar.</p>
+        <span class="marcar">Projeto · Setup · Antes e depois</span>
+      </article>
 
-      <p class="veredito">O Drive Club não é pra todo mundo. <b>É pra quem vive isso de verdade.</b></p>
-    </div>
-  </section>
+      <article class="bloco">
+        <span class="n" aria-hidden="true">03</span>
+        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-ticket"/></svg>
+        <h3 class="d md">Rifa</h3>
+        <p>Sorteio de cotas e promoções especiais. Aqui sua chance de ganhar aumenta em 10x.</p>
+        <span class="marcar">Chance 10x</span>
+      </article>
 
-  <!-- ================= 05 · OFERTA ================= -->
-  <section class="oferta" id="oferta" aria-labelledby="t5">
-    <div class="wrap">
-      <p class="lateral">Largada · 05</p>
-      <div class="cabeca">
-        <span class="num-secao"><b>05</b> / 06</span>
-        <span class="filete marcha"></span>
-        <span class="rotulo">Primeira leva</span>
-      </div>
+      <article class="bloco">
+        <span class="n" aria-hidden="true">04</span>
+        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-podio"/></svg>
+        <h3 class="d md">Desafios &amp; Ranking</h3>
+        <p>Melhor mod do mês, melhor foto, melhor projeto. Sobe de nível, ganha prêmio, ganha experiência.</p>
+        <span class="marcar">Mensal · Premiado</span>
+      </article>
 
-      <div class="grade">
+      <article class="bloco">
+        <span class="n" aria-hidden="true">05</span>
+        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-pista"/></svg>
+        <h3 class="d md">Experiências</h3>
+        <p>Track day, kart, encontros, gravação com membros. A chance real de estar do lado do Drive.</p>
+        <span class="marcar">Presencial</span>
+      </article>
+
+      <article class="bloco">
+        <span class="n" aria-hidden="true">06</span>
         <div>
-          <h2 id="t5" class="display">Entra no carro</h2>
-          <p class="corpo nota">Acesso imediato. Cancela quando quiser. O preço da primeira leva não volta.</p>
+          <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-etiqueta"/></svg>
+          <h3 class="d md">Parceiros &amp; Descontos</h3>
         </div>
-
-        <div class="cartao" id="cartao">
-          <!-- adesivo rotacionado, sangrando pra fora do bloco -->
-          <p class="adesivo">Preço de fundador · só na primeira leva</p>
-          <span class="corte bl"></span><span class="corte br"></span>
-
-          <div class="topo">
-            <span class="rotulo">Membro Drive Club</span>
-            <span class="membro">#0001</span>
-          </div>
-
-          <ul class="inclui">
-            <li>Acesso ao Drive Club</li><li>Bastidores</li><li>Garagem</li><li>Rifa 10x</li>
-            <li>Ranking</li><li>Experiências com o Drive</li><li>Descontos com parceiros</li>
-          </ul>
-
-          <!-- PREÇO: trocar o data-valor (só dígitos) e a moeda -->
-          <div class="preco">
-            <span class="moeda">R$</span>
-            <div class="odometro" id="odometro" data-valor="47"><span>47</span></div>
-            <span class="mes">/mês</span>
-          </div>
-
-          <!-- >>> ÚNICO LUGAR COM O LINK DE CHECKOUT <<< -->
-          <a class="btn cta" id="cta-checkout" href="#LINK_CHECKOUT">Entrar no Drive Club <span class="seta" aria-hidden="true">→</span></a>
-          <p class="rodape">Pagamento recorrente mensal · Cancele quando quiser</p>
+        <div>
+          <p>Cupom em detailing, oficina, PPF, pneu, acessório. E o desapego: compra e venda de peça e carro entre quem é de dentro.</p>
+          <span class="marcar">Cupom · Desapego</span>
         </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     04 · PRA QUEM É / NÃO É  ·  branco com bloco preto invertido
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec t-branco filtro" id="filtro">
+  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
+  <span class="fantasma" style="left:-3vw; bottom:-4vw" aria-hidden="true">04</span>
+
+  <div class="wrap">
+    <p class="eyebrow rot"><span class="n">04 / 06</span> Sem meio-termo <span class="fio"></span></p>
+    <h2 class="d lg d--slant">Pra quem é /<br>pra quem <span class="d--out">não é</span></h2>
+
+    <div class="duas">
+      <div>
+        <h3 class="dado" style="margin-bottom:18px">É pra você se:</h3>
+        <ul class="lista-sim">
+          <li><svg class="ico" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bandeira"/></svg><span class="txt">Carro pra você é estilo de vida, não meio de transporte</span></li>
+          <li><svg class="ico" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bandeira"/></svg><span class="txt">Você é da rua, do rolê, do drift — não de concessionária</span></li>
+          <li><svg class="ico" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bandeira"/></svg><span class="txt">Você quer estar dentro do Club, não assistindo de fora</span></li>
+        </ul>
+      </div>
+
+      <div class="bloco-nao">
+        <span class="hachura" style="position:absolute;inset:0" aria-hidden="true"></span>
+        <h3 class="dado">Não é pra você se:</h3>
+        <ul>
+          <li><svg class="ico" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-cone"/></svg><span class="risca">Acha que carro é só pra ir e voltar</span></li>
+          <li><svg class="ico" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-cone"/></svg><span class="risca">Tá procurando grupo automotivo que tem medo de moer</span></li>
+        </ul>
       </div>
     </div>
-  </section>
 
-  <!-- ================= 06 · FECHO ================= -->
-  <section class="fecho-sec" id="fecho" aria-labelledby="t6">
-    <div class="wrap">
-      <div class="cabeca">
-        <span class="num-secao"><b>06</b> / 06</span>
-        <span class="filete marcha"></span>
-        <span class="rotulo">Fim da marca</span>
+    <p class="d lg veredito">O Drive Club não é pra todo mundo. <b>É pra quem vive isso de verdade.</b></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     05 · OFERTA  ·  laranja chapado, CTA preto
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec t-laranja oferta corte-inv" id="oferta">
+  <span class="fantasma" style="right:-2vw; bottom:-6vw" aria-hidden="true">05</span>
+  <div class="wrap">
+    <p class="eyebrow rot"><span class="n">05 / 06</span> Largada <span class="fio"></span></p>
+    <span class="selo">Preço de fundador · só na primeira leva</span>
+    <h2 class="d xl d--slant">Entra no carro</h2>
+
+    <div class="cartela">
+      <div>
+        <ul class="inclui">
+          <li>Acesso ao Drive Club</li><li>Bastidores</li><li>Garagem</li><li>Rifa 10x</li>
+          <li>Ranking</li><li>Experiências com o Drive</li><li>Descontos com parceiros</li>
+        </ul>
+        <div class="acao">
+          <!-- >>> ÚNICO LINK DE CHECKOUT DA PÁGINA — TROCAR {{LINK_CHECKOUT}} <<< -->
+          <a class="btn btn--preto btn--g" href="{{LINK_CHECKOUT}}">Entrar no Drive Club
+            <span class="chev" aria-hidden="true">
+              <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+              <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+              <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+            </span>
+          </a>
+          <span class="obs">Mensal · cancela quando quiser</span>
+        </div>
       </div>
-      <p id="t6" class="display">Lá fora você continua sendo audiência. <em>Aqui você vira um ninja.</em></p>
+
+      <!-- PREÇO: o odômetro lê os dígitos de data-valor. Trocar {{PRECO}} aqui. -->
+      <div class="preco">
+        <p class="rot">Assinatura mensal</p>
+        <div class="valor">
+          <span class="cifra">R$</span>
+          <div class="odo" id="odo" data-valor="{{PRECO}}"><span class="col"><span class="rolo"><span>4</span></span></span><span class="col"><span class="rolo"><span>7</span></span></span></div>
+        </div>
+        <p class="mes">por mês</p>
+      </div>
     </div>
-    <svg class="carro-fecho" id="carro-fecho" viewBox="0 0 140 300" aria-hidden="true"><use href="#carro"/></svg>
-  </section>
+  </div>
+
+  <div class="esteira" style="margin-top:clamp(50px,7vw,110px)" aria-hidden="true">
+    <ul id="esteira-2">
+      <li>Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em></li>
+      <li>Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     06 · FECHAMENTO + FOOTER  ·  preto
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec fim" id="fim">
+  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <p class="eyebrow rot"><span class="n">06 / 06</span> Fim da marca <span class="fio"></span></p>
+    <p class="d xl d--slant grande">Lá fora você continua sendo audiência. <span class="laranja">Aqui você vira um ninja.</span></p>
+
+    <div class="rodape">
+      <span>Drive Club · Real Underground</span>
+      <a href="https://instagram.com/driveitlikestoleit" target="_blank" rel="noopener">@driveitlikestoleit</a>
+      <span>© <span id="ano">2026</span></span>
+    </div>
+  </div>
+</section>
 
 </main>
-</div><!-- /.pista -->
 
-<footer>
-  <div class="wrap linhas">
-    <span>Drive Club · Real Underground</span>
-    <a href="https://instagram.com/driveitlikestoleit" target="_blank" rel="noopener">@driveitlikestoleit</a>
-    <span>© <span id="ano">2026</span></span>
-  </div>
-</footer>
+<!-- CTA fixo (mobile) -->
+<a class="cta-fixo btn" id="cta-fixo" href="#oferta">Quero entrar no club
+  <span class="chev" aria-hidden="true">
+    <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+    <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+    <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+  </span>
+</a>
 
-<!-- CTA fixo (mobile) — aparece depois que o hero sai -->
-<a class="cta-fixo btn" id="cta-fixo" href="#oferta">Quero entrar no club <span class="seta" aria-hidden="true">→</span></a>
+<!-- ═══════════════════════════════════════════════════════════
+     ÍCONES  ·  desenhados no grid de 24px, traço 2.5–3px.
+     Geometria de placa de pista: sem canto arredondado, sem linha fina.
+     ═══════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- bandeira quadriculada -->
+  <symbol id="ic-bandeira" viewBox="0 0 24 24">
+    <path d="M3 2v20" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
+    <rect x="6" y="3" width="5" height="5" fill="currentColor"/>
+    <rect x="16" y="3" width="5" height="5" fill="currentColor"/>
+    <rect x="11" y="8" width="5" height="5" fill="currentColor"/>
+    <rect x="6" y="13" width="5" height="5" fill="currentColor"/>
+    <rect x="16" y="13" width="5" height="5" fill="currentColor"/>
+  </symbol>
+  <!-- cone de pista riscado -->
+  <symbol id="ic-cone" viewBox="0 0 24 24">
+    <path d="M12 3 19 19H5L12 3Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
+    <path d="M2 21h20" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
+    <path d="M3 4l18 15" stroke="currentColor" stroke-width="3" stroke-dasharray="7 3"/>
+  </symbol>
+  <!-- claquete -->
+  <symbol id="ic-claquete" viewBox="0 0 24 24">
+    <path d="M2 9h20v12H2z" fill="none" stroke="currentColor" stroke-width="2.6"/>
+    <path d="M2 9 4 3l18 2-2 4z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
+    <path d="M8 3.5 6 9M14 4.2 12 9M20 5 18 9" stroke="currentColor" stroke-width="2.2"/>
+  </symbol>
+  <!-- elevação lateral de carro em traços -->
+  <symbol id="ic-carro" viewBox="0 0 24 24">
+    <path d="M1 15h22" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
+    <path d="M2 15l3-5h11l4 5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
+    <path d="M7 10l2-4h5l3 4" fill="none" stroke="currentColor" stroke-width="2.2"/>
+    <circle cx="7" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <circle cx="17" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  </symbol>
+  <!-- ticket com serrilha -->
+  <symbol id="ic-ticket" viewBox="0 0 24 24">
+    <path d="M2 5h20v5a2.6 2.6 0 0 0 0 5.2V20H2v-4.8a2.6 2.6 0 0 0 0-5.2z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
+    <path d="M12 6v3M12 11v3M12 16v3" stroke="currentColor" stroke-width="2.4"/>
+  </symbol>
+  <!-- pódio de três barras -->
+  <symbol id="ic-podio" viewBox="0 0 24 24">
+    <path d="M2 21h20" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
+    <rect x="2.5" y="12" width="5.6" height="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+    <rect x="9.2" y="4" width="5.6" height="17" fill="none" stroke="currentColor" stroke-width="2.6"/>
+    <rect x="15.9" y="15" width="5.6" height="6" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  </symbol>
+  <!-- traçado de autódromo fechado, uma linha só -->
+  <symbol id="ic-pista" viewBox="0 0 24 24">
+    <path d="M7 20c-4 0-5.5-3-4.5-5.5S7 11 7 8.5 5 3 9 3s5 3 8 3 6 1 6 5-4 4-6 6-2 3-5 3z"
+          fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
+  </symbol>
+  <!-- etiqueta com furo -->
+  <symbol id="ic-etiqueta" viewBox="0 0 24 24">
+    <path d="M11.5 2H22v10.5L12.5 22 2 11.5 11.5 2Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
+    <circle cx="17" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  </symbol>
+</defs></svg>
 
-<!-- ============ GSAP 3 + ScrollTrigger (única dependência) ============ -->
+<!-- ═══════════ BIBLIOTECAS ═══════════ -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  'use strict';
+'use strict';
 
-  /* ===== ajustes rápidos ===== */
-  var RM  = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var MOB = matchMedia('(max-width: 860px)').matches;
-  var FINO = matchMedia('(hover:hover) and (pointer:fine)').matches;
-  var $  = function (s, c) { return (c || document).querySelector(s); };
-  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+/* ═══════════════════════════════════════════════════════════
+   AJUSTES RÁPIDOS
+   ═══════════════════════════════════════════════════════════ */
+var CFG = {
+  driftMax:      25,    // graus máximos de derrapagem do carro
+  driftCurva:    1.15,  // quanto a curvatura do trajeto vira derrapagem
+  driftVeloc:    0.22,  // quanto a velocidade do scroll vira derrapagem
+  driftInercia:  0.09,  // menor = mais lag = mais contraesterço na saída
+  carroInercia:  0.13,  // menor = o carro demora mais pra alcançar o scroll
+  skewMax:       8,     // graus máx. de skew das headlines
+  skewGanho:     0.22,
+  blurMax:       6,     // px de motion blur nos frames
+  marqueeBase:   0.9,   // px/frame parado
+  marqueeGanho:  0.55,  // quanto a velocidade do scroll soma no marquee
+  fumacaLimite:  13     // graus de derrapagem a partir dos quais sai fumaça
+};
 
-  $('#ano').textContent = new Date().getFullYear();
+var RM   = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var MOB  = matchMedia('(max-width: 820px)').matches;
+var FINO = matchMedia('(hover:hover) and (pointer:fine)').matches;
+var $  = function (s, c) { return (c || document).querySelector(s); };
+var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
 
-  /* =======================================================
-     TACÔMETRO: tics gerados uma vez (sem CLS)
-     ======================================================= */
-  (function () {
-    var g = $('#tics'), ns = 'http://www.w3.org/2000/svg', i, a, r1 = 43, r2, x1, y1, x2, y2, l;
-    for (i = 0; i <= 10; i++) {
-      a = (-124 + (248 / 10) * i) * Math.PI / 180;
-      r2 = (i % 5 === 0) ? 33 : 37;
-      x1 = 52 + Math.sin(a) * r1; y1 = 52 - Math.cos(a) * r1;
-      x2 = 52 + Math.sin(a) * r2; y2 = 52 - Math.cos(a) * r2;
-      l = document.createElementNS(ns, 'line');
-      l.setAttribute('x1', x1.toFixed(1)); l.setAttribute('y1', y1.toFixed(1));
-      l.setAttribute('x2', x2.toFixed(1)); l.setAttribute('y2', y2.toFixed(1));
-      if (i >= 8) l.setAttribute('stroke', '#FF4A0F');
-      g.appendChild(l);
+$('#ano').textContent = new Date().getFullYear();
+
+/* ─── tics do conta-giros ─── */
+(function () {
+  var g = $('#tics-giro'), ns = 'http://www.w3.org/2000/svg';
+  for (var i = 0; i <= 10; i++) {
+    var a = (-118 + 236 / 10 * i) * Math.PI / 180, r2 = (i % 5 === 0) ? 30 : 34;
+    var l = document.createElementNS(ns, 'line');
+    l.setAttribute('x1', (52 + Math.sin(a) * 40).toFixed(1)); l.setAttribute('y1', (52 - Math.cos(a) * 40).toFixed(1));
+    l.setAttribute('x2', (52 + Math.sin(a) * r2).toFixed(1)); l.setAttribute('y2', (52 - Math.cos(a) * r2).toFixed(1));
+    if (i >= 8) l.setAttribute('stroke', '#FF4A0F');
+    g.appendChild(l);
+  }
+})();
+
+/* ─── odômetro: monta as colunas a partir de data-valor ─── */
+var odo = $('#odo'), rolos = [];
+(function () {
+  var bruto = odo.getAttribute('data-valor') || '';
+  var m = bruto.match(/\d+/);
+  var digitos = m ? m[0] : '47';           // enquanto {{PRECO}} não for trocado, mostra 47
+  odo.innerHTML = '';
+  digitos.split('').forEach(function (d) {
+    var col = document.createElement('span'); col.className = 'col';
+    var rolo = document.createElement('span'); rolo.className = 'rolo';
+    var h = '';
+    for (var v = 0; v < 20; v++) h += '<span>' + (v % 10) + '</span>';  // duas voltas
+    rolo.innerHTML = h;
+    rolo.dataset.alvo = 10 + parseInt(d, 10);
+    col.appendChild(rolo); odo.appendChild(col); rolos.push(rolo);
+  });
+  /* estado final imediato — é o que vale sem JS de animação */
+  rolos.forEach(function (r) { r.style.transform = 'translateY(-' + r.dataset.alvo + 'em)'; });
+})();
+
+/* ─── riscas do "não é pra você": uma linha SVG por LINHA de texto ───
+   getClientRects() devolve um retângulo por fragmento, então o risco
+   funciona quando a frase quebra em duas linhas. */
+function montarRiscas() {
+  $$('.risca').forEach(function (sp) {
+    var velha = sp.parentNode.querySelector('.risca-svg');
+    if (velha) velha.remove();
+    var base = sp.closest('li'), br = base.getBoundingClientRect();
+    var rects = sp.getClientRects(); if (!rects.length) return;
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('class', 'risca-svg'); svg.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < rects.length; i++) {
+      var r = rects[i];
+      var ln = document.createElementNS(ns, 'line');
+      ln.setAttribute('x1', r.left - br.left - 2); ln.setAttribute('x2', r.right - br.left + 2);
+      ln.setAttribute('y1', r.top - br.top + r.height * 0.58); ln.setAttribute('y2', r.top - br.top + r.height * 0.52);
+      var L = r.width + 4;
+      ln.style.strokeDasharray = L;
+      ln.style.strokeDashoffset = (RM ? 0 : L);
+      svg.appendChild(ln);
     }
-  })();
+    base.style.position = 'relative';
+    base.appendChild(svg);
+  });
+}
+montarRiscas();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
+  var feito = $('.risca-svg line') && $('.risca-svg line').style.strokeDashoffset === '0';
+  montarRiscas();
+  if (feito || RM) $$('.risca-svg line').forEach(function (l) { l.style.strokeDashoffset = 0; });
+});
 
-  /* =======================================================
-     ODÔMETRO DO PREÇO — monta as colunas (0..9 duas voltas)
-     ======================================================= */
-  var odometro = $('#odometro');
-  var rolos = [];
-  (function () {
-    var valor = odometro.getAttribute('data-valor') || '0';
-    odometro.innerHTML = '';
-    valor.split('').forEach(function (d) {
-      var col = document.createElement('span'); col.className = 'dig';
-      var rolo = document.createElement('span'); rolo.className = 'rolo';
-      var html = '';
-      for (var v = 0; v < 20; v++) html += '<span>' + (v % 10) + '</span>';
-      rolo.innerHTML = html;
-      rolo.dataset.alvo = 10 + parseInt(d, 10); /* uma volta completa + o dígito */
-      col.appendChild(rolo); odometro.appendChild(col); rolos.push(rolo);
+/* ─── tema da seção atual: IntersectionObserver puro, funciona sem GSAP.
+   É o que mantém o conta-giros legível quando o fundo troca. ─── */
+(function () {
+  var qual = function (el) { return el.classList.contains('t-branco') ? 'branco' : el.classList.contains('t-laranja') ? 'laranja' : 'preto'; };
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) document.documentElement.dataset.tema = qual(e.target); });
+  }, { rootMargin: '-50% 0px -50% 0px' });   /* faixa fina no meio da tela */
+  $$('main .sec').forEach(function (s) { io.observe(s); });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   SEM MOVIMENTO (reduced-motion ou CDN fora do ar): estado final
+   ═══════════════════════════════════════════════════════════ */
+if (RM || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+  document.documentElement.classList.add('rm');
+  $$('.risca-svg line').forEach(function (l) { l.style.strokeDashoffset = 0; });
+  /* progresso continua funcionando sem animação nenhuma */
+  var bs = $('#prog-barra'), ag = $('#agulha'), rp = $('#rpm-num'), tp = $('#topo'), pedido = false;
+  window.addEventListener('scroll', function () {
+    if (pedido) return; pedido = true;
+    requestAnimationFrame(function () {
+      pedido = false;
+      var m = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var pr = clamp(window.scrollY / m, 0, 1);
+      bs.style.transform = 'scaleX(' + pr + ')';
+      ag.style.transform = 'rotate(' + (-118 + pr * 236) + 'deg)';
+      rp.textContent = Math.round(pr * 80);
+      tp.classList.toggle('encolhido', window.scrollY > 100);
     });
-    /* estado final imediato (é o que vale sem JS de animação / com reduced-motion) */
-    rolos.forEach(function (r) { r.style.transform = 'translateY(-' + r.dataset.alvo + 'em)'; });
-  })();
+  }, { passive: true });
+  return;
+}
 
-  /* =======================================================
-     MARCA DE PNEU — mede e desenha conforme o progresso
-     ======================================================= */
-  var skidPaths = $$('#skid path');
-  var progressoPagina = 0, progressoIntro = 0;
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-  function medirSkid() {
-    skidPaths.forEach(function (p) {
-      var L = p.getTotalLength();
-      p.dataset.len = L;
-      p.style.strokeDasharray = L;
-    });
-    desenharSkid();
+/* ─── Lenis: scroll suave só no desktop (no toque atrapalha) ─── */
+var lenis = null;
+if (!MOB && typeof Lenis !== 'undefined') {
+  lenis = new Lenis({ duration: 1.05, smoothWheel: true, syncTouch: false });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+  gsap.ticker.lagSmoothing(0);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TRAJETO DO CARRO  ·  gerado em px conforme a viewport
+   ═══════════════════════════════════════════════════════════ */
+var svgPista = $('#svg-pista'), trajeto = $('#trajeto');
+var marcas = $$('#marcas-escura .mk').concat($$('#marcas-clara .mk'));
+var raw = null, tWp = [], pSec = [], comprimentos = [];
+
+/* waypoints normalizados; no mobile a amplitude cai (trajeto mais simples) */
+function waypoints() {
+  var amp = MOB ? 0.55 : 1;
+  var base = [[.56,-.06],[.10,.13],[.90,.30],[.14,.50],[.88,.67],[.20,.85],[.64,1.16]];
+  return base.map(function (p) { return [0.5 + (p[0] - 0.5) * amp, p[1]]; });
+}
+/* Catmull-Rom -> cúbicas: curva suave passando exatamente pelos waypoints */
+function suavizar(pts) {
+  var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+  for (var i = 0; i < pts.length - 1; i++) {
+    var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || pts[i + 1];
+    d += ' C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ' ' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) +
+         ',' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ' ' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) +
+         ',' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
   }
-  function desenharSkid() {
-    var p = RM ? 1 : Math.max(progressoIntro, 0.05 + progressoPagina * 0.95);
-    skidPaths.forEach(function (el) {
-      el.style.strokeDashoffset = (el.dataset.len * (1 - p)).toFixed(1);
-    });
-  }
-  medirSkid();
+  return d;
+}
 
-  /* =======================================================
-     SEM GSAP OU COM REDUCED-MOTION: estado final e fim
-     ======================================================= */
-  if (RM || typeof gsap === 'undefined') {
-    /* a classe .rm é o interruptor de "estado final" de todo o CSS —
-       serve tanto pra reduced-motion quanto pra CDN fora do ar */
-    document.documentElement.classList.add('rm');
-    var ab = $('#abertura'); if (ab) ab.remove();
-    $('#coluna-nao').classList.add('riscado');
-    $('.coluna.sim').classList.add('marcada');
-    progressoPagina = 1; desenharSkid();
+function construirPista() {
+  var w = window.innerWidth, h = window.innerHeight;
+  svgPista.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svgPista.setAttribute('width', w); svgPista.setAttribute('height', h);
+
+  var pts = waypoints().map(function (p) { return [p[0] * w, p[1] * h]; });
+  trajeto.setAttribute('d', suavizar(pts));
+
+  /* t (0–1 por comprimento) de cada waypoint: amostra o path e acha o mais perto */
+  var L = trajeto.getTotalLength(), N = 700, amostras = [];
+  for (var i = 0; i <= N; i++) amostras.push(trajeto.getPointAtLength(L * i / N));
+  tWp = pts.map(function (p) {
+    var melhor = 0, dm = Infinity;
+    for (var i = 0; i <= N; i++) {
+      var dx = amostras[i].x - p[0], dy = amostras[i].y - p[1], d = dx * dx + dy * dy;
+      if (d < dm) { dm = d; melhor = i; }
+    }
+    return melhor / N;
+  });
+  tWp[0] = 0; tWp[tWp.length - 1] = 1;
+
+  /* as duas marcas = trajeto deslocado na perpendicular (bitola traseira) */
+  var meia = 15;
+  var polA = '', polB = '';
+  for (var j = 0; j <= N; j++) {
+    var a = amostras[Math.max(0, j - 1)], b = amostras[Math.min(N, j + 1)], c = amostras[j];
+    var tx = b.x - a.x, ty = b.y - a.y, m = Math.hypot(tx, ty) || 1;
+    var nx = -ty / m, ny = tx / m;
+    polA += (j ? 'L' : 'M') + (c.x + nx * meia).toFixed(1) + ' ' + (c.y + ny * meia).toFixed(1);
+    polB += (j ? 'L' : 'M') + (c.x - nx * meia).toFixed(1) + ' ' + (c.y - ny * meia).toFixed(1);
+  }
+  marcas[0].setAttribute('d', polA); marcas[2].setAttribute('d', polA);
+  marcas[1].setAttribute('d', polB); marcas[3].setAttribute('d', polB);
+  marcas.forEach(function (mk, i) {
+    var escura = i < 2;
+    mk.setAttribute('fill', 'none');
+    mk.setAttribute('stroke', escura ? '#0A0A0A' : '#F2EFE9');
+    mk.setAttribute('stroke-opacity', escura ? .3 : .18);
+    mk.setAttribute('stroke-width', i % 2 ? 5 : 7);   /* espessura variável entre as duas rodas */
+    mk.setAttribute('stroke-linecap', 'round');
+    var len = mk.getTotalLength();
+    comprimentos[i] = len;
+    mk.style.strokeDasharray = len;
+    mk.style.strokeDashoffset = len;
+  });
+
+  raw = MotionPathPlugin.getRawPath(trajeto);
+  MotionPathPlugin.cacheRawPathMeasurements(raw);
+
+  /* progresso de scroll de cada divisa entre seções: é ali que o carro fecha a curva */
+  var secs = $$('main .sec'), max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  pSec = [0];
+  for (var k = 1; k < secs.length; k++) {
+    pSec.push(clamp((secs[k].offsetTop - window.innerHeight * 0.5) / max, 0.001, 0.999));
+  }
+  pSec.push(1);
+  for (var q = 1; q < pSec.length; q++) if (pSec[q] <= pSec[q - 1]) pSec[q] = pSec[q - 1] + 0.001;
+}
+construirPista();
+
+/* remapeia o progresso do scroll pro t do trajeto, ancorando os waypoints nas divisas */
+function progressoParaT(p) {
+  var n = Math.min(pSec.length, tWp.length);
+  for (var i = 1; i < n; i++) {
+    if (p <= pSec[i]) {
+      var f = (p - pSec[i - 1]) / (pSec[i] - pSec[i - 1] || 1);
+      return tWp[i - 1] + (tWp[i] - tWp[i - 1]) * clamp(f, 0, 1);
+    }
+  }
+  return 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOOP  ·  o scroll é o acelerador
+   ═══════════════════════════════════════════════════════════ */
+var carro = $('#carro'), rodasF = $('#rodas-f');
+gsap.set(carro, { svgOrigin: '0 0', opacity: 1 });
+gsap.set(rodasF, { svgOrigin: '45.5 17' });
+var setX = gsap.quickSetter(carro, 'x', 'px'),
+    setY = gsap.quickSetter(carro, 'y', 'px'),
+    setR = gsap.quickSetter(carro, 'rotation', 'deg'),
+    setRodas = gsap.quickSetter(rodasF, 'rotation', 'deg');
+
+var barra = $('#prog-barra'), cauda = $('#prog-cauda'), agulha = $('#agulha'), rpm = $('#rpm-num');
+var setBarra = gsap.quickSetter(barra, 'scaleX'), setCauda = gsap.quickSetter(cauda, 'scaleX'),
+    setAgulha = gsap.quickSetter(agulha, 'rotation', 'deg');
+var esteiras = [{ el: $('#esteira-1'), x: 0 }, { el: $('#esteira-2'), x: 0 }];
+var raiz = document.documentElement.style;
+
+/* pool de fumaça de borracha */
+var fumaca = [];
+if (!MOB) {
+  var cont = $('#fumaca');
+  for (var f = 0; f < 10; f++) { var b = document.createElement('b'); cont.appendChild(b); fumaca.push({ el: b, livre: true }); }
+}
+function soltarFumaca(x, y) {
+  for (var i = 0; i < fumaca.length; i++) {
+    var p = fumaca[i]; if (!p.livre) continue;
+    p.livre = false;
+    gsap.fromTo(p.el,
+      { x: x + (Math.random() - .5) * 18, y: y + (Math.random() - .5) * 18, scale: .5, opacity: .55 },
+      { x: '+=' + (Math.random() - .5) * 90, y: '-=' + (40 + Math.random() * 60), scale: 2.1, opacity: 0,
+        duration: 1.2, ease: 'power2.out', onComplete: function () { p.livre = true; } });
     return;
   }
+}
 
-  gsap.registerPlugin(ScrollTrigger);
+var yAnt = 0, vel = 0, tAtual = 0, drift = 0, tMax = 0, ultimoDash = -1, ultimaFumaca = 0;
+var topo = $('#topo'), encolhido = false;
 
-  /* =======================================================
-     00 · ABERTURA — varredura da agulha (<= 1,2s, pulável)
-     ======================================================= */
-  var abertura = $('#abertura');
-  var jaViu = false;
-  try { jaViu = sessionStorage.getItem('dc-intro') === '1'; } catch (e) {}
+gsap.ticker.add(function () {
+  var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  var y = lenis ? lenis.scroll : window.scrollY;
+  var p = clamp(y / max, 0, 1);
 
-  function comecarHero() {
-    var tl = gsap.timeline();
-    tl.fromTo('h1 .l1', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, ease: 'power2.out' })
-      /* “slam”: escala levemente maior + blur -> foco, ~200ms com overshoot mínimo */
-      .fromTo('h1 .l2', { opacity: 0, scale: 1.07, filter: 'blur(16px)' },
-        { opacity: 1, scale: 1, filter: 'blur(0px)', duration: .22, ease: 'back.out(1.5)',
-          onComplete: function () { gsap.set('h1 .l2', { clearProps: 'filter,willChange' }); } }, '-=.12')
-      .fromTo('.hero .corpo, .hero .acao', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55, stagger: .09, ease: 'power2.out' }, '-=.05')
-      .fromTo('.eyebrow', { opacity: 0 }, { opacity: 1, duration: .4 }, 0)
-      /* o carro entra derrapando e é ele que deixa a marca que atravessa a página */
-      .fromTo('#carro-hero',
-        { xPercent: 34, yPercent: 26, rotate: -52, opacity: 0 },
-        { xPercent: 0, yPercent: 0, rotate: -16, opacity: 1, duration: 1.5, ease: 'power3.out' }, 0)
-      /* primeiro trecho da marca de pneu, desenhado junto com o drift */
-      .to({ v: 0 }, { v: 1, duration: 1.4, ease: 'power2.out',
-        onUpdate: function () { progressoIntro = this.targets()[0].v * 0.05; desenharSkid(); } }, 0);
-  }
+  /* velocidade do scroll, suavizada */
+  vel += ((y - yAnt) - vel) * 0.2; yAnt = y;
+  var vAbs = Math.abs(vel);
 
-  if (jaViu) {
-    abertura.remove();
-    comecarHero();
-  } else {
-    gsap.set('h1 .l1, h1 .l2, .hero .corpo, .hero .acao, .eyebrow, #carro-hero', { opacity: 0 });
-    var pulou = false;
-    var tlIntro = gsap.timeline();
-    tlIntro.fromTo('#agulha-abertura', { rotate: -124 }, { rotate: 130, duration: .62, ease: 'power2.inOut', transformOrigin: '52px 52px' })
-           .to('.abertura .marca', { opacity: .2, duration: .2 }, '-=.2')
-           .to(abertura, { opacity: 0, duration: .26, ease: 'power1.in' });
+  /* ── carro ── */
+  var alvo = progressoParaT(p);
+  tAtual += (alvo - tAtual) * CFG.carroInercia;
+  var pos = MotionPathPlugin.getPositionOnPath(raw, tAtual, true);
+  var a1 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual - .007, 0, 1), true);
+  var a2 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual + .007, 0, 1), true);
+  var dAng = a2.angle - a1.angle;
+  while (dAng > 180) dAng -= 360; while (dAng < -180) dAng += 360;
+  /* derrapagem = curvatura + velocidade; a inércia baixa é o que gera o contraesterço */
+  var alvoDrift = clamp(dAng * CFG.driftCurva + vel * CFG.driftVeloc * Math.sign(dAng || 1),
+                        -CFG.driftMax, CFG.driftMax);
+  drift += (alvoDrift - drift) * CFG.driftInercia;
+  setX(pos.x); setY(pos.y); setR(pos.angle + drift);
+  setRodas(-drift * 0.9);          /* rodas dianteiras contraesterçam */
 
-    var pular = function () {
-      if (pulou) return; pulou = true;
-      tlIntro.progress(1);
-      try { sessionStorage.setItem('dc-intro', '1'); } catch (e) {}
-    };
-    tlIntro.eventCallback('onComplete', function () {
-      try { sessionStorage.setItem('dc-intro', '1'); } catch (e) {}
-      abertura.remove(); comecarHero();
-    });
-    $('#pular').addEventListener('click', pular);
-    window.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === ' ') pular(); }, { once: true });
-    window.addEventListener('wheel', pular, { once: true, passive: true });
-    window.addEventListener('touchstart', pular, { once: true, passive: true });
-  }
-
-  /* =======================================================
-     PROGRESSO DA PÁGINA -> marca de pneu + agulha + contador
-     ======================================================= */
-  var agulha = $('#agulha'), barra = $('#barra'), tacNum = $('#tac-num');
-  var setAgulha = gsap.quickSetter(agulha, 'rotate', 'deg');
-  var setBarra = gsap.quickSetter(barra, 'scaleX');
-
-  ScrollTrigger.create({
-    trigger: document.body, start: 'top top', end: 'bottom bottom',
-    onUpdate: function (self) {
-      progressoPagina = self.progress;
-      desenharSkid();
-      setAgulha(-124 + self.progress * 248);
-      setBarra(self.progress);
-    }
-  });
-
-  /* contador de seção do tacômetro */
-  var secoes = ['hero', 'contraste', 'dentro', 'filtro', 'oferta', 'fecho'];
-  secoes.forEach(function (id, i) {
-    ScrollTrigger.create({
-      trigger: '#' + id, start: 'top center', end: 'bottom center',
-      onToggle: function (s) { if (s.isActive) tacNum.textContent = '0' + (i + 1); }
-    });
-  });
-
-  /* filete de “troca de marcha” no topo de cada seção */
-  $$('.marcha').forEach(function (el) {
-    gsap.fromTo(el, { scaleX: 0 }, {
-      scaleX: 1, duration: .7, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 92%', once: true }
-    });
-  });
-
-  /* =======================================================
-     01 · rastro de fumaça do cursor (só desktop/ponteiro fino)
-     ======================================================= */
-  if (FINO && !MOB) {
-    var rastro = $('#rastro'), bolas = [], N = 6, i;
-    for (i = 0; i < N; i++) {
-      var b = document.createElement('b');
-      b.style.opacity = 0;
-      rastro.appendChild(b);
-      bolas.push({ el: b, x: 0, y: 0, o: 0, set: gsap.quickSetter(b, 'css') });
-    }
-    var mx = -300, my = -300, ativo = 0, rodando = false;
-    window.addEventListener('mousemove', function (e) {
-      mx = e.clientX; my = e.clientY; ativo = performance.now();
-      if (!rodando) { rodando = true; requestAnimationFrame(loop); }
-    }, { passive: true });
-
-    function loop(t) {
-      var px = mx, py = my, vivo = (t - ativo) < 900;
-      for (var j = 0; j < N; j++) {
-        var p = bolas[j];
-        p.x += (px - p.x) * (0.24 - j * 0.025);
-        p.y += (py - p.y) * (0.24 - j * 0.025);
-        p.o += (((vivo ? 0.5 : 0) * (1 - j / N)) - p.o) * 0.08;
-        p.set({ x: p.x, y: p.y, opacity: p.o, scale: 1 - j * 0.09 });
-        px = p.x; py = p.y;
-      }
-      if (vivo || bolas[0].o > 0.01) requestAnimationFrame(loop); else rodando = false;
+  /* fumaça nas curvas fechadas */
+  if (fumaca.length && Math.abs(drift) > CFG.fumacaLimite && vAbs > 3) {
+    var agora = performance.now();
+    if (agora - ultimaFumaca > 70) {
+      ultimaFumaca = agora;
+      var r = (pos.angle + drift) * Math.PI / 180;
+      soltarFumaca(pos.x - Math.cos(r) * 28, pos.y - Math.sin(r) * 28);
     }
   }
 
-  /* =======================================================
-     02 · CONTRASTE — o feed perde saturação e ganha blur,
-     o lado de dentro ganha contraste. Um efeito, dois lados.
-     ======================================================= */
-  var blurMax = MOB ? 2.5 : 5.5;
-  gsap.fromTo('#la-fora',
-    { filter: 'saturate(.95) blur(0px)' },
-    { filter: 'saturate(0) blur(' + blurMax + 'px)', ease: 'none',
-      scrollTrigger: { trigger: '.contraste', start: 'top 72%', end: 'center 42%', scrub: .5 } });
-  gsap.fromTo('#aqui-dentro',
-    { filter: 'contrast(1) brightness(1)' },
-    { filter: 'contrast(1.22) brightness(1.08)', ease: 'none',
-      scrollTrigger: { trigger: '.contraste', start: 'top 72%', end: 'center 42%', scrub: .5 } });
-
-  /* =======================================================
-     03 · REVELAÇÃO — clip-path de baixo pra cima, uma vez só
-     ======================================================= */
-  gsap.set('.faixa', { clipPath: 'inset(100% 0 0 0)' });
-  ScrollTrigger.batch('.faixa', {
-    start: 'top 88%', once: true,
-    onEnter: function (lote) {
-      gsap.to(lote, {
-        clipPath: 'inset(0% 0 0 0)', duration: .9, ease: 'expo.out', stagger: .06,
-        /* NÃO usar clearProps aqui: a regra CSS de estado inicial voltaria a esconder a faixa */
-        onComplete: function () { gsap.set(lote, { clipPath: 'none', clearProps: 'willChange' }); }
-      });
+  /* ── marcas de pneu: só escrevem quando avançam (ficam na tela) ── */
+  if (tAtual > tMax) {
+    tMax = tAtual;
+    if (Math.abs(tMax - ultimoDash) > 0.0012) {
+      ultimoDash = tMax;
+      for (var i = 0; i < marcas.length; i++) marcas[i].style.strokeDashoffset = (comprimentos[i] * (1 - tMax)).toFixed(1);
     }
-  });
-
-  /* =======================================================
-     04 · RISCO — strike-through desenhado + check stencil
-     (transform:scaleX via classe; nada de animar width)
-     ======================================================= */
-  ScrollTrigger.create({
-    trigger: '.filtro .duplo', start: 'top 78%', once: true,
-    onEnter: function () {
-      $('.coluna.sim').classList.add('marcada');
-      setTimeout(function () { $('#coluna-nao').classList.add('riscado'); }, 260);
-    }
-  });
-
-  /* =======================================================
-     05 · OFERTA — odômetro do preço + tilt 3D leve
-     ======================================================= */
-  gsap.set(rolos, { y: 0 });
-  ScrollTrigger.create({
-    trigger: '#cartao', start: 'top 82%', once: true,
-    onEnter: function () {
-      rolos.forEach(function (r, i) {
-        gsap.to(r, { y: '-' + r.dataset.alvo + 'em', duration: 1.1 + i * 0.14, ease: 'expo.out',
-          onComplete: function () { gsap.set(r, { clearProps: 'willChange' }); } });
-      });
-    }
-  });
-
-  if (FINO && !MOB) {
-    var cartao = $('#cartao');
-    var rx = gsap.quickTo(cartao, 'rotationX', { duration: .5, ease: 'power2.out' });
-    var ry = gsap.quickTo(cartao, 'rotationY', { duration: .5, ease: 'power2.out' });
-    gsap.set(cartao, { transformPerspective: 900 });
-    cartao.addEventListener('mousemove', function (e) {
-      var r = cartao.getBoundingClientRect();
-      ry(((e.clientX - r.left) / r.width - .5) * 12);   /* máx. ~6° pra cada lado */
-      rx(((e.clientY - r.top) / r.height - .5) * -10);
-    }, { passive: true });
-    cartao.addEventListener('mouseleave', function () { rx(0); ry(0); });
   }
 
-  /* =======================================================
-     06 · O carro sai de cena e encerra a marca de pneu
-     ======================================================= */
-  gsap.fromTo('#carro-fecho',
-    { xPercent: -10, yPercent: 12, rotate: -14, opacity: .9 },
-    { xPercent: 90, yPercent: -40, rotate: 32, opacity: 0, ease: 'none',
-      scrollTrigger: { trigger: '#fecho', start: 'top 70%', end: 'bottom bottom', scrub: .6 } });
+  /* ── reação à velocidade ── */
+  raiz.setProperty('--sk', clamp(vel * CFG.skewGanho, -CFG.skewMax, CFG.skewMax).toFixed(2) + 'deg');
+  if (!MOB) raiz.setProperty('--mb', Math.min(CFG.blurMax, vAbs * 0.12).toFixed(2) + 'px');
+  var sp = clamp((vAbs - 22) / 60, 0, 1);
+  raiz.setProperty('--sp', sp.toFixed(3));
 
-  gsap.fromTo('#fecho .display', { opacity: 0, y: 34 },
-    { opacity: 1, y: 0, duration: .9, ease: 'expo.out',
-      scrollTrigger: { trigger: '#fecho', start: 'top 78%', once: true } });
+  /* ── marquees: base + velocidade do scroll (inverte quando sobe) ── */
+  esteiras.forEach(function (e, i) {
+    if (!e.el) return;
+    var meio = e.el.scrollWidth / 2 || 1;
+    e.x -= (CFG.marqueeBase + vel * CFG.marqueeGanho) * (i ? -1 : 1);
+    if (e.x <= -meio) e.x += meio; if (e.x > 0) e.x -= meio;
+    e.el.style.transform = 'translate3d(' + e.x.toFixed(1) + 'px,0,0)';
+  });
 
-  /* =======================================================
-     CTA fixo (mobile) depois que o hero sai da tela
-     ======================================================= */
-  if (MOB) {
-    var ctaFixo = $('#cta-fixo');
-    ScrollTrigger.create({
-      trigger: '#hero', start: 'bottom 40%',
-      onEnter: function () { ctaFixo.classList.add('on'); },
-      onLeaveBack: function () { ctaFixo.classList.remove('on'); }
-    });
-    /* na oferta o botão fixo some — não competir com o CTA real */
-    ScrollTrigger.create({
-      trigger: '#oferta', start: 'top 70%',
-      onEnter: function () { ctaFixo.classList.remove('on'); },
-      onLeaveBack: function () { ctaFixo.classList.add('on'); }
-    });
-  }
+  /* ── progresso: barra, cauda com inércia, agulha ── */
+  setBarra(p);
+  var c = parseFloat(cauda.dataset.v || 0); c += (p - c) * 0.07; cauda.dataset.v = c;
+  setCauda(Math.min(1, c + 0.02));
+  setAgulha(-118 + p * 236);
+  rpm.textContent = Math.round(p * 80);
 
-  /* =======================================================
-     Resize: remede a marca de pneu (debounce) — sem thrash
-     ======================================================= */
-  var t;
-  window.addEventListener('resize', function () {
-    clearTimeout(t);
-    t = setTimeout(function () { medirSkid(); ScrollTrigger.refresh(); }, 220);
+  /* ── header ── */
+  var deve = y > 100;
+  if (deve !== encolhido) { encolhido = deve; topo.classList.toggle('encolhido', deve); }
+});
+
+/* linhas de velocidade: opacidade e comprimento vêm de --sp */
+(function () {
+  var el = $('#veloz');
+  $$('#veloz i').forEach(function (l, i) {
+    var dir = i % 2, t = 8 + i * 15;
+    l.style.top = (t + (i * 7)) + '%';
+    l.style[dir ? 'right' : 'left'] = '0';
+    l.style.width = (8 + i * 3) + 'vw';
+    l.style.transformOrigin = dir ? 'right' : 'left';
+  });
+  el.style.opacity = 'var(--sp,0)';
+  $$('#veloz i').forEach(function (l) { l.style.transform = 'scaleX(calc(.2 + var(--sp,0)))'; });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   ENTRADAS  ·  disparam uma vez
+   ═══════════════════════════════════════════════════════════ */
+/* hero: linhas empilhadas, cada uma de um lado, com overshoot */
+gsap.timeline({ delay: .15 })
+  .fromTo('h1 .li', { opacity: 0, x: function (i) { return i % 2 ? 90 : -90; }, y: 26 },
+    { opacity: 1, x: 0, y: 0, duration: .9, ease: 'back.out(1.5)', stagger: .08,
+      onComplete: function () { gsap.set('h1 .li', { clearProps: 'willChange' }); } })
+  .fromTo('.hero .corpo, .hero .acao', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .6, stagger: .1 }, '-=.5');
+
+/* hero é puxado pra cima e encolhe — não faz fade */
+gsap.to('#hero-conteudo', {
+  yPercent: -14, scale: .94, ease: 'none', transformOrigin: 'left top',
+  scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=520', scrub: .5 }
+});
+/* silhueta do hero com parallax de mouse */
+if (FINO && !MOB) {
+  var sil = $('#hero-silhueta');
+  var qx = gsap.quickTo(sil, 'x', { duration: 1.1, ease: 'power3' });
+  var qy = gsap.quickTo(sil, 'y', { duration: 1.1, ease: 'power3' });
+  var qr = gsap.quickTo(sil, 'rotation', { duration: 1.4, ease: 'power3' });
+  window.addEventListener('mousemove', function (e) {
+    var nx = e.clientX / window.innerWidth - .5, ny = e.clientY / window.innerHeight - .5;
+    qx(nx * 44); qy(ny * 30); qr(nx * 3);
   }, { passive: true });
+}
 
-  window.addEventListener('load', function () { medirSkid(); ScrollTrigger.refresh(); });
+/* fios dos eyebrows */
+$$('.eyebrow .fio').forEach(function (el) {
+  gsap.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: .8, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
+});
+
+/* blocos do "o que tá dentro" */
+ScrollTrigger.batch('.bloco', {
+  start: 'top 86%', once: true,
+  onEnter: function (lote) {
+    gsap.fromTo(lote, { opacity: 0, y: 44 },
+      { opacity: 1, y: 0, duration: .8, ease: 'expo.out', stagger: .07,
+        onComplete: function () { gsap.set(lote, { clearProps: 'willChange,transform' }); } });
+  }
+});
+
+/* riscas desenhadas da esquerda pra direita */
+ScrollTrigger.create({
+  trigger: '.bloco-nao', start: 'top 80%', once: true,
+  onEnter: function () {
+    gsap.to('.risca-svg line', { strokeDashoffset: 0, duration: .55, ease: 'power2.inOut', stagger: .12 });
+  }
+});
+
+/* odômetro do preço */
+ScrollTrigger.create({
+  trigger: '.preco', start: 'top 86%', once: true,
+  onEnter: function () {
+    gsap.set(rolos, { y: 0 });
+    rolos.forEach(function (r, i) {
+      gsap.to(r, { y: '-' + r.dataset.alvo + 'em', duration: 1.15 + i * .16, ease: 'expo.out' });
+    });
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   TROCA DE SEÇÃO  ·  flash de 60ms + varredura diagonal de 400ms
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  var flash = document.createElement('div'); flash.id = 'flash'; document.body.appendChild(flash);
+  var secs = $$('main .sec');
+  var tema = function (el) { return el.classList.contains('t-branco') ? 'branco' : el.classList.contains('t-laranja') ? 'laranja' : 'preto'; };
+  var cor = { hero: '#0A0A0A', corte: '#F2EFE9', dentro: '#0A0A0A', filtro: '#F2EFE9', oferta: '#FF4A0F', fim: '#0A0A0A' };
+  var comp = { hero: '#FF4A0F', corte: '#0A0A0A', dentro: '#FF4A0F', filtro: '#FF4A0F', oferta: '#0A0A0A', fim: '#FF4A0F' };
+
+  secs.forEach(function (sec, i) {
+    var prox = secs[i + 1]; if (!prox) return;
+    /* a faixa vive na seção que SAI, pintada com a cor da que ENTRA */
+    var faixa = document.createElement('span');
+    faixa.className = 'varre'; faixa.setAttribute('aria-hidden', 'true');
+    faixa.style.background = cor[prox.id];
+    sec.appendChild(faixa);
+
+    ScrollTrigger.create({
+      trigger: sec, start: 'bottom bottom', once: true,
+      onEnter: function () {
+        gsap.fromTo(flash, { opacity: 0, backgroundColor: comp[prox.id] },
+          { opacity: .5, duration: .06, yoyo: true, repeat: 1 });
+        gsap.fromTo(faixa, { yPercent: 105 },
+          { yPercent: -155, duration: .4, ease: 'power2.in',
+            onComplete: function () { faixa.remove(); } });
+      }
+    });
+
+    /* rótulo da seção no header */
+    ScrollTrigger.create({
+      trigger: sec, start: 'top center', end: 'bottom center',
+      onToggle: function (s) {
+        if (!s.isActive) return;
+        var n = ('0' + (i + 1)), rot = sec.querySelector('.eyebrow');
+        $('#topo-sec').textContent = n + ' / 06 · ' + (rot ? rot.textContent.replace(/\d|\/|■/g, '').trim() : '');
+      }
+    });
+  });
+  /* última seção também atualiza o rótulo */
+  ScrollTrigger.create({
+    trigger: secs[secs.length - 1], start: 'top center',
+    onEnter: function () { $('#topo-sec').textContent = '06 / 06 · FIM DA MARCA'; document.documentElement.dataset.tema = 'preto'; }
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   TILT 3D + LUZ LARANJA  ·  só desktop
+   ═══════════════════════════════════════════════════════════ */
+if (FINO && !MOB) {
+  $$('.bloco').forEach(function (b) {
+    gsap.set(b, { transformPerspective: 900 });
+    var rx = gsap.quickTo(b, 'rotationX', { duration: .5, ease: 'power2.out' });
+    var ry = gsap.quickTo(b, 'rotationY', { duration: .5, ease: 'power2.out' });
+    b.addEventListener('mousemove', function (e) {
+      var r = b.getBoundingClientRect();
+      var nx = (e.clientX - r.left) / r.width, ny = (e.clientY - r.top) / r.height;
+      ry((nx - .5) * 12); rx((ny - .5) * -12);        /* ±6° */
+      b.style.setProperty('--mx', (nx * 100) + '%');
+      b.style.setProperty('--my', (ny * 100) + '%');
+    }, { passive: true });
+    b.addEventListener('mouseleave', function () { rx(0); ry(0); });
+  });
+
+  /* cursor: alonga na direção do movimento */
+  var cur = $('#cursor');
+  var cx = gsap.quickTo(cur, 'x', { duration: .18, ease: 'power3' });
+  var cy = gsap.quickTo(cur, 'y', { duration: .18, ease: 'power3' });
+  var cr = gsap.quickTo(cur, 'rotation', { duration: .25, ease: 'power3' });
+  var ce = gsap.quickTo(cur, 'scaleX', { duration: .25, ease: 'power3' });
+  var px = 0, py = 0, visivel = false;
+  window.addEventListener('mousemove', function (e) {
+    if (!visivel) { visivel = true; gsap.to(cur, { opacity: 1, duration: .3 }); }
+    var dx = e.clientX - px, dy = e.clientY - py; px = e.clientX; py = e.clientY;
+    var v = Math.min(Math.hypot(dx, dy), 40);
+    cx(e.clientX); cy(e.clientY);
+    if (v > 2) cr(Math.atan2(dy, dx) * 180 / Math.PI);
+    ce(1 + v * 0.03);
+  }, { passive: true });
+  document.addEventListener('mouseleave', function () { visivel = false; gsap.to(cur, { opacity: 0, duration: .2 }); });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIMECODE FALSO NOS FRAMES  ·  só quando visíveis
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  var tcs = $$('[data-tc]'), t0 = 0;
+  var obs = new IntersectionObserver(function (ents) {
+    ents.forEach(function (e) { e.target.dataset.on = e.isIntersecting ? '1' : '0'; });
+  }, { rootMargin: '80px' });
+  tcs.forEach(function (el, i) { obs.observe(el); el.dataset.off = i * 137; });
+  setInterval(function () {
+    t0 += 1;
+    tcs.forEach(function (el) {
+      if (el.dataset.on !== '1') return;
+      var q = t0 + parseInt(el.dataset.off, 10);
+      var s = Math.floor(q / 12) % 60, m = Math.floor(q / 720) % 60, f = q % 12;
+      el.textContent = ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2) + ':' + ('0' + f * 2).slice(-2);
+    });
+  }, 90);
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   CTA FIXO (mobile)
+   ═══════════════════════════════════════════════════════════ */
+if (MOB) {
+  var ctaFixo = $('#cta-fixo');
+  ScrollTrigger.create({ trigger: '#hero', start: 'bottom 45%',
+    onEnter: function () { ctaFixo.classList.add('on'); },
+    onLeaveBack: function () { ctaFixo.classList.remove('on'); } });
+  ScrollTrigger.create({ trigger: '#oferta', start: 'top 75%',
+    onEnter: function () { ctaFixo.classList.remove('on'); },
+    onLeaveBack: function () { ctaFixo.classList.add('on'); } });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESIZE  ·  refaz o trajeto e as riscas
+   ═══════════════════════════════════════════════════════════ */
+var tr;
+window.addEventListener('resize', function () {
+  clearTimeout(tr);
+  tr = setTimeout(function () {
+    MOB = matchMedia('(max-width: 820px)').matches;
+    tMax = 0; ultimoDash = -1;
+    construirPista();
+    montarRiscas();
+    if (ScrollTrigger.isInViewport && $('.bloco-nao')) {
+      $$('.risca-svg line').forEach(function (l) { l.style.strokeDashoffset = 0; });
+    }
+    ScrollTrigger.refresh();
+  }, 240);
+}, { passive: true });
+
+window.addEventListener('load', function () { construirPista(); ScrollTrigger.refresh(); });
 });
 </script>
 </body>
