@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ============ META / SEO / OG ============ -->
+<title>Drive Club — Você vê o Drive dos vídeos. Aqui você entra no carro.</title>
+<meta name="description" content="Comunidade fechada do @driveitlikestoleit. Bastidores sem filtro, garagem dos membros, rifa 10x, ranking, experiências e descontos com parceiros. Fora daqui você é fã. Aqui você é membro.">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="canonical" href="https://driveclub.com.br/"><!-- TROCAR: domínio final -->
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Drive Club">
+<meta property="og:title" content="Drive Club — Aqui você entra no carro.">
+<meta property="og:description" content="Real Underground · Comunidade fechada. O rolê continua depois que a câmera desliga.">
+<meta property="og:url" content="https://driveclub.com.br/"><!-- TROCAR: domínio final -->
+<meta property="og:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR: og image 1200x630 -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Drive Club — Aqui você entra no carro.">
+<meta name="twitter:description" content="Real Underground · Comunidade fechada. O rolê continua depois que a câmera desliga.">
+<meta name="twitter:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR: og image 1200x630 -->
+
+<!-- favicon inline: marca de pneu laranja sobre asfalto -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0B0C'/%3E%3Cpath d='M4 25C10 25 9 8 16 8s6 17 12 17' stroke='%23FF4A0F' stroke-width='3.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<!-- ============ FONTES: 2 famílias, só os pesos usados ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500;75..125,700;75..125,900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<script>
+  /* marca que o JS está vivo (estados iniciais escondidos só existem com .js)
+     e respeita reduced-motion desde o primeiro frame — evita CLS e FOUC */
+  (function(){
+    var r = document.documentElement;
+    r.classList.add('js');
+    try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('rm'); }catch(e){}
+  })();
+</script>
+
+<style>
+/* =========================================================
+   DRIVE CLUB — tokens
+   ========================================================= */
+:root{
+  /* --- cor: asfalto + 2 acentos + neutros (hex à mão) --- */
+  --asfalto:#0B0B0C;
+  --breu:#131215;
+  --oleo:#1C1A1E;
+  --rubber:#332E29;      /* borracha da marca de pneu */
+  --giz:#EDE7DE;
+  --poeira:#8C857C;
+  --sinal:#FF4A0F;       /* laranja de sinalização / lanterna */
+  --fita:#C6F24E;        /* verde-refletivo, dose mínima */
+
+  /* --- radius: três valores, três contextos --- */
+  --r-lasca:2px;         /* filetes, tags, botões retos */
+  --r-cartao:16px;       /* carteirinha de membro */
+  --r-selo:999px;        /* selo/adesivo */
+
+  /* --- escala de espaço --- */
+  --s1:8px; --s2:16px; --s3:32px; --s4:64px; --s5:120px; --s6:200px;
+
+  --disp:'Archivo', system-ui, -apple-system, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --gutter:clamp(20px, 4vw, 64px);
+  --linha:1px solid rgba(237,231,222,.14);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--asfalto); color:var(--giz);
+  font-family:var(--disp); font-variation-settings:'wdth' 100,'wght' 500;
+  font-size:clamp(15px,1.05vw,17px); line-height:1.55;
+  overflow-x:clip; -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block; max-width:100%}
+a{color:inherit; text-decoration:none}
+h1,h2,h3,p,ul,figure,blockquote{margin:0; padding:0}
+ul{list-style:none}
+
+/* foco visível customizado — nunca outline:none seco */
+:focus-visible{outline:2px solid var(--fita); outline-offset:4px; border-radius:var(--r-lasca)}
+
+::selection{background:var(--sinal); color:#0B0B0C}
+
+/* =========================================================
+   Tipografia utilitária
+   ========================================================= */
+.display{
+  font-family:var(--disp); font-variation-settings:'wdth' 118,'wght' 900;
+  line-height:.9; letter-spacing:-.03em; text-transform:uppercase;
+}
+.condensada{font-variation-settings:'wdth' 79,'wght' 700}
+.rotulo{
+  font-family:var(--mono); font-size:11px; font-weight:400;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--poeira);
+}
+.num-secao{
+  font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--poeira);
+}
+.num-secao b{color:var(--sinal); font-weight:700}
+.corpo{color:#BDB6AC; font-size:clamp(16px,1.35vw,20px); line-height:1.6; font-variation-settings:'wdth' 100,'wght' 500}
+
+/* filete + marca de corte */
+.filete{height:1px; background:rgba(237,231,222,.14); transform-origin:left}
+.corte{position:absolute; width:9px; height:9px; border:1px solid rgba(237,231,222,.35); pointer-events:none}
+.corte.tl{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.corte.tr{top:-1px;right:-1px;border-left:0;border-bottom:0}
+.corte.bl{bottom:-1px;left:-1px;border-right:0;border-top:0}
+.corte.br{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+/* texto rotacionado na lateral */
+.lateral{
+  position:absolute; top:var(--s4); left:calc(var(--gutter) * -1 + 6px);
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  font-family:var(--mono); font-size:10px; letter-spacing:.32em;
+  color:rgba(237,231,222,.3); text-transform:uppercase; pointer-events:none;
+}
+@media (max-width:1100px){ .lateral{display:none} }
+
+/* =========================================================
+   Grão fixo (feTurbulence gerado uma vez, estático)
+   ========================================================= */
+.grao{
+  position:fixed; inset:0; z-index:60; pointer-events:none;
+  opacity:.055; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:220px 220px;
+}
+/* mobile: sem blend — recompor o backdrop a cada frame custa caro */
+@media (max-width:860px){ .grao{mix-blend-mode:normal; opacity:.04} }
+
+/* =========================================================
+   Layout base das seções
+   ========================================================= */
+.pista{position:relative} /* wrapper que carrega a marca de pneu de ponta a ponta */
+.wrap{width:min(1280px,100%); margin-inline:auto; padding-inline:var(--gutter); position:relative; z-index:2}
+section{position:relative}
+
+.cabeca{display:flex; align-items:baseline; gap:var(--s2); margin-bottom:var(--s3)}
+.cabeca .filete{flex:1; opacity:.55}
+
+/* “troca de marcha”: filete que dispara ao entrar na seção */
+.marcha{transform:scaleX(0)}
+html.js:not(.rm) .marcha{transform:scaleX(0)}
+html.rm .marcha, html:not(.js) .marcha{transform:scaleX(1)}
+
+/* =========================================================
+   Marca de pneu (fio condutor)
+   ========================================================= */
+.skid{position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
+.skid path{fill:none; stroke-linecap:round}
+
+/* =========================================================
+   Botões
+   ========================================================= */
+.btn{
+  --bg:var(--sinal);
+  position:relative; display:inline-flex; align-items:center; gap:14px;
+  min-height:56px; padding:0 26px; border-radius:var(--r-lasca);
+  background:var(--bg); color:#0B0B0C; overflow:hidden;
+  font-family:var(--mono); font-weight:700; font-size:13px;
+  letter-spacing:.16em; text-transform:uppercase;
+  border:1px solid var(--bg);
+}
+.btn::after{ /* sweep de farol */
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
+  transform:translateX(-120%); transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+.btn .seta{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.btn:hover::after{transform:translateX(120%)}
+.btn:hover .seta{transform:translateX(5px)}
+.btn:hover{animation:engate .08s linear 1} /* micro-shake de engate, 80ms */
+@keyframes engate{0%{transform:translate(0,0)}33%{transform:translate(-1.5px,1px)}66%{transform:translate(1.5px,-1px)}100%{transform:translate(0,0)}}
+.btn.vazado{background:transparent; color:var(--giz); border-color:rgba(237,231,222,.3)}
+.btn.vazado::after{background:linear-gradient(105deg,transparent 30%,rgba(255,74,15,.35) 50%,transparent 70%)}
+.btn.grande{min-height:72px; font-size:15px; padding:0 34px}
+
+/* =========================================================
+   00 · ABERTURA — varredura do tacômetro (<=1,2s, pulável)
+   ========================================================= */
+.abertura{
+  position:fixed; inset:0; z-index:90; background:var(--asfalto);
+  display:grid; place-content:center; justify-items:center; gap:var(--s3);
+}
+.abertura .marca{font-family:var(--mono); font-size:11px; letter-spacing:.34em; color:var(--poeira)}
+.abertura .pular{
+  position:absolute; bottom:28px; right:var(--gutter);
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:rgba(237,231,222,.4);
+  background:none; border:0; cursor:pointer; padding:12px; min-height:44px;
+}
+html.rm .abertura, html:not(.js) .abertura{display:none}
+
+/* =========================================================
+   TACÔMETRO fixo (desktop) + barra fina (mobile)
+   ========================================================= */
+.tac{
+  position:fixed; right:22px; bottom:22px; z-index:55; width:104px; height:104px;
+  pointer-events:none; opacity:.9;
+}
+.tac .agulha{transform-origin:52px 52px; transform:rotate(-124deg)}
+.tac .leitura{
+  position:absolute; inset:auto 0 26px 0; text-align:center;
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--poeira);
+}
+.tac .leitura b{color:var(--giz); font-weight:700}
+.barra{
+  position:fixed; top:0; left:0; right:0; height:2px; z-index:55;
+  background:var(--sinal); transform:scaleX(0); transform-origin:left; display:none;
+}
+@media (max-width:860px){ .tac{display:none} .barra{display:block} }
+
+/* marca fixa no topo */
+.brand{
+  position:fixed; top:20px; left:var(--gutter); z-index:56;
+  font-family:var(--mono); font-size:11px; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--giz); mix-blend-mode:difference;
+}
+.brand i{color:var(--sinal); font-style:normal}
+
+/* =========================================================
+   01 · HERO
+   ========================================================= */
+.hero{min-height:100svh; display:flex; flex-direction:column; padding-top:clamp(84px,10vh,132px); overflow:clip}
+.hero .ticker{margin-top:auto}
+.hero .wrap{display:grid; grid-template-columns:repeat(12,1fr); gap:var(--s2); padding-bottom:var(--s3)}
+.hero .texto{grid-column:1 / 9}
+/* mobile: 12 colunas + gap somam mais que a largura da tela — vira bloco */
+@media (max-width:900px){ .hero .wrap{display:block} }
+
+.eyebrow{display:flex; align-items:center; gap:10px; margin-bottom:var(--s3)}
+.eyebrow .pt{width:7px; height:7px; background:var(--sinal); border-radius:var(--r-selo)}
+html.js:not(.rm) .eyebrow .pt{animation:pisca 2.4s steps(1,end) infinite}
+@keyframes pisca{0%,55%{opacity:1}56%,100%{opacity:.15}}
+
+h1{margin:0; max-width:19ch}
+h1 .l1{
+  display:block; font-family:var(--disp); font-variation-settings:'wdth' 82,'wght' 500;
+  font-size:clamp(19px,2.4vw,30px); line-height:1.15; color:var(--poeira);
+  text-transform:none; letter-spacing:-.01em; margin-bottom:.35em;
+}
+h1 .l2{
+  display:block; font-size:clamp(34px,6.4vw,92px);
+  font-family:var(--disp); font-variation-settings:'wdth' 120,'wght' 900;
+  /* .92 e não .84: em português o acento bate na linha de cima */
+  line-height:.92; letter-spacing:-.035em; text-transform:uppercase;
+  margin-left:-.045em;
+}
+h1 .l2 em{font-style:normal; color:var(--sinal)}
+.hero .corpo{max-width:46ch; font-size:clamp(15px,1.15vw,18px); margin-top:clamp(20px,3vh,32px)}
+.hero .acao{margin-top:clamp(24px,4vh,52px); display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap}
+.hero .assin{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--poeira)}
+
+/* fumaça: 4 blobs de blur + noise, movimento lento — sem partículas, sem canvas */
+.fumaca{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+.fumaca b{
+  position:absolute; display:block; border-radius:var(--r-selo);
+  background:radial-gradient(circle at 50% 50%, rgba(237,231,222,.14), rgba(237,231,222,0) 68%);
+  filter:blur(26px);
+}
+.fumaca b:nth-child(1){width:520px;height:520px; right:-4%; bottom:2%}
+.fumaca b:nth-child(2){width:380px;height:380px; right:22%; bottom:-6%; background:radial-gradient(circle,rgba(255,74,15,.10),transparent 68%)}
+.fumaca b:nth-child(3){width:300px;height:300px; right:38%; bottom:16%}
+.fumaca b:nth-child(4){width:240px;height:240px; right:8%; bottom:34%; opacity:.7}
+html.js:not(.rm) .fumaca b{animation:deriva 22s ease-in-out infinite alternate}
+html.js:not(.rm) .fumaca b:nth-child(2){animation-duration:28s; animation-delay:-6s}
+html.js:not(.rm) .fumaca b:nth-child(3){animation-duration:19s; animation-delay:-11s}
+html.js:not(.rm) .fumaca b:nth-child(4){animation-duration:25s; animation-delay:-3s}
+@keyframes deriva{
+  from{transform:translate3d(0,0,0) scale(1); opacity:.55}
+  to{transform:translate3d(-70px,-40px,0) scale(1.22); opacity:.9}
+}
+
+/* carro do hero — sangra pra fora da margem direita */
+.carro-hero{
+  position:absolute; right:3%; bottom:20%; height:clamp(230px,42vh,430px); width:auto;
+  z-index:1; pointer-events:none;
+}
+@media (max-width:900px){ .carro-hero{right:-12%; bottom:auto; top:9%; height:34vh; opacity:.45} }
+
+/* ticker CSS puro */
+.ticker{border-top:var(--linha); border-bottom:var(--linha); overflow:hidden; position:relative; z-index:2; background:rgba(11,11,12,.6)}
+.ticker ul{display:flex; width:max-content; padding:13px 0}
+html.js:not(.rm) .ticker ul{animation:corre 26s linear infinite}
+@keyframes corre{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.ticker li{font-family:var(--mono); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--poeira); padding-inline:22px; white-space:nowrap}
+.ticker li i{color:var(--sinal); font-style:normal}
+
+/* rastro de fumaça do cursor (desktop) */
+.rastro{position:fixed; inset:0; z-index:1; pointer-events:none}
+.rastro b{
+  position:absolute; top:0; left:0; width:120px; height:120px; margin:-60px 0 0 -60px;
+  border-radius:var(--r-selo); opacity:0;
+  background:radial-gradient(circle,rgba(237,231,222,.11),transparent 70%);
+  filter:blur(14px); will-change:transform,opacity;
+}
+
+/* =========================================================
+   02 · CONTRASTE
+   ========================================================= */
+.contraste{padding-block:var(--s6) var(--s5)}
+.contraste h2{font-size:clamp(34px,6.4vw,104px); max-width:14ch; line-height:.94}
+.split{
+  display:grid; grid-template-columns:1.05fr 1.35fr; gap:clamp(24px,5vw,90px);
+  margin-top:var(--s5); align-items:start;
+}
+@media (max-width:900px){ .split{grid-template-columns:1fr; gap:var(--s4)} }
+
+.la-fora{position:relative; padding-top:var(--s4)} /* deslocado pra baixo de propósito */
+.la-fora .pilha{display:grid; gap:var(--s2)}
+.la-fora .tile:nth-child(2){margin-left:18%}
+.la-fora .tile:nth-child(3){margin-left:6%; margin-right:14%}
+.aqui-dentro{position:relative}
+.aqui-dentro .tile:nth-child(2){margin-left:-8%; width:76%}
+
+.tile{
+  position:relative; border:var(--linha); border-radius:var(--r-lasca);
+  background:var(--breu); display:grid; place-items:center; overflow:hidden;
+}
+.tile span{font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:rgba(237,231,222,.46); text-transform:uppercase; text-align:center; padding:10px}
+/* tratamento “feed”: scanline + pixel */
+.la-fora .tile::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.42) 0 1px, transparent 1px 3px),
+    repeating-conic-gradient(rgba(255,255,255,.03) 0% 25%, transparent 0% 50%) 0 0/6px 6px;
+}
+.la-fora{filter:saturate(.85)}
+.aqui-dentro .tile{border-color:rgba(237,231,222,.28); background:var(--oleo)}
+.aqui-dentro .tile::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(115deg, rgba(255,74,15,.07), transparent 55%);
+}
+.selo-lado{
+  display:inline-flex; gap:8px; align-items:center; margin-bottom:var(--s2);
+  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--poeira);
+}
+.selo-lado::before{content:''; width:22px; height:1px; background:var(--poeira)}
+.aqui-dentro .selo-lado{color:var(--sinal)}
+.aqui-dentro .selo-lado::before{background:var(--sinal)}
+
+.contraste .meio{margin-top:var(--s4); max-width:56ch}
+.contraste .fecho{
+  margin-top:var(--s5); font-size:clamp(22px,3.4vw,46px); line-height:1.15;
+  font-variation-settings:'wdth' 92,'wght' 700; max-width:22ch; margin-left:auto; text-align:right;
+}
+.contraste .fecho b{color:var(--sinal); font-weight:inherit}
+@media (max-width:900px){ .contraste .fecho{text-align:left; margin-left:0} }
+
+/* =========================================================
+   03 · O QUE TÁ DENTRO — manifesto, não grid de cards
+   ========================================================= */
+.dentro{padding-block:var(--s5) var(--s6)}
+.dentro h2{font-size:clamp(38px,8vw,132px)}
+.lista{margin-top:var(--s4); border-top:var(--linha)}
+.faixa{
+  position:relative; display:grid; grid-template-columns:minmax(84px,11%) 1fr;
+  gap:clamp(16px,3vw,54px); align-items:start;
+  padding:clamp(28px,4vw,56px) 0; border-bottom:var(--linha); overflow:hidden;
+}
+html.js:not(.rm) .faixa{clip-path:inset(100% 0 0 0)}
+/* larguras e recuos variam entre os itens — nada de 6 iguais */
+.faixa:nth-child(2){padding-left:clamp(0px,4vw,72px)}
+.faixa:nth-child(3){padding-right:clamp(0px,10vw,180px)}
+.faixa:nth-child(4){padding-left:clamp(0px,8vw,130px)}
+.faixa:nth-child(6){padding-right:clamp(0px,6vw,110px)}
+.faixa .n{
+  font-family:var(--mono); font-weight:700; color:rgba(237,231,222,.38);
+  font-size:clamp(30px,5.4vw,74px); line-height:.9; letter-spacing:-.04em;
+  transition:transform .45s cubic-bezier(.22,1,.36,1), color .45s;
+}
+.faixa h3{
+  font-family:var(--disp); font-variation-settings:'wdth' 112,'wght' 900;
+  text-transform:uppercase; letter-spacing:-.02em; line-height:.95;
+  font-size:clamp(24px,3.6vw,52px);
+}
+.faixa:nth-child(3) h3, .faixa:nth-child(5) h3{font-size:clamp(22px,3vw,44px); font-variation-settings:'wdth' 88,'wght' 900}
+.faixa p{margin-top:12px; max-width:56ch; color:#B4ADA3; font-size:clamp(15px,1.25vw,18px)}
+.faixa .tag{
+  display:inline-block; margin-top:14px; padding:5px 10px; border:var(--linha);
+  border-radius:var(--r-lasca); font-family:var(--mono); font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--poeira);
+}
+/* sweep de farol no hover — só desktop com ponteiro fino */
+@media (hover:hover) and (pointer:fine){
+  .faixa::before{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(100deg, transparent 0%, rgba(255,74,15,.14) 42%, rgba(237,231,222,.10) 52%, transparent 78%);
+    transform:translateX(-105%); transition:transform .75s cubic-bezier(.22,1,.36,1);
+  }
+  .faixa:hover::before{transform:translateX(105%)}
+  .faixa:hover .n{color:var(--sinal); transform:translateX(10px)}
+  .faixa:hover h3{color:#fff}
+}
+
+/* =========================================================
+   04 · PRA QUEM É / NÃO É
+   ========================================================= */
+.filtro{padding-block:var(--s5)}
+.filtro .duplo{display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(20px,3vw,52px); margin-top:var(--s4)}
+@media (max-width:900px){ .filtro .duplo{grid-template-columns:1fr} }
+.coluna{position:relative; padding:clamp(24px,3vw,46px); border:var(--linha); border-radius:var(--r-lasca)}
+.coluna.sim{background:linear-gradient(180deg,rgba(255,74,15,.05),transparent 60%); border-color:rgba(237,231,222,.26)}
+.coluna.nao{
+  background-color:var(--breu); color:var(--poeira);
+  background-image:repeating-linear-gradient(-45deg, rgba(237,231,222,.035) 0 1px, transparent 1px 9px);
+}
+.coluna h3{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; margin-bottom:var(--s3); font-weight:700}
+.coluna.sim h3{color:var(--fita)}
+.coluna li{display:flex; gap:16px; align-items:flex-start; padding:16px 0; border-bottom:1px dashed rgba(237,231,222,.12)}
+.coluna li:last-child{border-bottom:0}
+.coluna.sim li{font-size:clamp(17px,1.7vw,23px); font-variation-settings:'wdth' 96,'wght' 700; line-height:1.25}
+.coluna.nao li{display:block; font-size:clamp(15px,1.35vw,19px)} /* block: senão o flex blockifica o .risco e a risca some na 2ª linha */
+.check{flex:none; width:22px; height:22px; margin-top:2px}
+.check path{fill:none; stroke:var(--fita); stroke-width:2.4; stroke-linecap:square}
+html.js:not(.rm) .check path{stroke-dasharray:34; stroke-dashoffset:34}
+.risco{
+  display:inline; -webkit-box-decoration-break:clone; box-decoration-break:clone;
+  background-image:linear-gradient(var(--sinal),var(--sinal));
+  background-repeat:no-repeat; background-position:0 .62em;
+  background-size:100% 2px; /* estado final: vale sem JS e com reduced-motion */
+}
+.filtro .veredito{
+  margin-top:var(--s5); font-size:clamp(28px,5.6vw,88px);
+  font-variation-settings:'wdth' 116,'wght' 900; text-transform:uppercase;
+  line-height:.96; letter-spacing:-.03em;
+}
+.filtro .veredito b{color:var(--sinal); font-weight:inherit}
+
+/* =========================================================
+   05 · OFERTA — cartão de membro
+   ========================================================= */
+.oferta{padding-block:var(--s6); }
+.oferta .grade{display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(24px,4vw,80px); align-items:center}
+@media (max-width:900px){ .oferta .grade{grid-template-columns:1fr; gap:var(--s4)} }
+.oferta h2{font-size:clamp(40px,8.4vw,126px)}
+.oferta .nota{margin-top:var(--s3); max-width:40ch}
+
+.cartao{
+  position:relative; border-radius:var(--r-cartao); padding:clamp(26px,3.2vw,52px);
+  background:
+    linear-gradient(180deg, rgba(237,231,222,.06), rgba(237,231,222,.015)),
+    var(--oleo);
+  border:1px solid rgba(237,231,222,.2);
+  transform-style:preserve-3d; will-change:transform;
+}
+.cartao::before{ /* cartela de largada: xadrez no topo */
+  content:''; position:absolute; top:0; left:0; right:0; height:10px;
+  border-radius:var(--r-cartao) var(--r-cartao) 0 0;
+  background:repeating-conic-gradient(var(--giz) 0% 25%, #0B0B0C 0% 50%) 0 0/16px 16px;
+  opacity:.8;
+}
+.cartao .topo{display:flex; justify-content:space-between; align-items:baseline; margin-top:var(--s2)}
+.cartao .membro{font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:var(--fita)}
+.cartao .inclui{margin:var(--s3) 0 var(--s2); display:flex; flex-wrap:wrap; gap:8px}
+.cartao .inclui li{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:#C9C2B8; border:var(--linha); border-radius:var(--r-lasca); padding:7px 10px;
+}
+.preco{display:flex; align-items:flex-end; gap:8px; margin:var(--s3) 0 var(--s1)}
+.preco .moeda{font-family:var(--mono); font-size:clamp(16px,1.8vw,24px); color:var(--poeira); padding-bottom:.9em}
+.odometro{display:flex; overflow:hidden; height:1em; line-height:1;
+  font-family:var(--disp); font-variation-settings:'wdth' 120,'wght' 900;
+  font-size:clamp(62px,11vw,150px); letter-spacing:-.05em;
+}
+.odometro .dig{overflow:hidden; height:1em}
+.odometro .rolo{display:block; will-change:transform}
+.odometro .rolo span{display:block; height:1em}
+.preco .mes{font-family:var(--mono); font-size:clamp(13px,1.3vw,17px); color:var(--poeira); padding-bottom:1.1em}
+.cartao .cta{margin-top:var(--s3); width:100%; justify-content:space-between}
+.cartao .rodape{margin-top:var(--s2); font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:rgba(237,231,222,.62)}
+
+.adesivo{
+  position:absolute; top:-26px; right:-14px; z-index:3; width:236px; text-align:center;
+  transform:rotate(-6deg); background:var(--sinal); color:#0B0B0C;
+  border-radius:var(--r-selo); padding:12px 18px;
+  font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  box-shadow:0 0 0 1px rgba(11,11,12,.6);
+  line-height:1.4;
+}
+@media (max-width:560px){ .adesivo{right:-4px; top:-28px; width:200px; font-size:9.5px} }
+
+/* =========================================================
+   06 · FECHO
+   ========================================================= */
+.fecho-sec{padding-block:var(--s6) var(--s5); overflow:hidden; position:relative}
+.fecho-sec p{
+  font-size:clamp(38px,7.8vw,112px); font-variation-settings:'wdth' 122,'wght' 900;
+  text-transform:uppercase; line-height:.94; letter-spacing:-.04em;
+  width:110%; margin-left:-5%;
+}
+@media (max-width:900px){ .fecho-sec p{width:106%; margin-left:-3%} }
+.fecho-sec p em{font-style:normal; color:var(--sinal)}
+.carro-fecho{position:absolute; right:8%; bottom:var(--s4); height:clamp(180px,26vh,300px); width:auto; opacity:.85; pointer-events:none}
+@media (max-width:900px){ .carro-fecho{height:20vh; right:2%; bottom:var(--s2); opacity:.45} }
+
+footer{border-top:var(--linha); padding:var(--s4) 0 calc(var(--s4) + env(safe-area-inset-bottom))}
+footer .linhas{display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--poeira)}
+footer a{min-height:44px; display:inline-flex; align-items:center}
+footer a:hover{color:var(--sinal)}
+
+/* CTA fixo no rodapé — só mobile, depois que o hero sai */
+.cta-fixo{
+  position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
+  z-index:58; display:none; justify-content:space-between; min-height:56px;
+  transform:translateY(140%); transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.cta-fixo.on{transform:translateY(0)}
+@media (max-width:860px){ .cta-fixo{display:flex} }
+
+
+/* --- estados desenhados da seção 04 (classe + transform, nunca width) --- */
+.risco{transition:background-size .55s cubic-bezier(.22,1,.36,1)}
+html.js:not(.rm) .risco{background-size:0% 2px}
+html.js:not(.rm) .coluna.nao.riscado .risco{background-size:100% 2px}
+html.js:not(.rm) .coluna.nao li{transition:opacity .6s ease .3s}
+html.js:not(.rm) .coluna.nao.riscado li{opacity:.4}
+html.js:not(.rm) .coluna.nao li:nth-child(2) .risco{transition-delay:.16s}
+html.js:not(.rm) .check path{transition:stroke-dashoffset .55s cubic-bezier(.22,1,.36,1)}
+html.js:not(.rm) .coluna.sim.marcada .check path{stroke-dashoffset:0}
+html.js:not(.rm) .coluna.sim.marcada li:nth-child(2) .check path{transition-delay:.12s}
+html.js:not(.rm) .coluna.sim.marcada li:nth-child(3) .check path{transition-delay:.24s}
+
+/* --- odômetro: dígitos de largura fixa, senão a coluna “respira” --- */
+.odometro{font-variant-numeric:tabular-nums}
+
+/* --- carro parado (sem JS / reduced-motion) já nasce em ângulo de drift --- */
+.carro-hero{transform:rotate(-16deg)}
+.carro-fecho{transform:rotate(-14deg)}
+
+/* --- mobile: a marca de pneu perde o halo (menos área de repaint) --- */
+@media (max-width:860px){ .skid path.halo{display:none} }
+
+/* =========================================================
+   REDUCED MOTION: tudo em estado final, sem exceção
+   ========================================================= */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important; scroll-behavior:auto !important;
+  }
+  .faixa{clip-path:none !important}
+  .risco{background-size:100% 2px !important}
+  .check path{stroke-dashoffset:0 !important}
+  .abertura{display:none !important}
+  .rastro{display:none !important}
+  .marcha{transform:scaleX(1) !important}
+}
+</style>
+</head>
+<body>
+
+<!-- grão fixo por cima de tudo -->
+<div class="grao" aria-hidden="true"></div>
+
+<!-- ============ 00 · ABERTURA (varredura de agulha, <=1,2s, pulável) ============ -->
+<div class="abertura" id="abertura" aria-hidden="true">
+  <svg width="150" height="150" viewBox="0 0 104 104" fill="none">
+    <circle cx="52" cy="52" r="47" stroke="rgba(237,231,222,.14)"/>
+    <path d="M13 79A47 47 0 0 1 91 79" stroke="rgba(237,231,222,.22)" stroke-width="1"/>
+    <path d="M78 22a47 47 0 0 1 13 57" stroke="#FF4A0F" stroke-width="2"/>
+    <g id="agulha-abertura" class="agulha">
+      <path d="M52 52 L52 12" stroke="#EDE7DE" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="52" cy="52" r="4" fill="#FF4A0F"/>
+    </g>
+  </svg>
+  <p class="marca">DRIVE CLUB · AQUECENDO</p>
+  <button class="pular" id="pular" type="button">PULAR [ESC]</button>
+</div>
+
+<!-- ============ TACÔMETRO / PROGRESSO ============ -->
+<div class="barra" id="barra" aria-hidden="true"></div>
+<div class="tac" id="tac" aria-hidden="true">
+  <svg width="104" height="104" viewBox="0 0 104 104" fill="none">
+    <circle cx="52" cy="52" r="43" stroke="rgba(237,231,222,.12)"/>
+    <g id="tics" stroke="rgba(237,231,222,.28)" stroke-width="1"></g>
+    <path d="M79 24a43 43 0 0 1 10 33" stroke="#FF4A0F" stroke-width="2" opacity=".8"/>
+    <g class="agulha" id="agulha">
+      <path d="M52 52 L52 16" stroke="#EDE7DE" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="52" cy="52" r="3.5" fill="#FF4A0F"/>
+    </g>
+  </svg>
+  <div class="leitura"><b id="tac-num">01</b> / 06</div>
+</div>
+
+<p class="brand">DRIVE<i>·</i>CLUB</p>
+
+<!-- rastro de fumaça do cursor (desktop, injetado por JS) -->
+<div class="rastro" id="rastro" aria-hidden="true"></div>
+
+<!-- ============ SVG do carro: definido uma vez, usado duas ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="carro" viewBox="0 0 140 300">
+    <!-- rodas traseiras -->
+    <rect x="2" y="196" width="18" height="46" rx="4" fill="#0A090B" stroke="#2B2723"/>
+    <rect x="120" y="196" width="18" height="46" rx="4" fill="#0A090B" stroke="#2B2723"/>
+    <!-- rodas dianteiras em contraesterço (é isso que mantém o drift) -->
+    <g transform="rotate(-27 11 74)"><rect x="2" y="52" width="18" height="44" rx="4" fill="#0A090B" stroke="#2B2723"/></g>
+    <g transform="rotate(-27 129 74)"><rect x="120" y="52" width="18" height="44" rx="4" fill="#0A090B" stroke="#2B2723"/></g>
+    <!-- carroceria -->
+    <path d="M70 6C96 6 112 26 116 62c4 34 6 78 6 114 0 38-4 82-12 100-6 14-20 20-40 20s-34-6-40-20C22 258 18 214 18 176c0-36 2-80 6-114C28 26 44 6 70 6Z"
+          fill="#1C1B21" stroke="#4C463E" stroke-width="1.6"/>
+    <!-- para-brisa / vidro traseiro -->
+    <path d="M46 66c10-6 38-6 48 0l8 30c-20-6-44-6-64 0Z" fill="#0C0B0E" stroke="#2A2622"/>
+    <path d="M40 180c18-6 42-6 60 0l4 30c-20-6-48-6-68 0Z" fill="#0C0B0E" stroke="#2A2622"/>
+    <!-- teto -->
+    <rect x="34" y="106" width="72" height="66" rx="6" fill="#141319"/>
+    <!-- reflexo de rua na lateral: dá volume sem sombra difusa -->
+    <path d="M118 70c3 34 4 76 4 106 0 30-2 66-6 92" stroke="#FF4A0F" stroke-width="1.6" opacity=".45" fill="none"/>
+    <!-- lanternas -->
+    <rect x="28" y="272" width="26" height="7" rx="2" fill="#FF4A0F"/>
+    <rect x="86" y="272" width="26" height="7" rx="2" fill="#FF4A0F"/>
+    <!-- risco de baixa lateral -->
+    <path d="M24 120 L24 236" stroke="#2A2622" stroke-width="1.2"/>
+    <path d="M116 120 L116 236" stroke="#2A2622" stroke-width="1.2"/>
+  </symbol>
+</svg>
+
+<!-- ============ PISTA: wrapper da marca de pneu ============ -->
+<div class="pista">
+
+  <!-- FIO CONDUTOR: duas marcas paralelas (as duas rodas traseiras), desenhadas pelo scroll -->
+  <svg class="skid" id="skid" viewBox="0 0 100 600" preserveAspectRatio="none" aria-hidden="true">
+    <!-- halo largo, sem blur (barato) -->
+    <path class="halo" vector-effect="non-scaling-stroke" stroke="#332E29" stroke-width="26" opacity=".22"
+      d="M-6 92C18 96 30 78 48 84c22 8 38 24 30 48-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
+    <!-- roda esquerda -->
+    <path class="marca" vector-effect="non-scaling-stroke" stroke="#3A342E" stroke-width="9" opacity=".85"
+      d="M-6 92C18 96 30 78 48 84c22 8 38 24 30 48-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
+    <!-- roda direita, levemente deslocada -->
+    <path class="marca" vector-effect="non-scaling-stroke" stroke="#2C2825" stroke-width="6" opacity=".9"
+      d="M-6 95C18 99 32 81 50 87c22 8 40 25 32 49-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
+    <!-- assinatura laranja: fio fino de sinalização por cima da borracha -->
+    <path class="marca" vector-effect="non-scaling-stroke" stroke="#FF4A0F" stroke-width="1.4" opacity=".34"
+      d="M-6 92C18 96 30 78 48 84c22 8 38 24 30 48-10 30-56 28-64 64-8 36 48 40 60 66 14 30-66 38-64 74 2 36 86 30 82 68-4 38-66 36-68 72-2 36 54 32 60 64 4 26-24 40-54 52"/>
+  </svg>
+
+<main>
+
+  <!-- ================= 01 · HERO ================= -->
+  <section class="hero" id="hero" aria-labelledby="titulo">
+    <div class="fumaca" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
+    <svg class="carro-hero" id="carro-hero" viewBox="0 0 140 300" aria-hidden="true"><use href="#carro"/></svg>
+
+    <div class="wrap">
+      <div class="texto">
+        <p class="eyebrow rotulo"><span class="pt" aria-hidden="true"></span>Real Underground · Comunidade fechada</p>
+        <h1 id="titulo">
+          <span class="l1">Você vê o Drive dos vídeos.</span>
+          <span class="l2 slam">Aqui você <em>entra no carro.</em></span>
+        </h1>
+        <p class="corpo">O Drive Club é onde o rolê continua depois que a câmera desliga. Bastidores sem filtro — porque nem tudo pode ir pro Instagram. Essa é a sua chance de dar um rolê com o melhor professor de drift do Brasil. Fora daqui, você é fã. Aqui você é membro.</p>
+        <div class="acao">
+          <!-- CTA do hero: leva pra oferta (o link de checkout fica num lugar só, na seção 05) -->
+          <a class="btn grande" href="#oferta">Quero entrar no club <span class="seta" aria-hidden="true">→</span></a>
+          <span class="assin">Vagas da primeira leva</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker" aria-hidden="true">
+      <ul>
+        <li>Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i>&nbsp;</li>
+        <li>Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i> Real Underground <i>·</i> Comunidade fechada <i>·</i>&nbsp;</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 02 · CONTRASTE ================= -->
+  <section class="contraste" id="contraste" aria-labelledby="t2">
+    <div class="wrap">
+      <p class="lateral">Fora / Dentro · 02</p>
+      <div class="cabeca">
+        <span class="num-secao"><b>02</b> / 06</span>
+        <span class="filete marcha"></span>
+        <span class="rotulo">O corte e o resto</span>
+      </div>
+      <h2 id="t2" class="display">Todo mundo assiste.<br>Poucos entram.</h2>
+
+      <div class="split">
+        <!-- lado de fora: o feed -->
+        <div class="la-fora" id="la-fora">
+          <p class="selo-lado">Lá fora · feed</p>
+          <div class="pilha">
+            <!-- PLACEHOLDER: trocar por frame do feed. Mantenha a proporção. -->
+            <figure class="tile" style="aspect-ratio:4/5" data-asset="feed-01.jpg"><span>4:5 · frame do feed</span></figure>
+            <figure class="tile" style="aspect-ratio:1/1" data-asset="feed-02.jpg"><span>1:1 · corte editado</span></figure>
+            <figure class="tile" style="aspect-ratio:4/5" data-asset="feed-03.jpg"><span>4:5 · capa de reels</span></figure>
+          </div>
+        </div>
+
+        <!-- lado de dentro: cru -->
+        <div class="aqui-dentro" id="aqui-dentro">
+          <p class="selo-lado">Aqui dentro · cru</p>
+          <!-- PLACEHOLDER: trocar por frame bruto / bastidor. -->
+          <figure class="tile" style="aspect-ratio:16/9" data-asset="bastidor-01.jpg"><span>16:9 · bastidor sem tratamento</span></figure>
+          <figure class="tile" style="aspect-ratio:1/1; margin-top:16px" data-asset="bastidor-02.jpg"><span>1:1 · off-camera</span></figure>
+          <p class="corpo meio">Lá fora você vê o corte editado, o vídeo pronto, o rosto que ninguém nunca viu. Aqui dentro você vê o resto — o que rola off-camera, a resenha que não pode ir pro feed.</p>
+        </div>
+      </div>
+
+      <p class="fecho display">O Drive faz o que os outros não têm coragem. <b>O Club é o lugar de quem quer estar perto disso de verdade.</b></p>
+    </div>
+  </section>
+
+  <!-- ================= 03 · O QUE TÁ DENTRO ================= -->
+  <section class="dentro" id="dentro" aria-labelledby="t3">
+    <div class="wrap">
+      <p class="lateral">Manifesto · 03</p>
+      <div class="cabeca">
+        <span class="num-secao"><b>03</b> / 06</span>
+        <span class="filete marcha"></span>
+        <span class="rotulo">Seis portas</span>
+      </div>
+      <h2 id="t3" class="display">O que tá dentro</h2>
+
+      <div class="lista" id="lista">
+        <article class="faixa">
+          <p class="n">01</p>
+          <div>
+            <h3>A Drive — o lado oculto</h3>
+            <p>Bastidores reais, Q&amp;A direto com o Drive, e o vota-aí: você decide a próxima mod, o próximo vídeo, o próximo carro.</p>
+            <span class="tag">Bastidor · Q&amp;A · Vota-aí</span>
+          </div>
+        </article>
+        <article class="faixa">
+          <p class="n">02</p>
+          <div>
+            <h3>Garagem — teu carro no club</h3>
+            <p>Mostra teu carro, teu projeto, teu setup, teu antes-e-depois. Do primeiro carro ao trampo pronto. Aqui ninguém vai te julgar.</p>
+            <span class="tag">Projeto · Setup · Antes e depois</span>
+          </div>
+        </article>
+        <article class="faixa">
+          <p class="n">03</p>
+          <div>
+            <h3>Rifa</h3>
+            <p>Sorteio de cotas e promoções especiais. Aqui sua chance de ganhar aumenta em 10x.</p>
+            <span class="tag">Chance 10x</span>
+          </div>
+        </article>
+        <article class="faixa">
+          <p class="n">04</p>
+          <div>
+            <h3>Desafios &amp; Ranking</h3>
+            <p>Melhor mod do mês, melhor foto, melhor projeto. Sobe de nível, ganha prêmio, ganha experiência.</p>
+            <span class="tag">Mensal · Premiado</span>
+          </div>
+        </article>
+        <article class="faixa">
+          <p class="n">05</p>
+          <div>
+            <h3>Experiências</h3>
+            <p>Track day, kart, encontros, gravação com membros. A chance real de estar do lado do Drive.</p>
+            <span class="tag">Presencial</span>
+          </div>
+        </article>
+        <article class="faixa">
+          <p class="n">06</p>
+          <div>
+            <h3>Parceiros &amp; Descontos</h3>
+            <p>Cupom em detailing, oficina, PPF, pneu, acessório. E o desapego: compra e venda de peça e carro entre quem é de dentro.</p>
+            <span class="tag">Cupom · Desapego</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 · PRA QUEM É / PRA QUEM NÃO É ================= -->
+  <section class="filtro" id="filtro" aria-labelledby="t4">
+    <div class="wrap">
+      <p class="lateral">Corte · 04</p>
+      <div class="cabeca">
+        <span class="num-secao"><b>04</b> / 06</span>
+        <span class="filete marcha"></span>
+        <span class="rotulo">Sem meio-termo</span>
+      </div>
+      <h2 id="t4" class="display" style="font-size:clamp(32px,6vw,92px); line-height:.98">Pra quem é /<br>pra quem não é</h2>
+
+      <div class="duplo">
+        <div class="coluna sim">
+          <span class="corte tl"></span><span class="corte tr"></span><span class="corte bl"></span><span class="corte br"></span>
+          <h3>É pra você se:</h3>
+          <ul>
+            <li><svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l5 5L20 6"/></svg><span>Carro pra você é estilo de vida, não meio de transporte</span></li>
+            <li><svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l5 5L20 6"/></svg><span>Você é da rua, do rolê, do drift — não de concessionária</span></li>
+            <li><svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l5 5L20 6"/></svg><span>Você quer estar dentro do Club, não assistindo de fora</span></li>
+          </ul>
+        </div>
+        <div class="coluna nao" id="coluna-nao">
+          <h3>Não é pra você se:</h3>
+          <ul>
+            <li><span class="risco">Acha que carro é só pra ir e voltar</span></li>
+            <li><span class="risco">Tá procurando grupo automotivo que tem medo de moer</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="veredito">O Drive Club não é pra todo mundo. <b>É pra quem vive isso de verdade.</b></p>
+    </div>
+  </section>
+
+  <!-- ================= 05 · OFERTA ================= -->
+  <section class="oferta" id="oferta" aria-labelledby="t5">
+    <div class="wrap">
+      <p class="lateral">Largada · 05</p>
+      <div class="cabeca">
+        <span class="num-secao"><b>05</b> / 06</span>
+        <span class="filete marcha"></span>
+        <span class="rotulo">Primeira leva</span>
+      </div>
+
+      <div class="grade">
+        <div>
+          <h2 id="t5" class="display">Entra no carro</h2>
+          <p class="corpo nota">Acesso imediato. Cancela quando quiser. O preço da primeira leva não volta.</p>
+        </div>
+
+        <div class="cartao" id="cartao">
+          <!-- adesivo rotacionado, sangrando pra fora do bloco -->
+          <p class="adesivo">Preço de fundador · só na primeira leva</p>
+          <span class="corte bl"></span><span class="corte br"></span>
+
+          <div class="topo">
+            <span class="rotulo">Membro Drive Club</span>
+            <span class="membro">#0001</span>
+          </div>
+
+          <ul class="inclui">
+            <li>Acesso ao Drive Club</li><li>Bastidores</li><li>Garagem</li><li>Rifa 10x</li>
+            <li>Ranking</li><li>Experiências com o Drive</li><li>Descontos com parceiros</li>
+          </ul>
+
+          <!-- PREÇO: trocar o data-valor (só dígitos) e a moeda -->
+          <div class="preco">
+            <span class="moeda">R$</span>
+            <div class="odometro" id="odometro" data-valor="47"><span>47</span></div>
+            <span class="mes">/mês</span>
+          </div>
+
+          <!-- >>> ÚNICO LUGAR COM O LINK DE CHECKOUT <<< -->
+          <a class="btn cta" id="cta-checkout" href="#LINK_CHECKOUT">Entrar no Drive Club <span class="seta" aria-hidden="true">→</span></a>
+          <p class="rodape">Pagamento recorrente mensal · Cancele quando quiser</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 06 · FECHO ================= -->
+  <section class="fecho-sec" id="fecho" aria-labelledby="t6">
+    <div class="wrap">
+      <div class="cabeca">
+        <span class="num-secao"><b>06</b> / 06</span>
+        <span class="filete marcha"></span>
+        <span class="rotulo">Fim da marca</span>
+      </div>
+      <p id="t6" class="display">Lá fora você continua sendo audiência. <em>Aqui você vira um ninja.</em></p>
+    </div>
+    <svg class="carro-fecho" id="carro-fecho" viewBox="0 0 140 300" aria-hidden="true"><use href="#carro"/></svg>
+  </section>
+
+</main>
+</div><!-- /.pista -->
+
+<footer>
+  <div class="wrap linhas">
+    <span>Drive Club · Real Underground</span>
+    <a href="https://instagram.com/driveitlikestoleit" target="_blank" rel="noopener">@driveitlikestoleit</a>
+    <span>© <span id="ano">2026</span></span>
+  </div>
+</footer>
+
+<!-- CTA fixo (mobile) — aparece depois que o hero sai -->
+<a class="cta-fixo btn" id="cta-fixo" href="#oferta">Quero entrar no club <span class="seta" aria-hidden="true">→</span></a>
+
+<!-- ============ GSAP 3 + ScrollTrigger (única dependência) ============ -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  /* ===== ajustes rápidos ===== */
+  var RM  = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var MOB = matchMedia('(max-width: 860px)').matches;
+  var FINO = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  $('#ano').textContent = new Date().getFullYear();
+
+  /* =======================================================
+     TACÔMETRO: tics gerados uma vez (sem CLS)
+     ======================================================= */
+  (function () {
+    var g = $('#tics'), ns = 'http://www.w3.org/2000/svg', i, a, r1 = 43, r2, x1, y1, x2, y2, l;
+    for (i = 0; i <= 10; i++) {
+      a = (-124 + (248 / 10) * i) * Math.PI / 180;
+      r2 = (i % 5 === 0) ? 33 : 37;
+      x1 = 52 + Math.sin(a) * r1; y1 = 52 - Math.cos(a) * r1;
+      x2 = 52 + Math.sin(a) * r2; y2 = 52 - Math.cos(a) * r2;
+      l = document.createElementNS(ns, 'line');
+      l.setAttribute('x1', x1.toFixed(1)); l.setAttribute('y1', y1.toFixed(1));
+      l.setAttribute('x2', x2.toFixed(1)); l.setAttribute('y2', y2.toFixed(1));
+      if (i >= 8) l.setAttribute('stroke', '#FF4A0F');
+      g.appendChild(l);
+    }
+  })();
+
+  /* =======================================================
+     ODÔMETRO DO PREÇO — monta as colunas (0..9 duas voltas)
+     ======================================================= */
+  var odometro = $('#odometro');
+  var rolos = [];
+  (function () {
+    var valor = odometro.getAttribute('data-valor') || '0';
+    odometro.innerHTML = '';
+    valor.split('').forEach(function (d) {
+      var col = document.createElement('span'); col.className = 'dig';
+      var rolo = document.createElement('span'); rolo.className = 'rolo';
+      var html = '';
+      for (var v = 0; v < 20; v++) html += '<span>' + (v % 10) + '</span>';
+      rolo.innerHTML = html;
+      rolo.dataset.alvo = 10 + parseInt(d, 10); /* uma volta completa + o dígito */
+      col.appendChild(rolo); odometro.appendChild(col); rolos.push(rolo);
+    });
+    /* estado final imediato (é o que vale sem JS de animação / com reduced-motion) */
+    rolos.forEach(function (r) { r.style.transform = 'translateY(-' + r.dataset.alvo + 'em)'; });
+  })();
+
+  /* =======================================================
+     MARCA DE PNEU — mede e desenha conforme o progresso
+     ======================================================= */
+  var skidPaths = $$('#skid path');
+  var progressoPagina = 0, progressoIntro = 0;
+
+  function medirSkid() {
+    skidPaths.forEach(function (p) {
+      var L = p.getTotalLength();
+      p.dataset.len = L;
+      p.style.strokeDasharray = L;
+    });
+    desenharSkid();
+  }
+  function desenharSkid() {
+    var p = RM ? 1 : Math.max(progressoIntro, 0.05 + progressoPagina * 0.95);
+    skidPaths.forEach(function (el) {
+      el.style.strokeDashoffset = (el.dataset.len * (1 - p)).toFixed(1);
+    });
+  }
+  medirSkid();
+
+  /* =======================================================
+     SEM GSAP OU COM REDUCED-MOTION: estado final e fim
+     ======================================================= */
+  if (RM || typeof gsap === 'undefined') {
+    /* a classe .rm é o interruptor de "estado final" de todo o CSS —
+       serve tanto pra reduced-motion quanto pra CDN fora do ar */
+    document.documentElement.classList.add('rm');
+    var ab = $('#abertura'); if (ab) ab.remove();
+    $('#coluna-nao').classList.add('riscado');
+    $('.coluna.sim').classList.add('marcada');
+    progressoPagina = 1; desenharSkid();
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* =======================================================
+     00 · ABERTURA — varredura da agulha (<= 1,2s, pulável)
+     ======================================================= */
+  var abertura = $('#abertura');
+  var jaViu = false;
+  try { jaViu = sessionStorage.getItem('dc-intro') === '1'; } catch (e) {}
+
+  function comecarHero() {
+    var tl = gsap.timeline();
+    tl.fromTo('h1 .l1', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, ease: 'power2.out' })
+      /* “slam”: escala levemente maior + blur -> foco, ~200ms com overshoot mínimo */
+      .fromTo('h1 .l2', { opacity: 0, scale: 1.07, filter: 'blur(16px)' },
+        { opacity: 1, scale: 1, filter: 'blur(0px)', duration: .22, ease: 'back.out(1.5)',
+          onComplete: function () { gsap.set('h1 .l2', { clearProps: 'filter,willChange' }); } }, '-=.12')
+      .fromTo('.hero .corpo, .hero .acao', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55, stagger: .09, ease: 'power2.out' }, '-=.05')
+      .fromTo('.eyebrow', { opacity: 0 }, { opacity: 1, duration: .4 }, 0)
+      /* o carro entra derrapando e é ele que deixa a marca que atravessa a página */
+      .fromTo('#carro-hero',
+        { xPercent: 34, yPercent: 26, rotate: -52, opacity: 0 },
+        { xPercent: 0, yPercent: 0, rotate: -16, opacity: 1, duration: 1.5, ease: 'power3.out' }, 0)
+      /* primeiro trecho da marca de pneu, desenhado junto com o drift */
+      .to({ v: 0 }, { v: 1, duration: 1.4, ease: 'power2.out',
+        onUpdate: function () { progressoIntro = this.targets()[0].v * 0.05; desenharSkid(); } }, 0);
+  }
+
+  if (jaViu) {
+    abertura.remove();
+    comecarHero();
+  } else {
+    gsap.set('h1 .l1, h1 .l2, .hero .corpo, .hero .acao, .eyebrow, #carro-hero', { opacity: 0 });
+    var pulou = false;
+    var tlIntro = gsap.timeline();
+    tlIntro.fromTo('#agulha-abertura', { rotate: -124 }, { rotate: 130, duration: .62, ease: 'power2.inOut', transformOrigin: '52px 52px' })
+           .to('.abertura .marca', { opacity: .2, duration: .2 }, '-=.2')
+           .to(abertura, { opacity: 0, duration: .26, ease: 'power1.in' });
+
+    var pular = function () {
+      if (pulou) return; pulou = true;
+      tlIntro.progress(1);
+      try { sessionStorage.setItem('dc-intro', '1'); } catch (e) {}
+    };
+    tlIntro.eventCallback('onComplete', function () {
+      try { sessionStorage.setItem('dc-intro', '1'); } catch (e) {}
+      abertura.remove(); comecarHero();
+    });
+    $('#pular').addEventListener('click', pular);
+    window.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === ' ') pular(); }, { once: true });
+    window.addEventListener('wheel', pular, { once: true, passive: true });
+    window.addEventListener('touchstart', pular, { once: true, passive: true });
+  }
+
+  /* =======================================================
+     PROGRESSO DA PÁGINA -> marca de pneu + agulha + contador
+     ======================================================= */
+  var agulha = $('#agulha'), barra = $('#barra'), tacNum = $('#tac-num');
+  var setAgulha = gsap.quickSetter(agulha, 'rotate', 'deg');
+  var setBarra = gsap.quickSetter(barra, 'scaleX');
+
+  ScrollTrigger.create({
+    trigger: document.body, start: 'top top', end: 'bottom bottom',
+    onUpdate: function (self) {
+      progressoPagina = self.progress;
+      desenharSkid();
+      setAgulha(-124 + self.progress * 248);
+      setBarra(self.progress);
+    }
+  });
+
+  /* contador de seção do tacômetro */
+  var secoes = ['hero', 'contraste', 'dentro', 'filtro', 'oferta', 'fecho'];
+  secoes.forEach(function (id, i) {
+    ScrollTrigger.create({
+      trigger: '#' + id, start: 'top center', end: 'bottom center',
+      onToggle: function (s) { if (s.isActive) tacNum.textContent = '0' + (i + 1); }
+    });
+  });
+
+  /* filete de “troca de marcha” no topo de cada seção */
+  $$('.marcha').forEach(function (el) {
+    gsap.fromTo(el, { scaleX: 0 }, {
+      scaleX: 1, duration: .7, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 92%', once: true }
+    });
+  });
+
+  /* =======================================================
+     01 · rastro de fumaça do cursor (só desktop/ponteiro fino)
+     ======================================================= */
+  if (FINO && !MOB) {
+    var rastro = $('#rastro'), bolas = [], N = 6, i;
+    for (i = 0; i < N; i++) {
+      var b = document.createElement('b');
+      b.style.opacity = 0;
+      rastro.appendChild(b);
+      bolas.push({ el: b, x: 0, y: 0, o: 0, set: gsap.quickSetter(b, 'css') });
+    }
+    var mx = -300, my = -300, ativo = 0, rodando = false;
+    window.addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY; ativo = performance.now();
+      if (!rodando) { rodando = true; requestAnimationFrame(loop); }
+    }, { passive: true });
+
+    function loop(t) {
+      var px = mx, py = my, vivo = (t - ativo) < 900;
+      for (var j = 0; j < N; j++) {
+        var p = bolas[j];
+        p.x += (px - p.x) * (0.24 - j * 0.025);
+        p.y += (py - p.y) * (0.24 - j * 0.025);
+        p.o += (((vivo ? 0.5 : 0) * (1 - j / N)) - p.o) * 0.08;
+        p.set({ x: p.x, y: p.y, opacity: p.o, scale: 1 - j * 0.09 });
+        px = p.x; py = p.y;
+      }
+      if (vivo || bolas[0].o > 0.01) requestAnimationFrame(loop); else rodando = false;
+    }
+  }
+
+  /* =======================================================
+     02 · CONTRASTE — o feed perde saturação e ganha blur,
+     o lado de dentro ganha contraste. Um efeito, dois lados.
+     ======================================================= */
+  var blurMax = MOB ? 2.5 : 5.5;
+  gsap.fromTo('#la-fora',
+    { filter: 'saturate(.95) blur(0px)' },
+    { filter: 'saturate(0) blur(' + blurMax + 'px)', ease: 'none',
+      scrollTrigger: { trigger: '.contraste', start: 'top 72%', end: 'center 42%', scrub: .5 } });
+  gsap.fromTo('#aqui-dentro',
+    { filter: 'contrast(1) brightness(1)' },
+    { filter: 'contrast(1.22) brightness(1.08)', ease: 'none',
+      scrollTrigger: { trigger: '.contraste', start: 'top 72%', end: 'center 42%', scrub: .5 } });
+
+  /* =======================================================
+     03 · REVELAÇÃO — clip-path de baixo pra cima, uma vez só
+     ======================================================= */
+  gsap.set('.faixa', { clipPath: 'inset(100% 0 0 0)' });
+  ScrollTrigger.batch('.faixa', {
+    start: 'top 88%', once: true,
+    onEnter: function (lote) {
+      gsap.to(lote, {
+        clipPath: 'inset(0% 0 0 0)', duration: .9, ease: 'expo.out', stagger: .06,
+        /* NÃO usar clearProps aqui: a regra CSS de estado inicial voltaria a esconder a faixa */
+        onComplete: function () { gsap.set(lote, { clipPath: 'none', clearProps: 'willChange' }); }
+      });
+    }
+  });
+
+  /* =======================================================
+     04 · RISCO — strike-through desenhado + check stencil
+     (transform:scaleX via classe; nada de animar width)
+     ======================================================= */
+  ScrollTrigger.create({
+    trigger: '.filtro .duplo', start: 'top 78%', once: true,
+    onEnter: function () {
+      $('.coluna.sim').classList.add('marcada');
+      setTimeout(function () { $('#coluna-nao').classList.add('riscado'); }, 260);
+    }
+  });
+
+  /* =======================================================
+     05 · OFERTA — odômetro do preço + tilt 3D leve
+     ======================================================= */
+  gsap.set(rolos, { y: 0 });
+  ScrollTrigger.create({
+    trigger: '#cartao', start: 'top 82%', once: true,
+    onEnter: function () {
+      rolos.forEach(function (r, i) {
+        gsap.to(r, { y: '-' + r.dataset.alvo + 'em', duration: 1.1 + i * 0.14, ease: 'expo.out',
+          onComplete: function () { gsap.set(r, { clearProps: 'willChange' }); } });
+      });
+    }
+  });
+
+  if (FINO && !MOB) {
+    var cartao = $('#cartao');
+    var rx = gsap.quickTo(cartao, 'rotationX', { duration: .5, ease: 'power2.out' });
+    var ry = gsap.quickTo(cartao, 'rotationY', { duration: .5, ease: 'power2.out' });
+    gsap.set(cartao, { transformPerspective: 900 });
+    cartao.addEventListener('mousemove', function (e) {
+      var r = cartao.getBoundingClientRect();
+      ry(((e.clientX - r.left) / r.width - .5) * 12);   /* máx. ~6° pra cada lado */
+      rx(((e.clientY - r.top) / r.height - .5) * -10);
+    }, { passive: true });
+    cartao.addEventListener('mouseleave', function () { rx(0); ry(0); });
+  }
+
+  /* =======================================================
+     06 · O carro sai de cena e encerra a marca de pneu
+     ======================================================= */
+  gsap.fromTo('#carro-fecho',
+    { xPercent: -10, yPercent: 12, rotate: -14, opacity: .9 },
+    { xPercent: 90, yPercent: -40, rotate: 32, opacity: 0, ease: 'none',
+      scrollTrigger: { trigger: '#fecho', start: 'top 70%', end: 'bottom bottom', scrub: .6 } });
+
+  gsap.fromTo('#fecho .display', { opacity: 0, y: 34 },
+    { opacity: 1, y: 0, duration: .9, ease: 'expo.out',
+      scrollTrigger: { trigger: '#fecho', start: 'top 78%', once: true } });
+
+  /* =======================================================
+     CTA fixo (mobile) depois que o hero sai da tela
+     ======================================================= */
+  if (MOB) {
+    var ctaFixo = $('#cta-fixo');
+    ScrollTrigger.create({
+      trigger: '#hero', start: 'bottom 40%',
+      onEnter: function () { ctaFixo.classList.add('on'); },
+      onLeaveBack: function () { ctaFixo.classList.remove('on'); }
+    });
+    /* na oferta o botão fixo some — não competir com o CTA real */
+    ScrollTrigger.create({
+      trigger: '#oferta', start: 'top 70%',
+      onEnter: function () { ctaFixo.classList.remove('on'); },
+      onLeaveBack: function () { ctaFixo.classList.add('on'); }
+    });
+  }
+
+  /* =======================================================
+     Resize: remede a marca de pneu (debounce) — sem thrash
+     ======================================================= */
+  var t;
+  window.addEventListener('resize', function () {
+    clearTimeout(t);
+    t = setTimeout(function () { medirSkid(); ScrollTrigger.refresh(); }, 220);
+  }, { passive: true });
+
+  window.addEventListener('load', function () { medirSkid(); ScrollTrigger.refresh(); });
+});
+</script>
+</body>
+</html>
