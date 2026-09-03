@@ -7,7 +7,7 @@
 <!-- ═══════════ META ═══════════ -->
 <title>Drive Club — Você vê o Drive dos vídeos. Aqui você entra no carro.</title>
 <meta name="description" content="Comunidade fechada do @driveitlikestoleit. Bastidores sem filtro, garagem dos membros, rifa 10x, ranking, experiências e descontos com parceiros.">
-<meta name="theme-color" content="#0A0A0A">
+<meta name="theme-color" content="#070709">
 <link rel="canonical" href="https://driveclub.com.br/"><!-- TROCAR: domínio final -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -20,853 +20,1831 @@
 <meta name="twitter:title" content="Drive Club — Aqui você entra no carro.">
 <meta name="twitter:description" content="Real Underground · Comunidade fechada.">
 <meta name="twitter:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0A0A'/%3E%3Cpath d='M3 26C10 26 8 6 16 6s6 20 13 20' stroke='%23FF4A0F' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23070709'/%3E%3Cpath d='M4 25C11 25 9 7 16 7s5 18 12 18' stroke='%23FF4D00' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='12' r='2' fill='%23FF4D00'/%3E%3C/svg%3E">
 
 <!-- ═══════════ FONTES ═══════════ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Space+Grotesk:wght@400;500;700&family=Martian+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700;1,800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script>
-  /* .js habilita os estados iniciais de animação; .rm é o interruptor de "estado final"
-     (reduced-motion OU CDN fora do ar). Sem JS, a página renderiza inteira. */
-  (function(){var r=document.documentElement;r.classList.add('js');
-   try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)r.classList.add('rm');}catch(e){}})();
+  (function(){
+    var r = document.documentElement;
+    r.classList.add('js');
+    try {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('rm');
+    } catch(e) {}
+  })();
 </script>
 
 <style>
 /* ═══════════════════════════════════════════════════════════
-   TOKENS  ·  três cores, só três
+   DESIGN SYSTEM · MINIMALIST HIGH-PERFORMANCE DRIFT
    ═══════════════════════════════════════════════════════════ */
-:root{
-  --preto:#0A0A0A;
-  --branco:#F2EFE9;
-  --laranja:#FF4A0F;
-  /* cinzas: só derivação do preto, nunca cor de texto principal */
-  --preto-2:#141414;
-  --preto-3:#1E1E1E;
+:root {
+  --bg: #070709;
+  --bg-subtle: #0D0D12;
+  --bg-card: rgba(14, 14, 20, 0.72);
+  --bg-card-hover: rgba(22, 22, 32, 0.88);
+  --bg-card-solid: #111117;
+  
+  --orange: #FF4D00;
+  --orange-light: #FF6B2B;
+  --orange-glow: rgba(255, 77, 0, 0.22);
+  --orange-subtle: rgba(255, 77, 0, 0.08);
+  
+  --white: #F5F5F7;
+  --gray-100: #E2E2E8;
+  --gray-200: #A8A8B8;
+  --gray-300: #68687A;
+  --gray-400: #32323D;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-bright: rgba(255, 255, 255, 0.16);
+  --border-active: rgba(255, 77, 0, 0.5);
 
-  --display:'Archivo', system-ui, sans-serif;
-  --corpo:'Space Grotesk', system-ui, sans-serif;
-  --mono:'Martian Mono', ui-monospace, monospace;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  --gut:clamp(18px, 4.2vw, 72px);
-  --diag:3.2vw;                 /* altura da divisa diagonal entre seções */
-
-  /* ── PARÂMETROS DE MOVIMENTO (ajuste rápido aqui) ── */
-  --skew-max:8;                 /* graus máx. de skew das headlines na velocidade */
-  --marquee-base:0.9;           /* px por frame do marquee parado */
+  --gut: clamp(20px, 4vw, 64px);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
 }
 
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%; overflow-x:clip}  /* clip-path não corta overflow de layout: os fantasmas sangram */
-body{
-  margin:0; background:var(--preto); color:var(--branco);
-  font-family:var(--corpo); font-size:clamp(16px,1.1vw,18px); line-height:1.55;
-  overflow-x:clip; -webkit-font-smoothing:antialiased;
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+  background-color: var(--bg);
+  scroll-behavior: smooth;
 }
-img,svg{display:block;max-width:100%}
-a{color:inherit;text-decoration:none}
-h1,h2,h3,h4,p,ul,figure,blockquote{margin:0;padding:0}
-ul{list-style:none}
-:focus-visible{outline:3px solid var(--laranja); outline-offset:3px}
-.t-laranja :focus-visible{outline-color:var(--preto)}
-::selection{background:var(--laranja);color:var(--preto)}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p, ul, figure, blockquote { margin: 0; padding: 0; }
+ul { list-style: none; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+::selection { background: var(--orange); color: #000; }
+
+/* ─── GRID DE FUNDO E AMBIENTAÇÃO ─── */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.bg-glow-radial {
+  position: fixed;
+  top: -15vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  height: 60vh;
+  max-width: 1200px;
+  background: radial-gradient(ellipse at center, rgba(255, 77, 0, 0.08) 0%, rgba(255, 77, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── TIPOGRAFIA DE ALTA PERFORMANCE ─── */
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.heading-slant {
+  display: inline-block;
+  transform: skewX(-6deg);
+}
+.text-orange {
+  color: var(--orange);
+}
+.text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 20%, var(--gray-200) 60%, rgba(255, 255, 255, 0.4) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-orange {
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--orange-light) 50%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.telemetry-tag {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 0.75vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.telemetry-tag::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 8px var(--orange);
+}
+
+.wrap {
+  width: min(1360px, 100%);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+  position: relative;
+  z-index: 2;
+}
+.wrap--narrow {
+  width: min(1040px, 100%);
+}
+
+/* ─── SEÇÕES ─── */
+.sec {
+  position: relative;
+  padding: clamp(90px, 11vw, 160px) 0;
+  z-index: 2;
+}
+.sec-divider {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+  margin: 0;
+}
+.sec-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: clamp(18px, 2.5vw, 32px);
+}
+.sec-eyebrow .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-bright) 0%, transparent 100%);
+}
 
 /* ═══════════════════════════════════════════════════════════
-   TIPOGRAFIA
+   HEADER FLUTUANTE GLASS
    ═══════════════════════════════════════════════════════════ */
-.d{
-  font-family:var(--display);
-  font-variation-settings:'wdth' 125,'wght' 900;
-  text-transform:uppercase; letter-spacing:-.02em; line-height:.92;
-  margin:0;
+.header-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px var(--gut);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.d--slant{transform:skewX(-4deg)}          /* inclinação = velocidade */
-.d--out{ -webkit-text-stroke:2px var(--fg,#F2EFE9); color:transparent }
-.xl{font-size:clamp(2.8rem,8.2vw,8.4rem)}
-.lg{font-size:clamp(2.2rem,5.4vw,5.6rem)}
-.md{font-size:clamp(1.7rem,3.2vw,3rem); font-variation-settings:'wdth' 112,'wght' 800}
+.header-glass {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-radius: 100px;
+  background: rgba(11, 11, 15, 0.65);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+.header-nav.scrolled .header-glass {
+  background: rgba(8, 8, 12, 0.88);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 77, 0, 0.1);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.brand-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--orange);
+}
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-200);
+}
+@media (max-width: 768px) {
+  .header-status { display: none; }
+}
 
-.rot{ font-family:var(--mono); font-weight:500; font-size:clamp(10px,.78vw,12px);
-      letter-spacing:.14em; text-transform:uppercase; line-height:1.6 }
-.dado{ font-family:var(--mono); font-weight:700; font-size:13px; letter-spacing:.14em; text-transform:uppercase }
-.corpo{ max-width:62ch; font-size:clamp(17px,1.22vw,19px); line-height:1.55; font-weight:400 }
-.corpo strong{font-weight:700}
-
-/* eyebrow: 02 / 06 ────────── LABEL */
-.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:clamp(20px,3vw,38px)}
-.eyebrow .n{color:var(--ac);font-weight:700}
-.eyebrow .fio{flex:1;height:2px;background:currentColor;opacity:.22;transform-origin:left}
-html.js:not(.rm) .eyebrow .fio{transform:scaleX(0)}
+/* ─── BOTÕES & CTAS ─── */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: var(--orange);
+  color: #000000;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 24px rgba(255, 77, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: #ff5e19;
+  box-shadow: 0 0 36px rgba(255, 77, 0, 0.65), inset 0 1px 0 #fff;
+  color: #000;
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+.btn-primary .icon-arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+.btn-primary:hover .icon-arrow {
+  transform: translateX(4px);
+}
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 11px;
+  gap: 8px;
+}
+.btn-lg {
+  padding: 20px 42px;
+  font-size: 13.5px;
+  border-radius: 100px;
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-1px);
+}
 
 /* ═══════════════════════════════════════════════════════════
-   SEÇÕES  ·  o fundo alterna, a divisa é diagonal
+   CAMADA DE TELEMETRIA E CARRO (DRIFT PATH)
    ═══════════════════════════════════════════════════════════ */
-.sec{
-  --bg:var(--preto); --fg:var(--branco); --ac:var(--laranja);
-  position:relative; background:var(--bg); color:var(--fg);
-  padding:clamp(90px,11vw,190px) 0;
-  isolation:isolate;
+.track-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
 }
-.t-branco{ --bg:var(--branco); --fg:var(--preto); --ac:var(--laranja) }
-.t-laranja{ --bg:var(--laranja); --fg:var(--preto); --ac:var(--preto) }
-
-/* divisa: cada seção sobe por cima da anterior com um corte enviesado.
-   O ângulo alterna de lado pra página não virar um zigue-zague previsível. */
-.sec + .sec{
-  margin-top:calc(var(--diag) * -1);
-  padding-top:calc(clamp(90px,11vw,190px) + var(--diag));
-  clip-path:polygon(0 var(--diag), 100% 0, 100% 100%, 0 100%);
+.track-layer svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-.sec + .sec.corte-inv{ clip-path:polygon(0 0, 100% var(--diag), 100% 100%, 0 100%) }
-
-.wrap{width:min(1560px,100%); margin-inline:auto; padding-inline:var(--gut); position:relative; z-index:2}
-.wrap--largo{width:min(1760px,100%)}
-
-/* número fantasma gigante, atrás do conteúdo, cortado pela borda */
-.fantasma{
-  position:absolute; z-index:0; pointer-events:none; user-select:none;
-  font-family:var(--display); font-variation-settings:'wdth' 125,'wght' 900;
-  font-size:clamp(9rem,26vw,22rem); line-height:.72;
-  -webkit-text-stroke:2px var(--laranja); color:transparent; opacity:.5;
+#track-path {
+  fill: none;
+  stroke: none;
 }
-.t-laranja .fantasma{-webkit-text-stroke-color:var(--preto);opacity:.22}
+.tire-mark {
+  fill: none;
+  stroke: rgba(255, 77, 0, 0.12);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  mix-blend-mode: screen;
+}
+.tire-mark-inner {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.04);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+/* ─── TACÔMETRO HUD DIGITAL ─── */
+.hud-rpm {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  background: rgba(10, 10, 14, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+.hud-gauge {
+  width: 48px;
+  height: 48px;
+  position: relative;
+}
+.hud-gauge svg {
+  transform: rotate(-90deg);
+}
+.hud-circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 3.5;
+}
+.hud-circle-prog {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 125.6;
+  stroke-dashoffset: 125.6;
+  transition: stroke-dashoffset 0.1s linear;
+}
+.hud-data {
+  display: flex;
+  flex-direction: column;
+}
+.hud-val {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+.hud-lbl {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray-300);
+  margin-top: 4px;
+}
+@media (max-width: 768px) {
+  .hud-rpm { display: none; }
+}
 
 /* ═══════════════════════════════════════════════════════════
-   TEXTURAS  ·  grão, hachura, vinheta, riscos
+   01 · HERO SECTION
    ═══════════════════════════════════════════════════════════ */
-.grao{
-  position:fixed; inset:0; z-index:95; pointer-events:none;
-  opacity:.045; mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px 200px;
+.hero-sec {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(120px, 15vh, 180px) 0 clamp(40px, 6vh, 80px);
+  position: relative;
+  overflow: hidden;
 }
-@media (max-width:820px){ .grao{mix-blend-mode:normal;opacity:.035} }
+.hero-grid-align {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+@media (max-width: 992px) {
+  .hero-grid-align {
+    grid-template-columns: 1fr;
+  }
+}
+.hero-title {
+  font-size: clamp(2.8rem, 6.2vw, 6.2rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+.hero-title span {
+  display: block;
+}
+.hero-desc {
+  color: var(--gray-200);
+  font-size: clamp(16px, 1.2vw, 19px);
+  line-height: 1.6;
+  max-width: 54ch;
+  margin-bottom: clamp(28px, 4vh, 44px);
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.hero-slots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-200);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+}
+.slots-indicator {
+  width: 8px;
+  height: 8px;
+  background: #00E676;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00E676;
+  animation: pulse-green 2s infinite ease-in-out;
+}
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
 
-/* hachura diagonal fina — blocos secundários */
-.hachura{
-  background-image:repeating-linear-gradient(-45deg,
-    currentColor 0 1px, transparent 1px 8px);
-  opacity:.09;
+/* ─── HERO VISUAL (BLUEPRINT / AERODYNAMICS) ─── */
+.hero-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-/* vinheta radial nos cantos das seções pretas */
-.sec:not(.t-branco):not(.t-laranja)::after{
-  content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:radial-gradient(120% 85% at 50% 45%, transparent 40%, rgba(0,0,0,.72) 100%);
+.car-blueprint {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: var(--radius-xl);
+  background: radial-gradient(circle at 60% 50%, rgba(255, 77, 0, 0.08) 0%, transparent 65%),
+              rgba(14, 14, 20, 0.5);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.9);
 }
-/* riscos/scratch: 3 linhas finas irregulares */
-.scratch{position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden}
-.scratch i{position:absolute; display:block; height:1px; background:currentColor; opacity:.08}
-.scratch i:nth-child(1){width:52%; top:18%; left:-4%; transform:rotate(-1.4deg)}
-.scratch i:nth-child(2){width:34%; top:63%; right:-6%; transform:rotate(2.2deg)}
-.scratch i:nth-child(3){width:22%; top:86%; left:22%; transform:rotate(-.7deg)}
+.blueprint-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.blueprint-inner svg {
+  width: 90%;
+  height: 90%;
+  filter: drop-shadow(0 12px 24px rgba(255, 77, 0, 0.15));
+}
+.tech-spec-box {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(8, 8, 12, 0.7);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--gray-200);
+}
+.tech-spec-box span strong {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* ─── TICKER DE TELEMETRIA ─── */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  padding: 16px 0;
+  border-block: 1px solid var(--border);
+  background: rgba(10, 10, 14, 0.4);
+  position: relative;
+  z-index: 2;
+}
+.ticker-move {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: ticker 32s linear infinite;
+}
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding-inline: 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-200);
+}
+.ticker-item .accent {
+  color: var(--orange);
+}
 
 /* ═══════════════════════════════════════════════════════════
-   CAMADA DO CARRO  ·  fixa, cobre a viewport, acima do conteúdo
+   02 · PADDOCK RAW (O CORTE E O RESTO)
    ═══════════════════════════════════════════════════════════ */
-.pista{position:fixed; inset:0; z-index:70; pointer-events:none}
-.pista svg{width:100%; height:100%; display:block}
-/* as duas marcas ficam na tela até o fim. Blend resolve o fundo que alterna:
-   multiply some no preto e marca no branco/laranja; screen faz o inverso. */
-#marcas-escura{mix-blend-mode:multiply}
-#marcas-clara{mix-blend-mode:screen}
-#trajeto{fill:none;stroke:none}
-.fumaca b{
-  position:fixed; top:0; left:0; width:64px; height:64px; margin:-32px 0 0 -32px;
-  border-radius:50%; background:rgba(242,239,233,.5); filter:blur(11px);
-  opacity:0; z-index:69; pointer-events:none;
+.sec-title-area {
+  max-width: 680px;
+  margin-bottom: clamp(40px, 6vw, 70px);
+}
+.sec-title {
+  font-size: clamp(2.2rem, 4.4vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+}
+.sec-desc {
+  color: var(--gray-200);
+  font-size: clamp(16px, 1.1vw, 18px);
+  line-height: 1.6;
+}
+
+.paddock-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+}
+.media-card {
+  position: relative;
+  background: var(--bg-card-solid);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.media-card:hover {
+  border-color: rgba(255, 77, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 77, 0, 0.1);
+}
+.media-card.col-7 { grid-column: span 7; }
+.media-card.col-5 { grid-column: span 5; }
+.media-card.col-4 { grid-column: span 4; }
+.media-card.col-8 { grid-column: span 8; }
+@media (max-width: 992px) {
+  .media-card.col-7, .media-card.col-5, .media-card.col-4, .media-card.col-8 {
+    grid-column: span 12;
+  }
+}
+
+.media-mock {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.4) 100%);
+}
+.media-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.rec-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--white);
+  font-weight: 700;
+}
+.rec-indicator b {
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--orange);
+  animation: pulse-red 1.5s infinite;
+}
+@keyframes pulse-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.timecode {
+  color: var(--gray-200);
+}
+.crosshair {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.media-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--gray-200);
+}
+.media-tag {
+  background: rgba(255, 77, 0, 0.12);
+  color: var(--orange);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.editorial-quote {
+  margin-top: clamp(48px, 6vw, 80px);
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 77, 0, 0.03);
+  border: 1px solid var(--border-bright);
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+}
+@media (max-width: 768px) {
+  .editorial-quote { flex-direction: column; align-items: flex-start; }
+}
+.quote-mark {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 0.8;
+  color: var(--orange);
+  opacity: 0.8;
+}
+.quote-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--white);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   HEADER  ·  encolhe e ganha blur depois de 100px
+   03 · AS SEIS PORTAS (PILARE DE ACESSO)
    ═══════════════════════════════════════════════════════════ */
-.topo{
-  position:fixed; top:0; left:0; right:0; z-index:90;
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  padding:22px var(--gut);
-  transition:padding .28s cubic-bezier(.2,.8,.2,1), background-color .28s, backdrop-filter .28s;
-  mix-blend-mode:difference; color:#fff;
+.doors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
 }
-.topo.encolhido{
-  padding:11px var(--gut); mix-blend-mode:normal; color:var(--branco);
-  background:rgba(10,10,10,.72); backdrop-filter:blur(14px) saturate(1.2);
-  -webkit-backdrop-filter:blur(14px) saturate(1.2);
+@media (max-width: 992px) {
+  .doors-grid { grid-template-columns: repeat(2, 1fr); }
 }
-.marca{font-family:var(--display); font-variation-settings:'wdth' 118,'wght' 900;
-  font-size:16px; letter-spacing:.02em; text-transform:uppercase; white-space:nowrap}
-.marca b{color:var(--laranja)}
-.topo .meio{font-family:var(--mono);font-size:11px;letter-spacing:.14em;opacity:.75}
-@media (max-width:720px){ .topo .meio{display:none} }
-.topo .btn-topo{
-  display:none; font-family:var(--mono); font-weight:700; font-size:11px;
-  letter-spacing:.14em; text-transform:uppercase; padding:11px 16px; min-height:44px;
-  align-items:center; background:var(--laranja); color:var(--preto);
+@media (max-width: 640px) {
+  .doors-grid { grid-template-columns: 1fr; }
 }
-.topo.encolhido .btn-topo{display:inline-flex}
-/* barra de progresso com cauda que sobra e recolhe */
-.prog{position:absolute; left:0; bottom:0; height:3px; width:100%; overflow:hidden}
-.prog i{position:absolute; inset:0; background:var(--laranja); transform-origin:left; transform:scaleX(0)}
-.prog i.cauda{opacity:.38}
+
+.door-card {
+  position: relative;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: clamp(28px, 3vw, 38px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Spotlight no Hover */
+.door-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 77, 0, 0.2), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.door-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 77, 0, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.9);
+}
+.door-card:hover::before {
+  opacity: 1;
+}
+.door-card-content {
+  position: relative;
+  z-index: 1;
+}
+.door-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.door-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 77, 0, 0.08);
+  border: 1px solid rgba(255, 77, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange);
+}
+.door-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--gray-300);
+}
+.door-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 1.5vw, 1.45rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+.door-desc {
+  color: var(--gray-200);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.door-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.door-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--gray-200);
+}
 
 /* ═══════════════════════════════════════════════════════════
-   CONTA-GIROS  ·  indicador de scroll, fixo, a página inteira
+   04 · PADDOCK FILTER (QUEM É / NÃO É)
    ═══════════════════════════════════════════════════════════ */
-.giro{position:fixed; right:18px; bottom:18px; z-index:88; width:104px; height:104px; pointer-events:none;
-  color:var(--branco); transition:color .3s}
-html[data-tema="branco"] .giro, html[data-tema="laranja"] .giro{color:var(--preto)}
-html[data-tema="laranja"] .giro .redline{stroke:var(--preto)}
-.giro .agulha{transform-origin:52px 52px; transform:rotate(-118deg)}
-.giro .rpm{position:absolute; left:0; right:0; bottom:20px; text-align:center;
-  font-family:var(--mono); font-size:10px; letter-spacing:.12em}
-@media (max-width:820px){ .giro{width:60px;height:60px;right:8px;bottom:8px;opacity:.85} .giro .rpm{display:none} }
-
-/* ═══════════════════════════════════════════════════════════
-   CURSOR  ·  crosshair que se alonga na direção do movimento
-   ═══════════════════════════════════════════════════════════ */
-.cursor{position:fixed; top:0; left:0; z-index:99; pointer-events:none;
-  width:34px; height:34px; margin:-17px 0 0 -17px; opacity:0;
-  mix-blend-mode:difference; color:#fff}
-@media (hover:none), (pointer:coarse){ .cursor{display:none} }
-
-/* linhas de velocidade nas bordas */
-.veloz{position:fixed; inset:0; z-index:68; pointer-events:none; opacity:0}
-.veloz i{position:absolute; height:2px; background:var(--laranja); transform-origin:left; opacity:.85}
-.veloz i:nth-child(even){background:var(--branco); opacity:.5}
-
-/* ═══════════════════════════════════════════════════════════
-   BOTÕES  ·  chevron duplo com rastro fantasma
-   ═══════════════════════════════════════════════════════════ */
-.btn{
-  position:relative; display:inline-flex; align-items:center; gap:16px;
-  min-height:62px; padding:0 30px; border:2px solid var(--laranja);
-  background:var(--laranja); color:var(--preto);
-  font-family:var(--mono); font-weight:700; font-size:13px;
-  letter-spacing:.14em; text-transform:uppercase; overflow:hidden;
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(24px, 3.5vw, 48px);
+  margin-top: clamp(36px, 5vw, 64px);
 }
-.btn .chev{position:relative; display:block; width:26px; height:12px; flex:none}
-.btn .chev svg{position:absolute; inset:0; transition:transform .4s cubic-bezier(.2,.9,.25,1), opacity .4s}
-.btn .chev svg:nth-child(2){opacity:0} .btn .chev svg:nth-child(3){opacity:0}
-.btn:hover .chev svg:nth-child(1){transform:translateX(12px)}
-.btn:hover .chev svg:nth-child(2){transform:translateX(7px); opacity:.5}
-.btn:hover .chev svg:nth-child(3){transform:translateX(2px); opacity:.22}
-html.js:not(.rm) .btn--respira{animation:respira 3.4s ease-in-out infinite}
-@keyframes respira{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
-.btn--preto{background:var(--preto); border-color:var(--preto); color:var(--branco)}
-.btn--vazado{background:transparent; color:var(--fg); border-color:currentColor}
-.btn--g{min-height:74px; padding:0 38px; font-size:14px}
-
-/* ═══════════════════════════════════════════════════════════
-   MARQUEE  ·  velocidade base + velocidade do scroll
-   ═══════════════════════════════════════════════════════════ */
-.esteira{overflow:hidden; border-block:2px solid currentColor; padding:14px 0; position:relative; z-index:2}
-.esteira ul{display:flex; width:max-content; will-change:transform}
-.esteira li{font-family:var(--display); font-variation-settings:'wdth' 118,'wght' 800;
-  text-transform:uppercase; font-size:clamp(15px,1.6vw,22px); letter-spacing:.01em;
-  padding-inline:20px; white-space:nowrap; display:flex; align-items:center; gap:20px}
-.esteira li em{font-style:normal; color:var(--laranja)}
-
-/* ═══════════════════════════════════════════════════════════
-   01 · HERO
-   ═══════════════════════════════════════════════════════════ */
-.hero{min-height:100svh; display:flex; flex-direction:column;
-  padding:clamp(104px,14vh,168px) 0 0; overflow:clip}
-.hero .esteira{margin-top:auto}
-.hero .wrap{padding-bottom:clamp(28px,5vh,64px)}
-.hero-silhueta{position:absolute; right:-8%; top:50%; width:min(74vw,1180px);
-  transform:translateY(-50%); opacity:.12; z-index:0; pointer-events:none; color:var(--branco)}
-h1{max-width:none; font-size:clamp(2.4rem,7.2vw,7.2rem); line-height:.94}
-@media (min-width:900px){ h1 .li{white-space:nowrap} }
-h1 .li{display:block; position:relative}
-h1 .li--a{margin-left:0}
-h1 .li--b{margin-left:.14em}
-h1 .li--c{margin-left:-.02em; color:var(--laranja); font-variation-settings:'wdth' 125,'wght' 900}
-h1 .li--d{margin-left:.2em; color:var(--laranja)}
-html.js:not(.rm) h1 .li{opacity:0}
-.hero .corpo{margin-top:clamp(24px,3.4vh,40px)}
-.hero .acao{margin-top:clamp(26px,4vh,48px); display:flex; align-items:center; gap:clamp(16px,2.4vw,34px); flex-wrap:wrap}
-.hero .vagas{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; opacity:.72}
-/* glitch: 2 frames de deslocamento RGB, uma vez na entrada e a cada 8s */
-@keyframes glitch{
-  0%,100%{text-shadow:none; transform:translateX(0)}
-  2%{text-shadow:-3px 0 var(--branco), 3px 0 var(--laranja); transform:translateX(2px)}
-  4%{text-shadow:3px 0 var(--branco), -3px 0 var(--laranja); transform:translateX(-2px)}
-  6%{text-shadow:none; transform:translateX(0)}
+@media (max-width: 900px) {
+  .filter-grid { grid-template-columns: 1fr; }
 }
-html.js:not(.rm) .glitch{animation:glitch 8s steps(1,end) infinite}
+
+.filter-box {
+  padding: clamp(28px, 4vw, 44px);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+}
+.filter-box-yes {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 230, 118, 0.2);
+}
+.filter-box-no {
+  background: rgba(18, 12, 12, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 45, 45, 0.2);
+}
+.filter-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.filter-header.green { color: #00E676; }
+.filter-header.red { color: #FF4D4D; }
+
+.filter-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.filter-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.filter-icon-yes {
+  color: #00E676;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.filter-icon-no {
+  color: #FF4D4D;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.filter-text-yes {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.4;
+  color: var(--white);
+}
+.filter-text-no {
+  font-size: 15px;
+  color: var(--gray-200);
+  line-height: 1.5;
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 77, 77, 0.4);
+}
+
+.verdict-banner {
+  margin-top: clamp(40px, 6vw, 70px);
+  text-align: center;
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255, 77, 0, 0.06) 0%, transparent 100%);
+  border: 1px solid var(--border);
+}
+.verdict-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
 
 /* ═══════════════════════════════════════════════════════════
-   02 · O CORTE E O RESTO  (branco sujo)
+   05 · OFERTA / COCKPIT CHECKOUT (FOUNDER PASS)
    ═══════════════════════════════════════════════════════════ */
-.corte h2{max-width:11ch}
-.corte .duas{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px,4vw,80px);
-  margin-top:clamp(36px,5vw,72px); align-items:start}
-@media (max-width:900px){ .corte .duas{grid-template-columns:1fr} }
-.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px}
-.tags li{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:.14em;
-  text-transform:uppercase; padding:9px 12px; background:var(--laranja); color:var(--preto)}
-.corte .frase{margin-top:clamp(40px,6vw,96px); max-width:20ch}
+.offer-card {
+  background: radial-gradient(circle at 80% 20%, rgba(255, 77, 0, 0.12) 0%, transparent 60%),
+              var(--bg-card-solid);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-bright);
+  padding: clamp(32px, 5vw, 64px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 40px -10px rgba(255, 77, 0, 0.2);
+}
+.offer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 77, 0, 0.15);
+  color: var(--orange);
+  border: 1px solid rgba(255, 77, 0, 0.3);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.offer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .offer-grid { grid-template-columns: 1fr; }
+}
 
-/* frames de câmera (placeholders) — nunca retângulo cinza vazio */
-.frames{display:grid; gap:clamp(12px,1.6vw,22px); grid-template-columns:repeat(6,1fr); margin-top:clamp(36px,5vw,72px)}
-.frame{position:relative; grid-column:span 2; background:var(--preto); color:var(--branco); overflow:hidden}
-.frame:nth-child(1){grid-column:span 3}
-.frame:nth-child(2){grid-column:span 3}
-.frame:nth-child(4){grid-column:span 4}
-@media (max-width:760px){ .frames{grid-template-columns:repeat(2,1fr)}
-  .frame,.frame:nth-child(1),.frame:nth-child(2),.frame:nth-child(4){grid-column:span 2} }
-.frame .miolo{position:absolute; inset:0; background:
-  repeating-linear-gradient(-45deg, rgba(242,239,233,.045) 0 1px, transparent 1px 9px)}
-.frame .canto{position:absolute; width:16px; height:16px; border:2px solid var(--laranja)}
-.frame .canto.a{top:10px;left:10px;border-right:0;border-bottom:0}
-.frame .canto.b{top:10px;right:10px;border-left:0;border-bottom:0}
-.frame .canto.c{bottom:10px;left:10px;border-right:0;border-top:0}
-.frame .canto.d{bottom:10px;right:10px;border-left:0;border-top:0}
-.frame .tc{position:absolute; top:14px; left:36px; font-family:var(--mono); font-size:10px;
-  letter-spacing:.1em; color:var(--laranja)}
-.frame .rec{position:absolute; top:14px; right:36px; display:flex; align-items:center; gap:6px;
-  font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--branco)}
-.frame .rec b{width:7px;height:7px;border-radius:50%;background:var(--laranja)}
-html.js:not(.rm) .frame .rec b{animation:respira 1.6s ease-in-out infinite}
-.frame .prop{position:absolute; bottom:14px; left:36px; font-family:var(--mono); font-size:10px;
-  letter-spacing:.12em; color:rgba(242,239,233,.62)}
-.frame .mira{position:absolute; inset:0; margin:auto; width:26px; height:26px; opacity:.5}
+.offer-perks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 28px 0 36px;
+}
+@media (max-width: 600px) {
+  .offer-perks { grid-template-columns: 1fr; }
+}
+.offer-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--gray-100);
+}
+.offer-perk-item svg {
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+/* ─── PAINEL DE PREÇO DIGITAL / ODÔMETRO ─── */
+.price-display-box {
+  background: rgba(7, 7, 10, 0.85);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-bright);
+  padding: clamp(24px, 3.5vw, 40px);
+  text-align: center;
+  position: relative;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+.price-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray-300);
+  margin-bottom: 12px;
+}
+.price-value-wrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+}
+.price-currency {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  color: var(--gray-200);
+}
+.odo-container {
+  display: flex;
+  overflow: hidden;
+  height: 1em;
+  line-height: 1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4.4rem, 7.5vw, 6.8rem);
+  letter-spacing: -0.04em;
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+}
+.odo-col {
+  overflow: hidden;
+  height: 1em;
+}
+.odo-roll {
+  display: block;
+}
+.odo-roll span {
+  display: block;
+  height: 1em;
+}
+.price-period {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-top: 8px;
+}
+.price-micro {
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--gray-300);
+  text-transform: uppercase;
+}
 
 /* ═══════════════════════════════════════════════════════════
-   03 · O QUE TÁ DENTRO  (preto)
+   06 · FECHAMENTO & FOOTER
    ═══════════════════════════════════════════════════════════ */
-.dentro .grade{display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(12px,1.4vw,20px);
-  margin-top:clamp(40px,6vw,90px)}
-.bloco{
-  position:relative; grid-column:span 4; padding:clamp(26px,2.6vw,44px);
-  border:2px solid rgba(242,239,233,.16); background:var(--preto-2);
-  overflow:hidden; isolation:isolate;
+.manifesto-sec {
+  text-align: center;
+  padding: clamp(90px, 12vw, 160px) 0 clamp(40px, 5vw, 70px);
 }
-.bloco:nth-child(1){grid-column:span 7}
-.bloco:nth-child(2){grid-column:span 5}
-.bloco:nth-child(6){grid-column:span 12; display:grid; grid-template-columns:auto 1fr; gap:clamp(20px,3vw,56px); align-items:center}
-@media (max-width:980px){ .bloco,.bloco:nth-child(1),.bloco:nth-child(2){grid-column:span 6} }
-@media (max-width:640px){ .bloco,.bloco:nth-child(1),.bloco:nth-child(2),.bloco:nth-child(6){grid-column:span 12; grid-template-columns:1fr} }
-html.js:not(.rm) .bloco{opacity:0}
-/* luz laranja seguindo o cursor */
-.bloco::before{
-  content:''; position:absolute; inset:-1px; z-index:-1; opacity:0; transition:opacity .35s;
-  background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%), rgba(255,74,15,.22), transparent 62%);
+.manifesto-title {
+  font-size: clamp(2.4rem, 5.5vw, 5.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  max-width: 22ch;
+  margin: 0 auto clamp(32px, 5vh, 48px);
 }
-@media (hover:hover) and (pointer:fine){ .bloco:hover::before{opacity:1} .bloco:hover{border-color:var(--laranja)} }
-.bloco .n{
-  position:absolute; top:-.16em; right:.02em; z-index:-1;
-  font-family:var(--display); font-variation-settings:'wdth' 125,'wght' 900;
-  font-size:clamp(5.4rem,9vw,9.5rem); line-height:.8;
-  -webkit-text-stroke:2px var(--laranja); color:transparent; opacity:.55;
+.footer-bar {
+  margin-top: clamp(60px, 8vw, 120px);
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-300);
 }
-.bloco .ico{margin-bottom:22px; color:var(--laranja)}
-.bloco h3{margin-bottom:12px; max-width:15ch}
-.bloco p{max-width:46ch; font-size:clamp(15.5px,1.05vw,17px); color:rgba(242,239,233,.82)}
-.bloco .marcar{margin-top:18px; display:inline-block; font-family:var(--mono); font-weight:700;
-  font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--laranja)}
+.footer-bar a {
+  color: var(--gray-200);
+  transition: color 0.2s ease;
+}
+.footer-bar a:hover {
+  color: var(--orange);
+}
+
+/* ─── CTA FLUTUANTE MOBILE ─── */
+.mobile-sticky-cta {
+  position: fixed;
+  left: 14px;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index: 95;
+  display: none;
+  transform: translateY(160%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-sticky-cta.visible {
+  transform: translateY(0);
+}
+@media (max-width: 820px) {
+  .mobile-sticky-cta { display: block; }
+}
 
 /* ═══════════════════════════════════════════════════════════
-   04 · PRA QUEM É / NÃO É  (branco sujo, bloco preto invertido dentro)
+   REDUCED MOTION
    ═══════════════════════════════════════════════════════════ */
-.filtro .duas{display:grid; grid-template-columns:1.25fr .75fr; gap:clamp(20px,3vw,56px); margin-top:clamp(36px,5vw,76px); align-items:start}
-@media (max-width:900px){ .filtro .duas{grid-template-columns:1fr} }
-.lista-sim li{display:flex; gap:20px; align-items:flex-start; padding:22px 0; border-bottom:2px solid rgba(10,10,10,.14)}
-.lista-sim li:last-child{border-bottom:0}
-.lista-sim .txt{font-family:var(--display); font-variation-settings:'wdth' 100,'wght' 800;
-  text-transform:uppercase; font-size:clamp(1.05rem,1.7vw,1.6rem); line-height:1.06; letter-spacing:-.01em}
-.lista-sim .ico{flex:none; margin-top:2px}
-.bloco-nao{background:var(--preto); color:var(--branco); padding:clamp(26px,2.8vw,44px); position:relative; overflow:hidden}
-.bloco-nao h3{color:var(--laranja); margin-bottom:26px}
-.bloco-nao li{position:relative; padding:20px 0 20px 46px; border-bottom:1px solid rgba(242,239,233,.14)}
-.bloco-nao li:last-child{border-bottom:0}
-.bloco-nao .ico{position:absolute; left:0; top:16px; color:var(--laranja)}
-.risca{position:relative; display:inline}
-.risca-svg{position:absolute; inset:0; z-index:3; pointer-events:none; overflow:visible}
-.risca-svg line{stroke:var(--laranja); stroke-width:2.5; stroke-linecap:round}
-.filtro .veredito{margin-top:clamp(48px,7vw,110px); max-width:24ch}
-.filtro .veredito b{color:var(--laranja); font-weight:inherit}
-
-/* ═══════════════════════════════════════════════════════════
-   05 · OFERTA  (laranja chapado — contraste máximo do site)
-   ═══════════════════════════════════════════════════════════ */
-.oferta{text-align:left}
-.oferta .cartela{display:grid; grid-template-columns:1fr auto; gap:clamp(24px,4vw,70px); align-items:end; margin-top:clamp(34px,5vw,70px)}
-@media (max-width:900px){ .oferta .cartela{grid-template-columns:1fr; align-items:start} }
-.inclui{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; max-width:62ch}
-.inclui li{font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.12em;
-  text-transform:uppercase; padding:9px 12px; border:2px solid var(--preto)}
-.preco{text-align:center; border:3px solid var(--preto); padding:clamp(20px,2.4vw,34px) clamp(26px,3vw,48px); background:transparent}
-.preco .rot{opacity:.72}
-.preco .valor{display:flex; align-items:flex-start; justify-content:center; gap:6px; margin:10px 0 4px}
-.preco .cifra{font-family:var(--display); font-variation-settings:'wdth' 112,'wght' 900; font-size:clamp(1.6rem,2.6vw,2.6rem); padding-top:.16em}
-.odo{display:flex; overflow:hidden; height:1em; line-height:1;
-  font-family:var(--display); font-variation-settings:'wdth' 125,'wght' 900;
-  font-size:clamp(4.6rem,10vw,9rem); letter-spacing:-.045em; font-variant-numeric:tabular-nums}
-.odo .col{overflow:hidden; height:1em}
-.odo .rolo{display:block}
-.odo .rolo span{display:block; height:1em}
-.preco .mes{font-family:var(--mono); font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase}
-.oferta .selo{
-  display:inline-block; margin-bottom:20px; padding:11px 16px; background:var(--preto); color:var(--laranja);
-  font-family:var(--mono); font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-  transform:rotate(-2deg);
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .track-layer, .hud-rpm, .ticker-wrap { display: none !important; }
 }
-.oferta .acao{margin-top:clamp(28px,4vw,52px); display:flex; align-items:center; gap:24px; flex-wrap:wrap}
-.oferta .obs{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.78}
-
-/* ═══════════════════════════════════════════════════════════
-   06 · FECHAMENTO + FOOTER  (preto)
-   ═══════════════════════════════════════════════════════════ */
-.fim p.grande{max-width:15ch}
-.fim .laranja{color:var(--laranja)}
-.rodape{margin-top:clamp(70px,9vw,150px); padding-top:34px; border-top:2px solid rgba(242,239,233,.18);
-  display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
-  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(242,239,233,.66)}
-.rodape a{min-height:44px; display:inline-flex; align-items:center}
-.rodape a:hover{color:var(--laranja)}
-
-/* CTA fixo no rodapé — só mobile, depois do hero */
-.cta-fixo{position:fixed; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom));
-  z-index:89; display:none; justify-content:space-between; transform:translateY(150%);
-  transition:transform .4s cubic-bezier(.2,.9,.25,1)}
-.cta-fixo.on{transform:translateY(0)}
-@media (max-width:820px){ .cta-fixo{display:flex} .giro{bottom:76px} }
-
-
-/* ── skew das headlines controlado por variável (1 escrita de estilo por frame,
-      em vez de N elementos) ── */
-.d--slant{transform:skewX(-4deg) skewY(var(--sk,0deg))}
-/* ── motion blur direcional nos frames de mídia ── */
-.frame{filter:blur(var(--mb,0px))}
-
-/* ── varredura diagonal da troca de seção (a faixa vive na seção que sai,
-      pintada com a cor da que entra) ── */
-.varre{
-  position:absolute; left:-25%; right:-25%; bottom:0; height:64vh; z-index:3;
-  pointer-events:none; transform:skewX(-12deg) translateY(105%); will-change:transform;
-}
-/* ── flash de 60ms: troca de marcha ── */
-#flash{position:fixed; inset:0; z-index:86; pointer-events:none; opacity:0; background:var(--laranja)}
-html.rm .varre, html.rm #flash{display:none}
-
-/* ═══════════════════════════════════════════════════════════
-   REDUCED MOTION  ·  sem carro, sem marca, sem blur, sem skew
-   ═══════════════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important;
-    transition-duration:.12s !important; scroll-behavior:auto !important}
-  .pista,.fumaca,.veloz,.cursor{display:none !important}
-  html.js .bloco, html.js h1 .li{opacity:1 !important}
-  html.js .eyebrow .fio{transform:scaleX(1) !important}
-}
-html.rm .pista, html.rm .fumaca, html.rm .veloz, html.rm .cursor{display:none}
-html.rm .bloco, html.rm h1 .li{opacity:1}
-html.rm .eyebrow .fio{transform:scaleX(1)}
+html.rm .track-layer, html.rm .hud-rpm { display: none; }
 </style>
 </head>
 <body>
 
-<!-- textura de grão por cima de tudo -->
-<div class="grao" aria-hidden="true"></div>
+<!-- Grids e ambientação -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow-radial" aria-hidden="true"></div>
 
-<!-- linhas de velocidade (só em scroll rápido) -->
-<div class="veloz" id="veloz" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-
-<!-- cursor: círculo + crosshair de pista -->
-<svg class="cursor" id="cursor" viewBox="0 0 34 34" aria-hidden="true">
-  <circle cx="17" cy="17" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
-  <path d="M17 0v7M17 27v7M0 17h7M27 17h7" stroke="currentColor" stroke-width="1.6"/>
-</svg>
-
-<!-- ═══════════ CAMADA DO CARRO + MARCAS DE PNEU ═══════════ -->
-<div class="pista" id="pista" aria-hidden="true">
-  <svg id="svg-pista" preserveAspectRatio="none">
-    <!-- trajeto invisível: gerado por JS conforme a viewport -->
-    <path id="trajeto"></path>
-    <!-- marcas: mesma geometria em duas camadas de blend, pro fundo que alterna -->
-    <g id="marcas-escura"><path class="mk"/><path class="mk"/></g>
-    <g id="marcas-clara"><path class="mk"/><path class="mk"/></g>
-    <g id="carro" opacity="0">
-      <g transform="translate(-30,-17)">
-        <!-- rodas traseiras -->
-        <rect x="9" y="-1" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
-        <rect x="9" y="29.5" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
-        <!-- rodas dianteiras: contraesterçam na saída da curva -->
-        <g id="rodas-f">
-          <rect x="39" y="-1" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
-          <rect x="39" y="29.5" width="13" height="5.5" rx="1.4" fill="#0A0A0A" stroke="#F2EFE9" stroke-width="1.3"/>
+<!-- ═══════════ TRACK LAYER (SVG DRIFT & TIRE MARKS) ═══════════ -->
+<div class="track-layer" id="track-layer" aria-hidden="true">
+  <svg id="track-svg" preserveAspectRatio="none">
+    <path id="track-path"></path>
+    <!-- Marcas de pneu -->
+    <path class="tire-mark-inner" id="tire-inner-l"></path>
+    <path class="tire-mark-inner" id="tire-inner-r"></path>
+    <path class="tire-mark" id="tire-l"></path>
+    <path class="tire-mark" id="tire-r"></path>
+    <!-- Carro em perspectiva topo/telemetria minimalista -->
+    <g id="car-vehicle" opacity="0">
+      <g transform="translate(-24, -14)">
+        <!-- Rodas traseiras -->
+        <rect x="7" y="-1" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
+        <rect x="7" y="24.5" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
+        <!-- Rodas dianteiras com contraesterço -->
+        <g id="front-wheels">
+          <rect x="31" y="-1" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
+          <rect x="31" y="24.5" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
         </g>
-        <!-- carroceria chapada: preto com contorno claro (lê no branco e no laranja) -->
-        <path d="M8 2.5h25c8.4 0 16.6 3.2 22.6 11.2 1.2 1.6 1.2 4.6 0 6.2-6 8-14.2 11.6-22.6 11.6H8c-3.4 0-5.5-2-5.5-5.4V7.9C2.5 4.5 4.6 2.5 8 2.5Z"
-              fill="#0A0A0A" stroke="#F2EFE9" stroke-width="2"/>
-        <!-- faixa laranja: o que faz o carro existir contra o fundo preto -->
-        <path d="M13 17h33" stroke="#FF4A0F" stroke-width="3.4" stroke-linecap="round"/>
-        <path d="M31 6.5 39 17l-8 10.5" fill="none" stroke="#FF4A0F" stroke-width="2"/>
-        <!-- vidros -->
-        <path d="M17 8h9l4 9-4 9h-9z" fill="#F2EFE9" opacity=".9"/>
+        <!-- Carroceria minimalista aerodinâmica -->
+        <path d="M6 2h20c6 0 13 2.5 18 9 1 1.2 1 3.6 0 4.8-5 6.5-12 9.2-18 9.2H6c-2.5 0-4-1.5-4-4.2V6.2C2 3.5 3.5 2 6 2Z" 
+              fill="#0D0D14" stroke="#F5F5F7" stroke-width="1.6"/>
+        <!-- Linha de centro neon térmico -->
+        <path d="M10 14h24" stroke="#FF4D00" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Vidros e teto -->
+        <path d="M14 6.5h7l3.5 7.5-3.5 7.5h-7z" fill="rgba(245, 245, 247, 0.85)"/>
+        <!-- Faróis dianteiros LED -->
+        <circle cx="43" cy="6" r="1.5" fill="#FFFFFF"/>
+        <circle cx="43" cy="22" r="1.5" fill="#FFFFFF"/>
+        <!-- Lanternas traseiras LED neon -->
+        <line x1="3" y1="5" x2="3" y2="8" stroke="#FF2A00" stroke-width="2" stroke-linecap="round"/>
+        <line x1="3" y1="20" x2="3" y2="23" stroke="#FF2A00" stroke-width="2" stroke-linecap="round"/>
       </g>
     </g>
   </svg>
 </div>
-<div class="fumaca" id="fumaca" aria-hidden="true"></div>
 
-<!-- ═══════════ HEADER ═══════════ -->
-<header class="topo" id="topo">
-  <a class="marca" href="#hero">DRIVE<b>·</b>CLUB</a>
-  <span class="meio" id="topo-sec">01 / 06 · REAL UNDERGROUND</span>
-  <!-- TROCAR: {{LINK_CHECKOUT}} -->
-  <a class="btn-topo" href="{{LINK_CHECKOUT}}">Entrar</a>
-  <div class="prog" aria-hidden="true"><i class="cauda" id="prog-cauda"></i><i id="prog-barra"></i></div>
-</header>
-
-<!-- ═══════════ CONTA-GIROS (progresso) ═══════════ -->
-<div class="giro" id="giro" aria-hidden="true">
-  <svg viewBox="0 0 104 104" fill="none">
-    <path d="M14 78A44 44 0 1 1 90 78" stroke="currentColor" stroke-width="2" opacity=".35"/>
-    <path class="redline" d="M78 20a44 44 0 0 1 12 58" stroke="#FF4A0F" stroke-width="4"/>
-    <g id="tics-giro" stroke="currentColor" stroke-width="2" opacity=".55"></g>
-    <g class="agulha" id="agulha">
-      <path d="M52 52 14 68" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="52" cy="52" r="4.5" fill="#FF4A0F"/>
-    </g>
-  </svg>
-  <div class="rpm"><span id="rpm-num">0</span>00 RPM</div>
+<!-- ═══════════ HUD RPM INDICATOR ═══════════ -->
+<div class="hud-rpm" id="hud-rpm" aria-hidden="true">
+  <div class="hud-gauge">
+    <svg viewBox="0 0 48 48">
+      <circle class="hud-circle-bg" cx="24" cy="24" r="20"/>
+      <circle class="hud-circle-prog" id="hud-prog" cx="24" cy="24" r="20"/>
+    </svg>
+  </div>
+  <div class="hud-data">
+    <div class="hud-val"><span id="hud-rpm-val">1.2</span>K RPM</div>
+    <div class="hud-lbl">TELEMETRIA // DRIFT</div>
+  </div>
 </div>
+
+<!-- ═══════════ HEADER FLUTUANTE GLASS ═══════════ -->
+<header class="header-nav" id="header-nav">
+  <div class="header-glass">
+    <a class="brand" href="#hero">
+      <span class="brand-dot"></span>
+      DRIVE CLUB // 01
+    </a>
+    <div class="header-status">
+      <span>● LIVE PADDOCK</span>
+      <span style="opacity: 0.4">|</span>
+      <span>VAGAS DISPONÍVEIS</span>
+    </div>
+    <!-- TROCAR: {{LINK_CHECKOUT}} -->
+    <a class="btn-primary btn-sm" href="{{LINK_CHECKOUT}}">
+      Acessar Club
+      <span class="icon-arrow">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+          <path d="M7 1L11 5M11 5L7 9M11 5H1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+  </div>
+</header>
 
 <main>
 
 <!-- ═══════════════════════════════════════════════════════════
-     01 · HERO  ·  preto
+     01 · HERO SECTION
      ═══════════════════════════════════════════════════════════ -->
-<section class="sec hero" id="hero">
-  <svg class="hero-silhueta" id="hero-silhueta" viewBox="0 0 600 300" aria-hidden="true">
-    <g transform="rotate(-14 300 150)">
-      <path d="M92 176c14-40 44-74 92-92 62-24 148-26 216-8 44 12 78 32 96 56 10 14 8 26-8 32-46 18-134 30-224 30-84 0-152-6-172-18Z" fill="currentColor"/>
-      <rect x="150" y="196" width="72" height="26" rx="12" fill="currentColor"/>
-      <rect x="392" y="196" width="72" height="26" rx="12" fill="currentColor"/>
-      <path d="M210 96c24-14 66-18 104-14l18 42H196Z" fill="#0A0A0A" opacity=".55"/>
-    </g>
-  </svg>
-
-  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
-
-  <div class="wrap" id="hero-conteudo">
-    <p class="eyebrow rot"><span class="n">■</span> Real Underground · Comunidade fechada <span class="fio"></span></p>
-
-    <h1 class="d xl d--slant">
-      <span class="li li--a">Você vê o Drive</span>
-      <span class="li li--b">dos vídeos.</span>
-      <span class="li li--c glitch">Aqui você entra</span>
-      <span class="li li--d glitch">no carro.</span>
-    </h1>
-
-    <p class="corpo">O Drive Club é onde o rolê continua depois que a câmera desliga. Bastidores sem filtro — porque nem tudo pode ir pro Instagram. Essa é a sua chance de dar um rolê com o melhor professor de drift do Brasil. Fora daqui, você é fã. Aqui você é membro.</p>
-
-    <div class="acao">
-      <a class="btn btn--g btn--respira" href="#oferta">Quero entrar no club
-        <span class="chev" aria-hidden="true">
-          <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-          <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-          <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-        </span>
-      </a>
-      <!-- TROCAR: {{VAGAS}} -->
-      <span class="vagas">{{VAGAS}} vagas na primeira leva</span>
-    </div>
-  </div>
-
-  <div class="esteira" aria-hidden="true">
-    <ul id="esteira-1">
-      <li>Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em></li>
-      <li>Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em> Real Underground <em>●</em> Comunidade fechada <em>●</em></li>
-    </ul>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     02 · O CORTE E O RESTO  ·  branco sujo (inversão total)
-     ═══════════════════════════════════════════════════════════ -->
-<section class="sec t-branco corte" id="corte">
-  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
-  <span class="fantasma" style="right:-2vw; top:-2vw" aria-hidden="true">02</span>
-
+<section class="sec hero-sec" id="hero">
   <div class="wrap">
-    <p class="eyebrow rot"><span class="n">02 / 06</span> O corte e o resto <span class="fio"></span></p>
-    <h2 class="d lg d--slant">Todo mundo assiste.<br>Poucos <span class="d--out">entram.</span></h2>
-
-    <div class="duas">
-      <p class="corpo">Lá fora você vê o corte editado, o vídeo pronto, o rosto que ninguém nunca viu. Aqui dentro você vê o resto — o que rola off-camera, a resenha que não pode ir pro feed.</p>
-      <ul class="tags">
-        <li>Off-camera</li><li>Sem filtro</li><li>Resenha</li><li>Não vai pro feed</li>
-      </ul>
-    </div>
-
-    <!-- PLACEHOLDERS DE MÍDIA: trocar por <img>/<video> mantendo a proporção -->
-    <div class="frames">
-      <figure class="frame" style="aspect-ratio:16/9" data-asset="bastidor-01.jpg">
-        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
-        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">16:9 · bastidor</span>
-        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
-      </figure>
-      <figure class="frame" style="aspect-ratio:16/9" data-asset="feed-01.jpg">
-        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
-        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">16:9 · frame do feed</span>
-        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
-      </figure>
-      <figure class="frame" style="aspect-ratio:4/5" data-asset="feed-02.jpg">
-        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
-        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">4:5 · feed</span>
-        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
-      </figure>
-      <figure class="frame" style="aspect-ratio:21/9" data-asset="bastidor-02.jpg">
-        <span class="miolo"></span><span class="canto a"></span><span class="canto b"></span><span class="canto c"></span><span class="canto d"></span>
-        <span class="tc" data-tc>00:00:00</span><span class="rec"><b></b>REC</span><span class="prop">21:9 · off-camera</span>
-        <svg class="mira" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 0v26M0 13h26" stroke="#F2EFE9" stroke-width="1.5"/></svg>
-      </figure>
-    </div>
-
-    <p class="d md frase">O Drive faz o que os outros não têm coragem. O Club é o lugar de quem quer estar perto disso de verdade.</p>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     03 · O QUE TÁ DENTRO  ·  preto, números em outline laranja
-     ═══════════════════════════════════════════════════════════ -->
-<section class="sec dentro corte-inv" id="dentro">
-  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap wrap--largo">
-    <p class="eyebrow rot"><span class="n">03 / 06</span> Seis portas <span class="fio"></span></p>
-    <h2 class="d xl d--slant">O que tá <span class="d--out">dentro</span></h2>
-
-    <div class="grade">
-      <article class="bloco">
-        <span class="n" aria-hidden="true">01</span>
-        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-claquete"/></svg>
-        <h3 class="d md">A Drive — o lado oculto</h3>
-        <p>Bastidores reais, Q&amp;A direto com o Drive, e o vota-aí: você decide a próxima mod, o próximo vídeo, o próximo carro.</p>
-        <span class="marcar">Bastidor · Q&amp;A · Vota-aí</span>
-      </article>
-
-      <article class="bloco">
-        <span class="n" aria-hidden="true">02</span>
-        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-carro"/></svg>
-        <h3 class="d md">Garagem — teu carro no club</h3>
-        <p>Mostra teu carro, teu projeto, teu setup, teu antes-e-depois. Do primeiro carro ao trampo pronto. Aqui ninguém vai te julgar.</p>
-        <span class="marcar">Projeto · Setup · Antes e depois</span>
-      </article>
-
-      <article class="bloco">
-        <span class="n" aria-hidden="true">03</span>
-        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-ticket"/></svg>
-        <h3 class="d md">Rifa</h3>
-        <p>Sorteio de cotas e promoções especiais. Aqui sua chance de ganhar aumenta em 10x.</p>
-        <span class="marcar">Chance 10x</span>
-      </article>
-
-      <article class="bloco">
-        <span class="n" aria-hidden="true">04</span>
-        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-podio"/></svg>
-        <h3 class="d md">Desafios &amp; Ranking</h3>
-        <p>Melhor mod do mês, melhor foto, melhor projeto. Sobe de nível, ganha prêmio, ganha experiência.</p>
-        <span class="marcar">Mensal · Premiado</span>
-      </article>
-
-      <article class="bloco">
-        <span class="n" aria-hidden="true">05</span>
-        <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-pista"/></svg>
-        <h3 class="d md">Experiências</h3>
-        <p>Track day, kart, encontros, gravação com membros. A chance real de estar do lado do Drive.</p>
-        <span class="marcar">Presencial</span>
-      </article>
-
-      <article class="bloco">
-        <span class="n" aria-hidden="true">06</span>
-        <div>
-          <svg class="ico" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-etiqueta"/></svg>
-          <h3 class="d md">Parceiros &amp; Descontos</h3>
-        </div>
-        <div>
-          <p>Cupom em detailing, oficina, PPF, pneu, acessório. E o desapego: compra e venda de peça e carro entre quem é de dentro.</p>
-          <span class="marcar">Cupom · Desapego</span>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     04 · PRA QUEM É / NÃO É  ·  branco com bloco preto invertido
-     ═══════════════════════════════════════════════════════════ -->
-<section class="sec t-branco filtro" id="filtro">
-  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
-  <span class="fantasma" style="left:-3vw; bottom:-4vw" aria-hidden="true">04</span>
-
-  <div class="wrap">
-    <p class="eyebrow rot"><span class="n">04 / 06</span> Sem meio-termo <span class="fio"></span></p>
-    <h2 class="d lg d--slant">Pra quem é /<br>pra quem <span class="d--out">não é</span></h2>
-
-    <div class="duas">
+    <div class="hero-grid-align">
       <div>
-        <h3 class="dado" style="margin-bottom:18px">É pra você se:</h3>
-        <ul class="lista-sim">
-          <li><svg class="ico" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bandeira"/></svg><span class="txt">Carro pra você é estilo de vida, não meio de transporte</span></li>
-          <li><svg class="ico" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bandeira"/></svg><span class="txt">Você é da rua, do rolê, do drift — não de concessionária</span></li>
-          <li><svg class="ico" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-bandeira"/></svg><span class="txt">Você quer estar dentro do Club, não assistindo de fora</span></li>
-        </ul>
-      </div>
+        <div class="sec-eyebrow">
+          <span class="telemetry-tag">TELEMETRIA 01 // COMUNIDADE PRIVADA</span>
+          <span class="line"></span>
+        </div>
 
-      <div class="bloco-nao">
-        <span class="hachura" style="position:absolute;inset:0" aria-hidden="true"></span>
-        <h3 class="dado">Não é pra você se:</h3>
-        <ul>
-          <li><svg class="ico" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-cone"/></svg><span class="risca">Acha que carro é só pra ir e voltar</span></li>
-          <li><svg class="ico" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-cone"/></svg><span class="risca">Tá procurando grupo automotivo que tem medo de moer</span></li>
-        </ul>
-      </div>
-    </div>
+        <h1 class="heading-display hero-title">
+          <span>Você vê o Drive</span>
+          <span>dos vídeos.</span>
+          <span class="text-gradient-orange heading-slant">Aqui você entra</span>
+          <span class="text-gradient heading-slant">no carro.</span>
+        </h1>
 
-    <p class="d lg veredito">O Drive Club não é pra todo mundo. <b>É pra quem vive isso de verdade.</b></p>
-  </div>
-</section>
+        <p class="hero-desc">
+          O <strong>Drive Club</strong> é onde o rolê continua depois que a câmera desliga. Bastidores sem filtro, telemetria de pista, garagem exclusiva e a oportunidade real de andar de lado com o melhor professor de drift do país.
+        </p>
 
-<!-- ═══════════════════════════════════════════════════════════
-     05 · OFERTA  ·  laranja chapado, CTA preto
-     ═══════════════════════════════════════════════════════════ -->
-<section class="sec t-laranja oferta corte-inv" id="oferta">
-  <span class="fantasma" style="right:-2vw; bottom:-6vw" aria-hidden="true">05</span>
-  <div class="wrap">
-    <p class="eyebrow rot"><span class="n">05 / 06</span> Largada <span class="fio"></span></p>
-    <span class="selo">Preço de fundador · só na primeira leva</span>
-    <h2 class="d xl d--slant">Entra no carro</h2>
-
-    <div class="cartela">
-      <div>
-        <ul class="inclui">
-          <li>Acesso ao Drive Club</li><li>Bastidores</li><li>Garagem</li><li>Rifa 10x</li>
-          <li>Ranking</li><li>Experiências com o Drive</li><li>Descontos com parceiros</li>
-        </ul>
-        <div class="acao">
-          <!-- >>> ÚNICO LINK DE CHECKOUT DA PÁGINA — TROCAR {{LINK_CHECKOUT}} <<< -->
-          <a class="btn btn--preto btn--g" href="{{LINK_CHECKOUT}}">Entrar no Drive Club
-            <span class="chev" aria-hidden="true">
-              <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-              <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-              <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+        <div class="hero-actions">
+          <a class="btn-primary btn-lg" href="#oferta">
+            Garantir Minha Vaga
+            <span class="icon-arrow">
+              <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+                <path d="M8 1L13 6M13 6L8 11M13 6H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </span>
           </a>
-          <span class="obs">Mensal · cancela quando quiser</span>
+          <!-- TROCAR: {{VAGAS}} -->
+          <div class="hero-slots">
+            <span class="slots-indicator"></span>
+            <span><strong>{{VAGAS}}</strong> vagas na 1ª leva</span>
+          </div>
         </div>
       </div>
 
-      <!-- PREÇO: o odômetro lê os dígitos de data-valor. Trocar {{PRECO}} aqui. -->
-      <div class="preco">
-        <p class="rot">Assinatura mensal</p>
-        <div class="valor">
-          <span class="cifra">R$</span>
-          <div class="odo" id="odo" data-valor="{{PRECO}}"><span class="col"><span class="rolo"><span>4</span></span></span><span class="col"><span class="rolo"><span>7</span></span></span></div>
+      <!-- VISUAL AERODINÂMICO / BLUEPRINT -->
+      <div class="hero-visual">
+        <div class="car-blueprint">
+          <div class="blueprint-inner">
+            <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid técnico -->
+              <defs>
+                <linearGradient id="glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FF4D00" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#FF4D00" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Linhas de fluxo de ar / Túnel de vento -->
+              <path d="M10 80 C 100 70, 180 40, 380 40" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="6 4"/>
+              <path d="M10 120 C 120 120, 200 90, 390 100" stroke="var(--orange)" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.6"/>
+              <path d="M10 160 C 140 160, 220 190, 380 180" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="6 4"/>
+              
+              <!-- Carro Silhueta Wireframe / Drift Angle -->
+              <g transform="rotate(-6 200 120)">
+                <!-- Chassi Wireframe -->
+                <path d="M 60 145 C 80 105, 130 65, 200 65 C 280 65, 320 100, 340 145 C 330 155, 300 160, 200 160 C 100 160, 70 155, 60 145 Z" 
+                      fill="rgba(14, 14, 20, 0.8)" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5"/>
+                <!-- Teto e vidro -->
+                <path d="M 130 95 C 160 75, 230 75, 265 95 L 255 125 L 140 125 Z" 
+                      fill="rgba(255, 77, 0, 0.1)" stroke="var(--orange)" stroke-width="1.8"/>
+                <!-- Rodas e ângulo de esterço -->
+                <ellipse cx="105" cy="148" rx="20" ry="12" fill="#070709" stroke="#F5F5F7" stroke-width="2"/>
+                <ellipse cx="295" cy="148" rx="20" ry="12" fill="#070709" stroke="#FF4D00" stroke-width="2"/>
+                <!-- Eixo de contraesterço -->
+                <line x1="285" y1="135" x2="310" y2="160" stroke="#FF4D00" stroke-width="2"/>
+                <!-- Farol LED Glow -->
+                <circle cx="335" cy="138" r="4" fill="#FFFFFF"/>
+                <circle cx="335" cy="138" r="10" fill="url(#glow-grad)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="tech-spec-box">
+            <span>CHASSI: <strong>SPEC-D // GT</strong></span>
+            <span>DRIFT ANGLE: <strong>48.5°</strong></span>
+            <span>STATUS: <strong>LOCKED IN</strong></span>
+          </div>
         </div>
-        <p class="mes">por mês</p>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="esteira" style="margin-top:clamp(50px,7vw,110px)" aria-hidden="true">
-    <ul id="esteira-2">
-      <li>Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em></li>
-      <li>Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em> Primeira leva <em>●</em> Preço de fundador <em>●</em></li>
-    </ul>
+<!-- ═══════════ TICKER DE TELEMETRIA ═══════════ -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-move">
+    <div class="ticker-item">APEX SPEED <span class="accent">//</span> 142 KM/H</div>
+    <div class="ticker-item">TELEMETRIA <span class="accent">//</span> REAL UNDERGROUND</div>
+    <div class="ticker-item">DRIFT ANGLE <span class="accent">//</span> 52° CONTRAESTERÇO</div>
+    <div class="ticker-item">MEMBRO FUNDADOR <span class="accent">//</span> ACESSO DIRETO</div>
+    <div class="ticker-item">REDLINE <span class="accent">//</span> 8.500 RPM</div>
+    <div class="ticker-item">GARAGEM &amp; SETUPS <span class="accent">//</span> SEM FILTRO</div>
+    <!-- Duplicata para loop contínuo -->
+    <div class="ticker-item">APEX SPEED <span class="accent">//</span> 142 KM/H</div>
+    <div class="ticker-item">TELEMETRIA <span class="accent">//</span> REAL UNDERGROUND</div>
+    <div class="ticker-item">DRIFT ANGLE <span class="accent">//</span> 52° CONTRAESTERÇO</div>
+    <div class="ticker-item">MEMBRO FUNDADOR <span class="accent">//</span> ACESSO DIRETO</div>
+    <div class="ticker-item">REDLINE <span class="accent">//</span> 8.500 RPM</div>
+    <div class="ticker-item">GARAGEM &amp; SETUPS <span class="accent">//</span> SEM FILTRO</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     02 · PADDOCK RAW (O CORTE E O RESTO)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="corte">
+  <div class="wrap">
+    <div class="sec-eyebrow">
+      <span class="telemetry-tag">02 // 06 · PADDOCK RAW</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="sec-title-area">
+      <h2 class="heading-display sec-title">
+        Todo mundo assiste.<br>
+        Poucos <span class="text-orange heading-slant">entram.</span>
+      </h2>
+      <p class="sec-desc">
+        Na internet você vê o take cortado de 30 segundos, o resultado polido e a edição do feed. No <strong>Drive Club</strong> você acompanha a realidade crua da pista: o acerto mecânico, o calor do motor, os erros, as vitórias e a resenha de quem vive no limite.
+      </p>
+    </div>
+
+    <!-- FRAMES DE MONITORAMENTO / PLACEHOLDERS TÉCNICOS -->
+    <div class="paddock-grid">
+      <div class="media-card col-7" data-asset="bastidor-01.jpg">
+        <div class="media-mock" style="aspect-ratio: 16/9;">
+          <div class="media-header">
+            <span class="rec-indicator"><b></b>REC 4K RAW</span>
+            <span class="timecode" data-tc>00:14:28:11</span>
+          </div>
+          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <div class="media-footer">
+            <span>CAM_01 // BASTIDOR DE PISTA</span>
+            <span class="media-tag">OFF-CAMERA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-card col-5" data-asset="feed-01.jpg">
+        <div class="media-mock" style="aspect-ratio: 16/9;">
+          <div class="media-header">
+            <span class="rec-indicator"><b></b>REC 4K RAW</span>
+            <span class="timecode" data-tc>00:08:42:04</span>
+          </div>
+          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <div class="media-footer">
+            <span>CAM_02 // COCKPIT TELEMETRY</span>
+            <span class="media-tag">NO FEED</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-card col-4" data-asset="feed-02.jpg">
+        <div class="media-mock" style="aspect-ratio: 4/5;">
+          <div class="media-header">
+            <span class="rec-indicator"><b></b>REC 4K RAW</span>
+            <span class="timecode" data-tc>00:21:05:19</span>
+          </div>
+          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <div class="media-footer">
+            <span>CAM_03 // APEX CORNER</span>
+            <span class="media-tag">GARAGEM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-card col-8" data-asset="bastidor-02.jpg">
+        <div class="media-mock" style="aspect-ratio: 21/9;">
+          <div class="media-header">
+            <span class="rec-indicator"><b></b>REC 4K RAW</span>
+            <span class="timecode" data-tc>00:32:19:07</span>
+          </div>
+          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <div class="media-footer">
+            <span>CAM_04 // NIGHT TOUGE RUN</span>
+            <span class="media-tag">UNFILTERED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="editorial-quote">
+      <div class="quote-mark">“</div>
+      <p class="quote-text">
+        O Drive faz o que os outros não têm coragem na pista. O Club é o único lugar onde você senta no banco do passageiro e vive isso por dentro.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     03 · AS SEIS PORTAS (O QUE TÁ DENTRO)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="dentro">
+  <div class="wrap">
+    <div class="sec-eyebrow">
+      <span class="telemetry-tag">03 // 06 · SEIS PILARES DE ACESSO</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="sec-title-area">
+      <h2 class="heading-display sec-title">
+        O que tá <span class="text-orange heading-slant">dentro</span>
+      </h2>
+      <p class="sec-desc">
+        Uma estrutura completa desenhada para quem respira cultura automotiva, preparação e automobilismo real.
+      </p>
+    </div>
+
+    <div class="doors-grid">
+      <!-- PORTA 01 -->
+      <article class="door-card">
+        <div class="door-card-content">
+          <div class="door-top">
+            <div class="door-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <span class="door-num">// 01</span>
+          </div>
+          <h3 class="door-title">A Drive — O Lado Oculto</h3>
+          <p class="door-desc">
+            Bastidores sem cortes, Q&amp;A direto no chat, e o sistema de votação: você define as próximas modificações de projeto e novos conteúdos.
+          </p>
+        </div>
+        <div class="door-tags">
+          <span class="door-badge">Bastidor Real</span>
+          <span class="door-badge">Q&amp;A Semanal</span>
+          <span class="door-badge">Voto Direto</span>
+        </div>
+      </article>
+
+      <!-- PORTA 02 -->
+      <article class="door-card">
+        <div class="door-card-content">
+          <div class="door-top">
+            <div class="door-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8c-.1.3-.1.6-.1.9v4.4c0 .6.4 1 1 1h2"/>
+                <circle cx="7" cy="17" r="2"/>
+                <path d="M9 17h6"/>
+                <circle cx="17" cy="17" r="2"/>
+              </svg>
+            </div>
+            <span class="door-num">// 02</span>
+          </div>
+          <h3 class="door-title">Garagem dos Membros</h3>
+          <p class="door-desc">
+            Espaço para exibir seu projeto, setup de suspensão, ficha técnica e evolução antes-e-depois com feedback de quem entende.
+          </p>
+        </div>
+        <div class="door-tags">
+          <span class="door-badge">Projetos</span>
+          <span class="door-badge">Setups</span>
+          <span class="door-badge">Zero Julgamento</span>
+        </div>
+      </article>
+
+      <!-- PORTA 03 -->
+      <article class="door-card">
+        <div class="door-card-content">
+          <div class="door-top">
+            <div class="door-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                <path d="M13 5v2M13 11v2M13 17v2"/>
+              </svg>
+            </div>
+            <span class="door-num">// 03</span>
+          </div>
+          <h3 class="door-title">Rifa com Chance 10x</h3>
+          <p class="door-desc">
+            Sorteios exclusivos de peças de alta performance, cotas especiais e experiências que multiplicam sua probabilidade de vitória por 10.
+          </p>
+        </div>
+        <div class="door-tags">
+          <span class="door-badge">Peças Forjadas</span>
+          <span class="door-badge">Cotas 10x</span>
+        </div>
+      </article>
+
+      <!-- PORTA 04 -->
+      <article class="door-card">
+        <div class="door-card-content">
+          <div class="door-top">
+            <div class="door-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                <path d="M4 22h16"/>
+                <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34c2.5-.66 4-3.03 4-5.66V4H6v5c0 2.63 1.5 5 4 5.66Z"/>
+              </svg>
+            </div>
+            <span class="door-num">// 04</span>
+          </div>
+          <h3 class="door-title">Ranking &amp; Desafios</h3>
+          <p class="door-desc">
+            Batalha mensal de projetos, fotografia automotiva e desafios de pista. Suba no placar, ganhe insígnias de honra e prêmios.
+          </p>
+        </div>
+        <div class="door-tags">
+          <span class="door-badge">Competição</span>
+          <span class="door-badge">Prêmios Mensais</span>
+        </div>
+      </article>
+
+      <!-- PORTA 05 -->
+      <article class="door-card">
+        <div class="door-card-content">
+          <div class="door-top">
+            <div class="door-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                <line x1="4" y1="22" x2="4" y2="15"/>
+              </svg>
+            </div>
+            <span class="door-num">// 05</span>
+          </div>
+          <h3 class="door-title">Experiências de Pista</h3>
+          <p class="door-desc">
+            Track days fechados, encontros no autódromo, sessões de kart e gravações presenciais exclusivas ao lado do Drive.
+          </p>
+        </div>
+        <div class="door-tags">
+          <span class="door-badge">Presencial</span>
+          <span class="door-badge">Track Day</span>
+          <span class="door-badge">Hot Lap</span>
+        </div>
+      </article>
+
+      <!-- PORTA 06 -->
+      <article class="door-card">
+        <div class="door-card-content">
+          <div class="door-top">
+            <div class="door-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/>
+                <path d="M7 7h.01"/>
+              </svg>
+            </div>
+            <span class="door-num">// 06</span>
+          </div>
+          <h3 class="door-title">Parceiros &amp; Desapego</h3>
+          <p class="door-desc">
+            Descontos pesados em oficinas especializadas, PPF, pneus e peças. Mercado interno e seguro de compra e venda entre membros.
+          </p>
+        </div>
+        <div class="door-tags">
+          <span class="door-badge">Cupons</span>
+          <span class="door-badge">Peças Raras</span>
+          <span class="door-badge">Marketplace</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     04 · PADDOCK FILTER (PRA QUEM É / PRA QUEM NÃO É)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="filtro">
+  <div class="wrap">
+    <div class="sec-eyebrow">
+      <span class="telemetry-tag">04 // 06 · CRITÉRIO DE ENTRADA</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="sec-title-area">
+      <h2 class="heading-display sec-title">
+        Sem meio termo.<br>
+        <span class="text-orange heading-slant">Quem entra</span> vs <span class="heading-slant text-gradient">Quem fica fora</span>
+      </h2>
+    </div>
+
+    <div class="filter-grid">
+      <!-- GREEN FLAG -->
+      <div class="filter-box filter-box-yes">
+        <div class="filter-header green">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          GREEN FLAG // É PARA VOCÊ SE:
+        </div>
+        <ul class="filter-list">
+          <li>
+            <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+            <span class="filter-text-yes">Carro para você é paixão, engenharia e estilo de vida, não apenas um meio de transporte.</span>
+          </li>
+          <li>
+            <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="13 17 18 12 13 7"/>
+              <polyline points="6 17 11 12 6 7"/>
+            </svg>
+            <span class="filter-text-yes">Você quer aprender drift, acerto de suspensão e mecânica de verdade com quem pratica.</span>
+          </li>
+          <li>
+            <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="m10 15 5-3-5-3v6Z"/>
+            </svg>
+            <span class="filter-text-yes">Você quer estar dentro do paddock trocando ideia direto com o Drive, não aplaudindo de longe.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- RED FLAG -->
+      <div class="filter-box filter-box-no">
+        <div class="filter-header red">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          RED FLAG // NÃO É PARA VOCÊ SE:
+        </div>
+        <ul class="filter-list">
+          <li>
+            <svg class="filter-icon-no" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+            </svg>
+            <span class="filter-text-no">Acha que carro serve só para ir do ponto A ao ponto B sem emoção.</span>
+          </li>
+          <li>
+            <svg class="filter-icon-no" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+            </svg>
+            <span class="filter-text-no">Está procurando um grupo comum e cheio de conversas fúteis sem ação na pista.</span>
+          </li>
+          <li>
+            <svg class="filter-icon-no" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+            </svg>
+            <span class="filter-text-no">Tem medo de acelerar forte e prefere a comodidade de um carro de vitrine.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict-banner">
+      <h3 class="verdict-title">
+        O Drive Club não é para todo mundo.<br>
+        <span class="text-orange">É para quem acelera de verdade.</span>
+      </h3>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     05 · OFERTA & FOUNDER PASS (COCKPIT CHECKOUT)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="oferta">
+  <div class="wrap">
+    <div class="sec-eyebrow">
+      <span class="telemetry-tag">05 // 06 · PASSE DE FUNDADOR</span>
+      <span class="line"></span>
+    </div>
+
+    <div class="offer-card">
+      <div class="offer-grid">
+        <div>
+          <span class="offer-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            Condição Especial // 1ª Leva
+          </span>
+          <h2 class="heading-display sec-title">
+            Entra no <span class="text-orange heading-slant">Cockpit</span>
+          </h2>
+          <p class="sec-desc">
+            Garanta seu acesso imediato com valor de membro fundador travado permanentemente enquanto sua assinatura estiver ativa.
+          </p>
+
+          <div class="offer-perks">
+            <div class="offer-perk-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Acesso Completo ao Club</span>
+            </div>
+            <div class="offer-perk-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Bastidores Sem Filtro</span>
+            </div>
+            <div class="offer-perk-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Garagem &amp; Setups</span>
+            </div>
+            <div class="offer-perk-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Rifa com Chance 10x</span>
+            </div>
+            <div class="offer-perk-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Track Days &amp; Encontros</span>
+            </div>
+            <div class="offer-perk-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Descontos com Parceiros</span>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+            <!-- >>> ÚNICO LINK DE CHECKOUT DA PÁGINA — TROCAR {{LINK_CHECKOUT}} <<< -->
+            <a class="btn-primary btn-lg" href="{{LINK_CHECKOUT}}">
+              Entrar no Drive Club
+              <span class="icon-arrow">
+                <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+                  <path d="M8 1L13 6M13 6L8 11M13 6H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- MOSTRADOR DIGITAL / ODÔMETRO -->
+        <div>
+          <div class="price-display-box">
+            <div class="price-label">PLANO MENSAL // FUNDADOR</div>
+            <div class="price-value-wrap">
+              <span class="price-currency">R$</span>
+              <!-- PREÇO: o odômetro lê os dígitos de data-valor. Trocar {{PRECO}} aqui. -->
+              <div class="odo-container" id="odo" data-valor="{{PRECO}}">
+                <span class="odo-col"><span class="odo-roll"><span>4</span></span></span>
+                <span class="odo-col"><span class="odo-roll"><span>7</span></span></span>
+              </div>
+            </div>
+            <div class="price-period">por mês</div>
+            <div class="price-micro">Sem fidelidade · Cancele quando quiser com 1 clique</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
-     06 · FECHAMENTO + FOOTER  ·  preto
+     06 · MANIFESTO FINAL & RODAPÉ
      ═══════════════════════════════════════════════════════════ -->
-<section class="sec fim" id="fim">
-  <div class="scratch" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap">
-    <p class="eyebrow rot"><span class="n">06 / 06</span> Fim da marca <span class="fio"></span></p>
-    <p class="d xl d--slant grande">Lá fora você continua sendo audiência. <span class="laranja">Aqui você vira um ninja.</span></p>
-
-    <div class="rodape">
-      <span>Drive Club · Real Underground</span>
-      <a href="https://instagram.com/driveitlikestoleit" target="_blank" rel="noopener">@driveitlikestoleit</a>
-      <span>© <span id="ano">2026</span></span>
+<section class="sec manifesto-sec" id="fim">
+  <div class="wrap wrap--narrow">
+    <div class="sec-eyebrow" style="justify-content: center;">
+      <span class="telemetry-tag">06 // 06 · LINHA DE CHEGADA</span>
     </div>
+
+    <h2 class="heading-display manifesto-title">
+      Lá fora você continua sendo público.<br>
+      <span class="text-orange heading-slant">Aqui você acelera junto.</span>
+    </h2>
+
+    <a class="btn-primary btn-lg" href="{{LINK_CHECKOUT}}">
+      Garantir Minha Chave de Acesso
+      <span class="icon-arrow">
+        <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+          <path d="M8 1L13 6M13 6L8 11M13 6H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+
+    <footer class="footer-bar">
+      <span>DRIVE CLUB // REAL UNDERGROUND</span>
+      <a href="https://instagram.com/driveitlikestoleit" target="_blank" rel="noopener">@driveitlikestoleit</a>
+      <span>© <span id="ano">2026</span> · TODOS OS DIREITOS RESERVADOS</span>
+    </footer>
   </div>
 </section>
 
 </main>
 
-<!-- CTA fixo (mobile) -->
-<a class="cta-fixo btn" id="cta-fixo" href="#oferta">Quero entrar no club
-  <span class="chev" aria-hidden="true">
-    <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-    <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-    <svg viewBox="0 0 26 12"><path d="M2 1l5 5-5 5M11 1l5 5-5 5M20 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
-  </span>
-</a>
+<!-- CTA FLUTUANTE MOBILE -->
+<div class="mobile-sticky-cta" id="mobile-sticky-cta">
+  <a class="btn-primary" style="width: 100%; border-radius: var(--radius-md);" href="#oferta">
+    Garantir Minha Vaga // R$ {{PRECO}}
+    <span class="icon-arrow">
+      <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+        <path d="M7 1L11 5M11 5L7 9M11 5H1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </a>
+</div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     ÍCONES  ·  desenhados no grid de 24px, traço 2.5–3px.
-     Geometria de placa de pista: sem canto arredondado, sem linha fina.
-     ═══════════════════════════════════════════════════════════ -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <!-- bandeira quadriculada -->
-  <symbol id="ic-bandeira" viewBox="0 0 24 24">
-    <path d="M3 2v20" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
-    <rect x="6" y="3" width="5" height="5" fill="currentColor"/>
-    <rect x="16" y="3" width="5" height="5" fill="currentColor"/>
-    <rect x="11" y="8" width="5" height="5" fill="currentColor"/>
-    <rect x="6" y="13" width="5" height="5" fill="currentColor"/>
-    <rect x="16" y="13" width="5" height="5" fill="currentColor"/>
-  </symbol>
-  <!-- cone de pista riscado -->
-  <symbol id="ic-cone" viewBox="0 0 24 24">
-    <path d="M12 3 19 19H5L12 3Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
-    <path d="M2 21h20" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-    <path d="M3 4l18 15" stroke="currentColor" stroke-width="3" stroke-dasharray="7 3"/>
-  </symbol>
-  <!-- claquete -->
-  <symbol id="ic-claquete" viewBox="0 0 24 24">
-    <path d="M2 9h20v12H2z" fill="none" stroke="currentColor" stroke-width="2.6"/>
-    <path d="M2 9 4 3l18 2-2 4z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
-    <path d="M8 3.5 6 9M14 4.2 12 9M20 5 18 9" stroke="currentColor" stroke-width="2.2"/>
-  </symbol>
-  <!-- elevação lateral de carro em traços -->
-  <symbol id="ic-carro" viewBox="0 0 24 24">
-    <path d="M1 15h22" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-    <path d="M2 15l3-5h11l4 5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
-    <path d="M7 10l2-4h5l3 4" fill="none" stroke="currentColor" stroke-width="2.2"/>
-    <circle cx="7" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="2.4"/>
-    <circle cx="17" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="2.4"/>
-  </symbol>
-  <!-- ticket com serrilha -->
-  <symbol id="ic-ticket" viewBox="0 0 24 24">
-    <path d="M2 5h20v5a2.6 2.6 0 0 0 0 5.2V20H2v-4.8a2.6 2.6 0 0 0 0-5.2z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
-    <path d="M12 6v3M12 11v3M12 16v3" stroke="currentColor" stroke-width="2.4"/>
-  </symbol>
-  <!-- pódio de três barras -->
-  <symbol id="ic-podio" viewBox="0 0 24 24">
-    <path d="M2 21h20" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-    <rect x="2.5" y="12" width="5.6" height="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
-    <rect x="9.2" y="4" width="5.6" height="17" fill="none" stroke="currentColor" stroke-width="2.6"/>
-    <rect x="15.9" y="15" width="5.6" height="6" fill="none" stroke="currentColor" stroke-width="2.6"/>
-  </symbol>
-  <!-- traçado de autódromo fechado, uma linha só -->
-  <symbol id="ic-pista" viewBox="0 0 24 24">
-    <path d="M7 20c-4 0-5.5-3-4.5-5.5S7 11 7 8.5 5 3 9 3s5 3 8 3 6 1 6 5-4 4-6 6-2 3-5 3z"
-          fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
-  </symbol>
-  <!-- etiqueta com furo -->
-  <symbol id="ic-etiqueta" viewBox="0 0 24 24">
-    <path d="M11.5 2H22v10.5L12.5 22 2 11.5 11.5 2Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/>
-    <circle cx="17" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="2.4"/>
-  </symbol>
-</defs></svg>
-
-<!-- ═══════════ BIBLIOTECAS ═══════════ -->
+<!-- ═══════════ SCRIPTS & ANIMAÇÕES ═══════════ -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
@@ -874,559 +1852,287 @@ html.rm .eyebrow .fio{transform:scaleX(1)}
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-'use strict';
+  'use strict';
 
-/* ═══════════════════════════════════════════════════════════
-   AJUSTES RÁPIDOS
-   ═══════════════════════════════════════════════════════════ */
-var CFG = {
-  driftMax:      25,    // graus máximos de derrapagem do carro
-  driftCurva:    1.15,  // quanto a curvatura do trajeto vira derrapagem
-  driftVeloc:    0.22,  // quanto a velocidade do scroll vira derrapagem
-  driftInercia:  0.09,  // menor = mais lag = mais contraesterço na saída
-  carroInercia:  0.13,  // menor = o carro demora mais pra alcançar o scroll
-  skewMax:       8,     // graus máx. de skew das headlines
-  skewGanho:     0.22,
-  blurMax:       6,     // px de motion blur nos frames
-  marqueeBase:   0.9,   // px/frame parado
-  marqueeGanho:  0.55,  // quanto a velocidade do scroll soma no marquee
-  fumacaLimite:  13     // graus de derrapagem a partir dos quais sai fumaça
-};
+  var RM   = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var MOB  = matchMedia('(max-width: 820px)').matches;
+  var FINO = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var $    = function (s, c) { return (c || document).querySelector(s); };
+  var $$   = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
 
-var RM   = matchMedia('(prefers-reduced-motion: reduce)').matches;
-var MOB  = matchMedia('(max-width: 820px)').matches;
-var FINO = matchMedia('(hover:hover) and (pointer:fine)').matches;
-var $  = function (s, c) { return (c || document).querySelector(s); };
-var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
-var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  // Atualizar ano no footer
+  var anoEl = $('#ano');
+  if (anoEl) anoEl.textContent = new Date().getFullYear();
 
-$('#ano').textContent = new Date().getFullYear();
-
-/* ─── tics do conta-giros ─── */
-(function () {
-  var g = $('#tics-giro'), ns = 'http://www.w3.org/2000/svg';
-  for (var i = 0; i <= 10; i++) {
-    var a = (-118 + 236 / 10 * i) * Math.PI / 180, r2 = (i % 5 === 0) ? 30 : 34;
-    var l = document.createElementNS(ns, 'line');
-    l.setAttribute('x1', (52 + Math.sin(a) * 40).toFixed(1)); l.setAttribute('y1', (52 - Math.cos(a) * 40).toFixed(1));
-    l.setAttribute('x2', (52 + Math.sin(a) * r2).toFixed(1)); l.setAttribute('y2', (52 - Math.cos(a) * r2).toFixed(1));
-    if (i >= 8) l.setAttribute('stroke', '#FF4A0F');
-    g.appendChild(l);
-  }
-})();
-
-/* ─── odômetro: monta as colunas a partir de data-valor ─── */
-var odo = $('#odo'), rolos = [];
-(function () {
-  var bruto = odo.getAttribute('data-valor') || '';
-  var m = bruto.match(/\d+/);
-  var digitos = m ? m[0] : '47';           // enquanto {{PRECO}} não for trocado, mostra 47
-  odo.innerHTML = '';
-  digitos.split('').forEach(function (d) {
-    var col = document.createElement('span'); col.className = 'col';
-    var rolo = document.createElement('span'); rolo.className = 'rolo';
-    var h = '';
-    for (var v = 0; v < 20; v++) h += '<span>' + (v % 10) + '</span>';  // duas voltas
-    rolo.innerHTML = h;
-    rolo.dataset.alvo = 10 + parseInt(d, 10);
-    col.appendChild(rolo); odo.appendChild(col); rolos.push(rolo);
-  });
-  /* estado final imediato — é o que vale sem JS de animação */
-  rolos.forEach(function (r) { r.style.transform = 'translateY(-' + r.dataset.alvo + 'em)'; });
-})();
-
-/* ─── riscas do "não é pra você": uma linha SVG por LINHA de texto ───
-   getClientRects() devolve um retângulo por fragmento, então o risco
-   funciona quando a frase quebra em duas linhas. */
-function montarRiscas() {
-  $$('.risca').forEach(function (sp) {
-    var velha = sp.parentNode.querySelector('.risca-svg');
-    if (velha) velha.remove();
-    var base = sp.closest('li'), br = base.getBoundingClientRect();
-    var rects = sp.getClientRects(); if (!rects.length) return;
-    var ns = 'http://www.w3.org/2000/svg';
-    var svg = document.createElementNS(ns, 'svg');
-    svg.setAttribute('class', 'risca-svg'); svg.setAttribute('aria-hidden', 'true');
-    for (var i = 0; i < rects.length; i++) {
-      var r = rects[i];
-      var ln = document.createElementNS(ns, 'line');
-      ln.setAttribute('x1', r.left - br.left - 2); ln.setAttribute('x2', r.right - br.left + 2);
-      ln.setAttribute('y1', r.top - br.top + r.height * 0.58); ln.setAttribute('y2', r.top - br.top + r.height * 0.52);
-      var L = r.width + 4;
-      ln.style.strokeDasharray = L;
-      ln.style.strokeDashoffset = (RM ? 0 : L);
-      svg.appendChild(ln);
-    }
-    base.style.position = 'relative';
-    base.appendChild(svg);
-  });
-}
-montarRiscas();
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
-  var feito = $('.risca-svg line') && $('.risca-svg line').style.strokeDashoffset === '0';
-  montarRiscas();
-  if (feito || RM) $$('.risca-svg line').forEach(function (l) { l.style.strokeDashoffset = 0; });
-});
-
-/* ─── tema da seção atual: IntersectionObserver puro, funciona sem GSAP.
-   É o que mantém o conta-giros legível quando o fundo troca. ─── */
-(function () {
-  var qual = function (el) { return el.classList.contains('t-branco') ? 'branco' : el.classList.contains('t-laranja') ? 'laranja' : 'preto'; };
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) document.documentElement.dataset.tema = qual(e.target); });
-  }, { rootMargin: '-50% 0px -50% 0px' });   /* faixa fina no meio da tela */
-  $$('main .sec').forEach(function (s) { io.observe(s); });
-})();
-
-/* ═══════════════════════════════════════════════════════════
-   SEM MOVIMENTO (reduced-motion ou CDN fora do ar): estado final
-   ═══════════════════════════════════════════════════════════ */
-if (RM || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-  document.documentElement.classList.add('rm');
-  $$('.risca-svg line').forEach(function (l) { l.style.strokeDashoffset = 0; });
-  /* progresso continua funcionando sem animação nenhuma */
-  var bs = $('#prog-barra'), ag = $('#agulha'), rp = $('#rpm-num'), tp = $('#topo'), pedido = false;
-  window.addEventListener('scroll', function () {
-    if (pedido) return; pedido = true;
-    requestAnimationFrame(function () {
-      pedido = false;
-      var m = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      var pr = clamp(window.scrollY / m, 0, 1);
-      bs.style.transform = 'scaleX(' + pr + ')';
-      ag.style.transform = 'rotate(' + (-118 + pr * 236) + 'deg)';
-      rp.textContent = Math.round(pr * 80);
-      tp.classList.toggle('encolhido', window.scrollY > 100);
+  /* ─── ODÔMETRO DIGITAL DO PREÇO ─── */
+  var odo = $('#odo'), rolos = [];
+  if (odo) {
+    var bruto = odo.getAttribute('data-valor') || '';
+    var m = bruto.match(/\d+/);
+    var digitos = m ? m[0] : '47';
+    odo.innerHTML = '';
+    digitos.split('').forEach(function (d) {
+      var col = document.createElement('span'); col.className = 'odo-col';
+      var rolo = document.createElement('span'); rolo.className = 'odo-roll';
+      var h = '';
+      for (var v = 0; v < 20; v++) h += '<span>' + (v % 10) + '</span>';
+      rolo.innerHTML = h;
+      rolo.dataset.alvo = 10 + parseInt(d, 10);
+      col.appendChild(rolo); odo.appendChild(col); rolos.push(rolo);
     });
+    rolos.forEach(function (r) { r.style.transform = 'translateY(-' + r.dataset.alvo + 'em)'; });
+  }
+
+  /* ─── TIMECODE DINÂMICO NOS FRAMES ─── */
+  (function () {
+    var tcs = $$('[data-tc]'), t0 = 0;
+    var obs = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) { e.target.dataset.on = e.isIntersecting ? '1' : '0'; });
+    }, { rootMargin: '80px' });
+    tcs.forEach(function (el, i) { obs.observe(el); el.dataset.off = i * 137; });
+    setInterval(function () {
+      t0 += 1;
+      tcs.forEach(function (el) {
+        if (el.dataset.on !== '1') return;
+        var q = t0 + parseInt(el.dataset.off, 10);
+        var s = Math.floor(q / 12) % 60, min = Math.floor(q / 720) % 60, f = q % 12;
+        el.textContent = ('0' + min).slice(-2) + ':' + ('0' + s).slice(-2) + ':' + ('0' + f * 2).slice(-2);
+      });
+    }, 90);
+  })();
+
+  /* ─── SPOTLIGHT EFFECT NOS CARDS NO MOUSEMOVE ─── */
+  if (FINO) {
+    $$('.door-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', x + 'px');
+        card.style.setProperty('--mouse-y', y + 'px');
+      }, { passive: true });
+    });
+  }
+
+  /* ─── HEADER BLUR SCROLL LISTENER ─── */
+  var header = $('#header-nav');
+  var mobileCta = $('#mobile-sticky-cta');
+  window.addEventListener('scroll', function () {
+    var sy = window.scrollY;
+    if (header) header.classList.toggle('scrolled', sy > 60);
+    if (mobileCta) mobileCta.classList.toggle('visible', sy > 400);
   }, { passive: true });
-  return;
-}
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
-
-/* ─── Lenis: scroll suave só no desktop (no toque atrapalha) ─── */
-var lenis = null;
-if (!MOB && typeof Lenis !== 'undefined') {
-  lenis = new Lenis({ duration: 1.05, smoothWheel: true, syncTouch: false });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-  gsap.ticker.lagSmoothing(0);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   TRAJETO DO CARRO  ·  gerado em px conforme a viewport
-   ═══════════════════════════════════════════════════════════ */
-var svgPista = $('#svg-pista'), trajeto = $('#trajeto');
-var marcas = $$('#marcas-escura .mk').concat($$('#marcas-clara .mk'));
-var raw = null, tWp = [], pSec = [], comprimentos = [];
-
-/* waypoints normalizados; no mobile a amplitude cai (trajeto mais simples) */
-function waypoints() {
-  var amp = MOB ? 0.55 : 1;
-  var base = [[.56,-.06],[.10,.13],[.90,.30],[.14,.50],[.88,.67],[.20,.85],[.64,1.16]];
-  return base.map(function (p) { return [0.5 + (p[0] - 0.5) * amp, p[1]]; });
-}
-/* Catmull-Rom -> cúbicas: curva suave passando exatamente pelos waypoints */
-function suavizar(pts) {
-  var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
-  for (var i = 0; i < pts.length - 1; i++) {
-    var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || pts[i + 1];
-    d += ' C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ' ' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) +
-         ',' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ' ' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) +
-         ',' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
-  }
-  return d;
-}
-
-function construirPista() {
-  var w = window.innerWidth, h = window.innerHeight;
-  svgPista.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-  svgPista.setAttribute('width', w); svgPista.setAttribute('height', h);
-
-  var pts = waypoints().map(function (p) { return [p[0] * w, p[1] * h]; });
-  trajeto.setAttribute('d', suavizar(pts));
-
-  /* t (0–1 por comprimento) de cada waypoint: amostra o path e acha o mais perto */
-  var L = trajeto.getTotalLength(), N = 700, amostras = [];
-  for (var i = 0; i <= N; i++) amostras.push(trajeto.getPointAtLength(L * i / N));
-  tWp = pts.map(function (p) {
-    var melhor = 0, dm = Infinity;
-    for (var i = 0; i <= N; i++) {
-      var dx = amostras[i].x - p[0], dy = amostras[i].y - p[1], d = dx * dx + dy * dy;
-      if (d < dm) { dm = d; melhor = i; }
-    }
-    return melhor / N;
-  });
-  tWp[0] = 0; tWp[tWp.length - 1] = 1;
-
-  /* as duas marcas = trajeto deslocado na perpendicular (bitola traseira) */
-  var meia = 15;
-  var polA = '', polB = '';
-  for (var j = 0; j <= N; j++) {
-    var a = amostras[Math.max(0, j - 1)], b = amostras[Math.min(N, j + 1)], c = amostras[j];
-    var tx = b.x - a.x, ty = b.y - a.y, m = Math.hypot(tx, ty) || 1;
-    var nx = -ty / m, ny = tx / m;
-    polA += (j ? 'L' : 'M') + (c.x + nx * meia).toFixed(1) + ' ' + (c.y + ny * meia).toFixed(1);
-    polB += (j ? 'L' : 'M') + (c.x - nx * meia).toFixed(1) + ' ' + (c.y - ny * meia).toFixed(1);
-  }
-  marcas[0].setAttribute('d', polA); marcas[2].setAttribute('d', polA);
-  marcas[1].setAttribute('d', polB); marcas[3].setAttribute('d', polB);
-  marcas.forEach(function (mk, i) {
-    var escura = i < 2;
-    mk.setAttribute('fill', 'none');
-    mk.setAttribute('stroke', escura ? '#0A0A0A' : '#F2EFE9');
-    mk.setAttribute('stroke-opacity', escura ? .3 : .18);
-    mk.setAttribute('stroke-width', i % 2 ? 5 : 7);   /* espessura variável entre as duas rodas */
-    mk.setAttribute('stroke-linecap', 'round');
-    var len = mk.getTotalLength();
-    comprimentos[i] = len;
-    mk.style.strokeDasharray = len;
-    mk.style.strokeDashoffset = len;
-  });
-
-  raw = MotionPathPlugin.getRawPath(trajeto);
-  MotionPathPlugin.cacheRawPathMeasurements(raw);
-
-  /* progresso de scroll de cada divisa entre seções: é ali que o carro fecha a curva */
-  var secs = $$('main .sec'), max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-  pSec = [0];
-  for (var k = 1; k < secs.length; k++) {
-    pSec.push(clamp((secs[k].offsetTop - window.innerHeight * 0.5) / max, 0.001, 0.999));
-  }
-  pSec.push(1);
-  for (var q = 1; q < pSec.length; q++) if (pSec[q] <= pSec[q - 1]) pSec[q] = pSec[q - 1] + 0.001;
-}
-construirPista();
-
-/* remapeia o progresso do scroll pro t do trajeto, ancorando os waypoints nas divisas */
-function progressoParaT(p) {
-  var n = Math.min(pSec.length, tWp.length);
-  for (var i = 1; i < n; i++) {
-    if (p <= pSec[i]) {
-      var f = (p - pSec[i - 1]) / (pSec[i] - pSec[i - 1] || 1);
-      return tWp[i - 1] + (tWp[i] - tWp[i - 1]) * clamp(f, 0, 1);
-    }
-  }
-  return 1;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   LOOP  ·  o scroll é o acelerador
-   ═══════════════════════════════════════════════════════════ */
-var carro = $('#carro'), rodasF = $('#rodas-f');
-gsap.set(carro, { svgOrigin: '0 0', opacity: 1 });
-gsap.set(rodasF, { svgOrigin: '45.5 17' });
-var setX = gsap.quickSetter(carro, 'x', 'px'),
-    setY = gsap.quickSetter(carro, 'y', 'px'),
-    setR = gsap.quickSetter(carro, 'rotation', 'deg'),
-    setRodas = gsap.quickSetter(rodasF, 'rotation', 'deg');
-
-var barra = $('#prog-barra'), cauda = $('#prog-cauda'), agulha = $('#agulha'), rpm = $('#rpm-num');
-var setBarra = gsap.quickSetter(barra, 'scaleX'), setCauda = gsap.quickSetter(cauda, 'scaleX'),
-    setAgulha = gsap.quickSetter(agulha, 'rotation', 'deg');
-var esteiras = [{ el: $('#esteira-1'), x: 0 }, { el: $('#esteira-2'), x: 0 }];
-var raiz = document.documentElement.style;
-
-/* pool de fumaça de borracha */
-var fumaca = [];
-if (!MOB) {
-  var cont = $('#fumaca');
-  for (var f = 0; f < 10; f++) { var b = document.createElement('b'); cont.appendChild(b); fumaca.push({ el: b, livre: true }); }
-}
-function soltarFumaca(x, y) {
-  for (var i = 0; i < fumaca.length; i++) {
-    var p = fumaca[i]; if (!p.livre) continue;
-    p.livre = false;
-    gsap.fromTo(p.el,
-      { x: x + (Math.random() - .5) * 18, y: y + (Math.random() - .5) * 18, scale: .5, opacity: .55 },
-      { x: '+=' + (Math.random() - .5) * 90, y: '-=' + (40 + Math.random() * 60), scale: 2.1, opacity: 0,
-        duration: 1.2, ease: 'power2.out', onComplete: function () { p.livre = true; } });
+  /* ═══════════════════════════════════════════════════════════
+     REDUCED MOTION OU SEM GSAP
+     ═══════════════════════════════════════════════════════════ */
+  if (RM || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    document.documentElement.classList.add('rm');
     return;
   }
-}
 
-var yAnt = 0, vel = 0, tAtual = 0, drift = 0, tMax = 0, ultimoDash = -1, ultimaFumaca = 0;
-var topo = $('#topo'), encolhido = false;
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-gsap.ticker.add(function () {
-  var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-  var y = lenis ? lenis.scroll : window.scrollY;
-  var p = clamp(y / max, 0, 1);
+  /* ─── LENIS SMOOTH SCROLL (DESKTOP) ─── */
+  var lenis = null;
+  if (!MOB && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true, syncTouch: false });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
 
-  /* velocidade do scroll, suavizada */
-  vel += ((y - yAnt) - vel) * 0.2; yAnt = y;
-  var vAbs = Math.abs(vel);
+  /* ═══════════════════════════════════════════════════════════
+     CONSTRUÇÃO DO TRAJETO DE DRIFT DO CARRO
+     ═══════════════════════════════════════════════════════════ */
+  var svgPista = $('#track-svg'), trajeto = $('#track-path');
+  var tireMarks = [$('#tire-l'), $('#tire-r'), $('#tire-inner-l'), $('#tire-inner-r')];
+  var raw = null, tWp = [], pSec = [], comprimentos = [];
 
-  /* ── carro ── */
-  var alvo = progressoParaT(p);
-  tAtual += (alvo - tAtual) * CFG.carroInercia;
-  var pos = MotionPathPlugin.getPositionOnPath(raw, tAtual, true);
-  var a1 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual - .007, 0, 1), true);
-  var a2 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual + .007, 0, 1), true);
-  var dAng = a2.angle - a1.angle;
-  while (dAng > 180) dAng -= 360; while (dAng < -180) dAng += 360;
-  /* derrapagem = curvatura + velocidade; a inércia baixa é o que gera o contraesterço */
-  var alvoDrift = clamp(dAng * CFG.driftCurva + vel * CFG.driftVeloc * Math.sign(dAng || 1),
-                        -CFG.driftMax, CFG.driftMax);
-  drift += (alvoDrift - drift) * CFG.driftInercia;
-  setX(pos.x); setY(pos.y); setR(pos.angle + drift);
-  setRodas(-drift * 0.9);          /* rodas dianteiras contraesterçam */
+  function waypoints() {
+    var amp = MOB ? 0.5 : 0.85;
+    var base = [[.52, -.05], [.18, .16], [.82, .32], [.16, .50], [.84, .68], [.22, .86], [.58, 1.12]];
+    return base.map(function (p) { return [0.5 + (p[0] - 0.5) * amp, p[1]]; });
+  }
 
-  /* fumaça nas curvas fechadas */
-  if (fumaca.length && Math.abs(drift) > CFG.fumacaLimite && vAbs > 3) {
-    var agora = performance.now();
-    if (agora - ultimaFumaca > 70) {
-      ultimaFumaca = agora;
-      var r = (pos.angle + drift) * Math.PI / 180;
-      soltarFumaca(pos.x - Math.cos(r) * 28, pos.y - Math.sin(r) * 28);
+  function suavizar(pts) {
+    var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for (var i = 0; i < pts.length - 1; i++) {
+      var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || pts[i + 1];
+      d += ' C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ' ' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) +
+           ',' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ' ' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) +
+           ',' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
     }
+    return d;
   }
 
-  /* ── marcas de pneu: só escrevem quando avançam (ficam na tela) ── */
-  if (tAtual > tMax) {
-    tMax = tAtual;
-    if (Math.abs(tMax - ultimoDash) > 0.0012) {
-      ultimoDash = tMax;
-      for (var i = 0; i < marcas.length; i++) marcas[i].style.strokeDashoffset = (comprimentos[i] * (1 - tMax)).toFixed(1);
+  function construirPista() {
+    var w = window.innerWidth, h = window.innerHeight;
+    svgPista.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    svgPista.setAttribute('width', w); svgPista.setAttribute('height', h);
+
+    var pts = waypoints().map(function (p) { return [p[0] * w, p[1] * h]; });
+    trajeto.setAttribute('d', suavizar(pts));
+
+    var L = trajeto.getTotalLength(), N = 500, amostras = [];
+    for (var i = 0; i <= N; i++) amostras.push(trajeto.getPointAtLength(L * i / N));
+    tWp = pts.map(function (p) {
+      var melhor = 0, dm = Infinity;
+      for (var i = 0; i <= N; i++) {
+        var dx = amostras[i].x - p[0], dy = amostras[i].y - p[1], d = dx * dx + dy * dy;
+        if (d < dm) { dm = d; melhor = i; }
+      }
+      return melhor / N;
+    });
+    tWp[0] = 0; tWp[tWp.length - 1] = 1;
+
+    var meia = 12;
+    var polA = '', polB = '';
+    for (var j = 0; j <= N; j++) {
+      var a = amostras[Math.max(0, j - 1)], b = amostras[Math.min(N, j + 1)], c = amostras[j];
+      var tx = b.x - a.x, ty = b.y - a.y, m = Math.hypot(tx, ty) || 1;
+      var nx = -ty / m, ny = tx / m;
+      polA += (j ? 'L' : 'M') + (c.x + nx * meia).toFixed(1) + ' ' + (c.y + ny * meia).toFixed(1);
+      polB += (j ? 'L' : 'M') + (c.x - nx * meia).toFixed(1) + ' ' + (c.y - ny * meia).toFixed(1);
     }
-  }
+    tireMarks[0].setAttribute('d', polA); tireMarks[2].setAttribute('d', polA);
+    tireMarks[1].setAttribute('d', polB); tireMarks[3].setAttribute('d', polB);
 
-  /* ── reação à velocidade ── */
-  raiz.setProperty('--sk', clamp(vel * CFG.skewGanho, -CFG.skewMax, CFG.skewMax).toFixed(2) + 'deg');
-  if (!MOB) raiz.setProperty('--mb', Math.min(CFG.blurMax, vAbs * 0.12).toFixed(2) + 'px');
-  var sp = clamp((vAbs - 22) / 60, 0, 1);
-  raiz.setProperty('--sp', sp.toFixed(3));
-
-  /* ── marquees: base + velocidade do scroll (inverte quando sobe) ── */
-  esteiras.forEach(function (e, i) {
-    if (!e.el) return;
-    var meio = e.el.scrollWidth / 2 || 1;
-    e.x -= (CFG.marqueeBase + vel * CFG.marqueeGanho) * (i ? -1 : 1);
-    if (e.x <= -meio) e.x += meio; if (e.x > 0) e.x -= meio;
-    e.el.style.transform = 'translate3d(' + e.x.toFixed(1) + 'px,0,0)';
-  });
-
-  /* ── progresso: barra, cauda com inércia, agulha ── */
-  setBarra(p);
-  var c = parseFloat(cauda.dataset.v || 0); c += (p - c) * 0.07; cauda.dataset.v = c;
-  setCauda(Math.min(1, c + 0.02));
-  setAgulha(-118 + p * 236);
-  rpm.textContent = Math.round(p * 80);
-
-  /* ── header ── */
-  var deve = y > 100;
-  if (deve !== encolhido) { encolhido = deve; topo.classList.toggle('encolhido', deve); }
-});
-
-/* linhas de velocidade: opacidade e comprimento vêm de --sp */
-(function () {
-  var el = $('#veloz');
-  $$('#veloz i').forEach(function (l, i) {
-    var dir = i % 2, t = 8 + i * 15;
-    l.style.top = (t + (i * 7)) + '%';
-    l.style[dir ? 'right' : 'left'] = '0';
-    l.style.width = (8 + i * 3) + 'vw';
-    l.style.transformOrigin = dir ? 'right' : 'left';
-  });
-  el.style.opacity = 'var(--sp,0)';
-  $$('#veloz i').forEach(function (l) { l.style.transform = 'scaleX(calc(.2 + var(--sp,0)))'; });
-})();
-
-/* ═══════════════════════════════════════════════════════════
-   ENTRADAS  ·  disparam uma vez
-   ═══════════════════════════════════════════════════════════ */
-/* hero: linhas empilhadas, cada uma de um lado, com overshoot */
-gsap.timeline({ delay: .15 })
-  .fromTo('h1 .li', { opacity: 0, x: function (i) { return i % 2 ? 90 : -90; }, y: 26 },
-    { opacity: 1, x: 0, y: 0, duration: .9, ease: 'back.out(1.5)', stagger: .08,
-      onComplete: function () { gsap.set('h1 .li', { clearProps: 'willChange' }); } })
-  .fromTo('.hero .corpo, .hero .acao', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .6, stagger: .1 }, '-=.5');
-
-/* hero é puxado pra cima e encolhe — não faz fade */
-gsap.to('#hero-conteudo', {
-  yPercent: -14, scale: .94, ease: 'none', transformOrigin: 'left top',
-  scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=520', scrub: .5 }
-});
-/* silhueta do hero com parallax de mouse */
-if (FINO && !MOB) {
-  var sil = $('#hero-silhueta');
-  var qx = gsap.quickTo(sil, 'x', { duration: 1.1, ease: 'power3' });
-  var qy = gsap.quickTo(sil, 'y', { duration: 1.1, ease: 'power3' });
-  var qr = gsap.quickTo(sil, 'rotation', { duration: 1.4, ease: 'power3' });
-  window.addEventListener('mousemove', function (e) {
-    var nx = e.clientX / window.innerWidth - .5, ny = e.clientY / window.innerHeight - .5;
-    qx(nx * 44); qy(ny * 30); qr(nx * 3);
-  }, { passive: true });
-}
-
-/* fios dos eyebrows */
-$$('.eyebrow .fio').forEach(function (el) {
-  gsap.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: .8, ease: 'power3.out',
-    scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
-});
-
-/* blocos do "o que tá dentro" */
-ScrollTrigger.batch('.bloco', {
-  start: 'top 86%', once: true,
-  onEnter: function (lote) {
-    gsap.fromTo(lote, { opacity: 0, y: 44 },
-      { opacity: 1, y: 0, duration: .8, ease: 'expo.out', stagger: .07,
-        onComplete: function () { gsap.set(lote, { clearProps: 'willChange,transform' }); } });
-  }
-});
-
-/* riscas desenhadas da esquerda pra direita */
-ScrollTrigger.create({
-  trigger: '.bloco-nao', start: 'top 80%', once: true,
-  onEnter: function () {
-    gsap.to('.risca-svg line', { strokeDashoffset: 0, duration: .55, ease: 'power2.inOut', stagger: .12 });
-  }
-});
-
-/* odômetro do preço */
-ScrollTrigger.create({
-  trigger: '.preco', start: 'top 86%', once: true,
-  onEnter: function () {
-    gsap.set(rolos, { y: 0 });
-    rolos.forEach(function (r, i) {
-      gsap.to(r, { y: '-' + r.dataset.alvo + 'em', duration: 1.15 + i * .16, ease: 'expo.out' });
+    tireMarks.forEach(function (mk, idx) {
+      if (!mk) return;
+      var len = mk.getTotalLength();
+      comprimentos[idx] = len;
+      mk.style.strokeDasharray = len;
+      mk.style.strokeDashoffset = len;
     });
+
+    raw = MotionPathPlugin.getRawPath(trajeto);
+    MotionPathPlugin.cacheRawPathMeasurements(raw);
+
+    var secs = $$('main .sec'), max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    pSec = [0];
+    for (var k = 1; k < secs.length; k++) {
+      pSec.push(clamp((secs[k].offsetTop - window.innerHeight * 0.5) / max, 0.001, 0.999));
+    }
+    pSec.push(1);
+    for (var q = 1; q < pSec.length; q++) if (pSec[q] <= pSec[q - 1]) pSec[q] = pSec[q - 1] + 0.001;
   }
-});
+  construirPista();
 
-/* ═══════════════════════════════════════════════════════════
-   TROCA DE SEÇÃO  ·  flash de 60ms + varredura diagonal de 400ms
-   ═══════════════════════════════════════════════════════════ */
-(function () {
-  var flash = document.createElement('div'); flash.id = 'flash'; document.body.appendChild(flash);
-  var secs = $$('main .sec');
-  var tema = function (el) { return el.classList.contains('t-branco') ? 'branco' : el.classList.contains('t-laranja') ? 'laranja' : 'preto'; };
-  var cor = { hero: '#0A0A0A', corte: '#F2EFE9', dentro: '#0A0A0A', filtro: '#F2EFE9', oferta: '#FF4A0F', fim: '#0A0A0A' };
-  var comp = { hero: '#FF4A0F', corte: '#0A0A0A', dentro: '#FF4A0F', filtro: '#FF4A0F', oferta: '#0A0A0A', fim: '#FF4A0F' };
-
-  secs.forEach(function (sec, i) {
-    var prox = secs[i + 1]; if (!prox) return;
-    /* a faixa vive na seção que SAI, pintada com a cor da que ENTRA */
-    var faixa = document.createElement('span');
-    faixa.className = 'varre'; faixa.setAttribute('aria-hidden', 'true');
-    faixa.style.background = cor[prox.id];
-    sec.appendChild(faixa);
-
-    ScrollTrigger.create({
-      trigger: sec, start: 'bottom bottom', once: true,
-      onEnter: function () {
-        gsap.fromTo(flash, { opacity: 0, backgroundColor: comp[prox.id] },
-          { opacity: .5, duration: .06, yoyo: true, repeat: 1 });
-        gsap.fromTo(faixa, { yPercent: 105 },
-          { yPercent: -155, duration: .4, ease: 'power2.in',
-            onComplete: function () { faixa.remove(); } });
+  function progressoParaT(p) {
+    var n = Math.min(pSec.length, tWp.length);
+    for (var i = 1; i < n; i++) {
+      if (p <= pSec[i]) {
+        var f = (p - pSec[i - 1]) / (pSec[i] - pSec[i - 1] || 1);
+        return tWp[i - 1] + (tWp[i] - tWp[i - 1]) * clamp(f, 0, 1);
       }
-    });
+    }
+    return 1;
+  }
 
-    /* rótulo da seção no header */
-    ScrollTrigger.create({
-      trigger: sec, start: 'top center', end: 'bottom center',
-      onToggle: function (s) {
-        if (!s.isActive) return;
-        var n = ('0' + (i + 1)), rot = sec.querySelector('.eyebrow');
-        $('#topo-sec').textContent = n + ' / 06 · ' + (rot ? rot.textContent.replace(/\d|\/|■/g, '').trim() : '');
+  /* ─── ANIMATION TICKER LOOP ─── */
+  var car = $('#car-vehicle'), frontWheels = $('#front-wheels');
+  gsap.set(car, { svgOrigin: '0 0', opacity: 1 });
+  if (frontWheels) gsap.set(frontWheels, { svgOrigin: '36 12' });
+
+  var setCarX = gsap.quickSetter(car, 'x', 'px'),
+      setCarY = gsap.quickSetter(car, 'y', 'px'),
+      setCarR = gsap.quickSetter(car, 'rotation', 'deg');
+  var setWheels = frontWheels ? gsap.quickSetter(frontWheels, 'rotation', 'deg') : null;
+
+  var hudProg = $('#hud-prog'), hudVal = $('#hud-rpm-val');
+  var yAnt = 0, vel = 0, tAtual = 0, drift = 0, tMax = 0, ultimoDash = -1;
+
+  gsap.ticker.add(function () {
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    var y = lenis ? lenis.scroll : window.scrollY;
+    var p = clamp(y / max, 0, 1);
+
+    vel += ((y - yAnt) - vel) * 0.2; yAnt = y;
+    var alvoT = progressoParaT(p);
+    tAtual += (alvoT - tAtual) * 0.12;
+
+    var pos = MotionPathPlugin.getPositionOnPath(raw, tAtual, true);
+    var a1 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual - .008, 0, 1), true);
+    var a2 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual + .008, 0, 1), true);
+    var dAng = a2.angle - a1.angle;
+    while (dAng > 180) dAng -= 360; while (dAng < -180) dAng += 360;
+
+    var alvoDrift = clamp(dAng * 1.1 + vel * 0.18 * Math.sign(dAng || 1), -24, 24);
+    drift += (alvoDrift - drift) * 0.1;
+
+    setCarX(pos.x); setCarY(pos.y); setCarR(pos.angle + drift);
+    if (setWheels) setWheels(-drift * 0.85);
+
+    // Marcas de pneu
+    if (tAtual > tMax) {
+      tMax = tAtual;
+      if (Math.abs(tMax - ultimoDash) > 0.0015) {
+        ultimoDash = tMax;
+        tireMarks.forEach(function (mk, idx) {
+          if (mk && comprimentos[idx]) {
+            mk.style.strokeDashoffset = (comprimentos[idx] * (1 - tMax)).toFixed(1);
+          }
+        });
       }
-    });
+    }
+
+    // HUD RPM gauge
+    if (hudProg) {
+      var dashOffset = 125.6 * (1 - p);
+      hudProg.style.strokeDashoffset = dashOffset;
+      if (hudVal) {
+        var rpmCalc = (1.2 + p * 7.4).toFixed(1);
+        hudVal.textContent = rpmCalc;
+      }
+    }
   });
-  /* última seção também atualiza o rótulo */
+
+  /* ─── ANIMAÇÕES DE ENTRADA SCROLLTRIGGER ─── */
+  // Revelação de títulos e cards
+  ScrollTrigger.batch('.door-card, .media-card, .filter-box', {
+    start: 'top 88%',
+    once: true,
+    onEnter: function (batch) {
+      gsap.fromTo(batch, 
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08 }
+      );
+    }
+  });
+
+  // Odômetro ao entrar na tela da oferta
   ScrollTrigger.create({
-    trigger: secs[secs.length - 1], start: 'top center',
-    onEnter: function () { $('#topo-sec').textContent = '06 / 06 · FIM DA MARCA'; document.documentElement.dataset.tema = 'preto'; }
-  });
-})();
-
-/* ═══════════════════════════════════════════════════════════
-   TILT 3D + LUZ LARANJA  ·  só desktop
-   ═══════════════════════════════════════════════════════════ */
-if (FINO && !MOB) {
-  $$('.bloco').forEach(function (b) {
-    gsap.set(b, { transformPerspective: 900 });
-    var rx = gsap.quickTo(b, 'rotationX', { duration: .5, ease: 'power2.out' });
-    var ry = gsap.quickTo(b, 'rotationY', { duration: .5, ease: 'power2.out' });
-    b.addEventListener('mousemove', function (e) {
-      var r = b.getBoundingClientRect();
-      var nx = (e.clientX - r.left) / r.width, ny = (e.clientY - r.top) / r.height;
-      ry((nx - .5) * 12); rx((ny - .5) * -12);        /* ±6° */
-      b.style.setProperty('--mx', (nx * 100) + '%');
-      b.style.setProperty('--my', (ny * 100) + '%');
-    }, { passive: true });
-    b.addEventListener('mouseleave', function () { rx(0); ry(0); });
-  });
-
-  /* cursor: alonga na direção do movimento */
-  var cur = $('#cursor');
-  var cx = gsap.quickTo(cur, 'x', { duration: .18, ease: 'power3' });
-  var cy = gsap.quickTo(cur, 'y', { duration: .18, ease: 'power3' });
-  var cr = gsap.quickTo(cur, 'rotation', { duration: .25, ease: 'power3' });
-  var ce = gsap.quickTo(cur, 'scaleX', { duration: .25, ease: 'power3' });
-  var px = 0, py = 0, visivel = false;
-  window.addEventListener('mousemove', function (e) {
-    if (!visivel) { visivel = true; gsap.to(cur, { opacity: 1, duration: .3 }); }
-    var dx = e.clientX - px, dy = e.clientY - py; px = e.clientX; py = e.clientY;
-    var v = Math.min(Math.hypot(dx, dy), 40);
-    cx(e.clientX); cy(e.clientY);
-    if (v > 2) cr(Math.atan2(dy, dx) * 180 / Math.PI);
-    ce(1 + v * 0.03);
-  }, { passive: true });
-  document.addEventListener('mouseleave', function () { visivel = false; gsap.to(cur, { opacity: 0, duration: .2 }); });
-}
-
-/* ═══════════════════════════════════════════════════════════
-   TIMECODE FALSO NOS FRAMES  ·  só quando visíveis
-   ═══════════════════════════════════════════════════════════ */
-(function () {
-  var tcs = $$('[data-tc]'), t0 = 0;
-  var obs = new IntersectionObserver(function (ents) {
-    ents.forEach(function (e) { e.target.dataset.on = e.isIntersecting ? '1' : '0'; });
-  }, { rootMargin: '80px' });
-  tcs.forEach(function (el, i) { obs.observe(el); el.dataset.off = i * 137; });
-  setInterval(function () {
-    t0 += 1;
-    tcs.forEach(function (el) {
-      if (el.dataset.on !== '1') return;
-      var q = t0 + parseInt(el.dataset.off, 10);
-      var s = Math.floor(q / 12) % 60, m = Math.floor(q / 720) % 60, f = q % 12;
-      el.textContent = ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2) + ':' + ('0' + f * 2).slice(-2);
-    });
-  }, 90);
-})();
-
-/* ═══════════════════════════════════════════════════════════
-   CTA FIXO (mobile)
-   ═══════════════════════════════════════════════════════════ */
-if (MOB) {
-  var ctaFixo = $('#cta-fixo');
-  ScrollTrigger.create({ trigger: '#hero', start: 'bottom 45%',
-    onEnter: function () { ctaFixo.classList.add('on'); },
-    onLeaveBack: function () { ctaFixo.classList.remove('on'); } });
-  ScrollTrigger.create({ trigger: '#oferta', start: 'top 75%',
-    onEnter: function () { ctaFixo.classList.remove('on'); },
-    onLeaveBack: function () { ctaFixo.classList.add('on'); } });
-}
-
-/* ═══════════════════════════════════════════════════════════
-   RESIZE  ·  refaz o trajeto e as riscas
-   ═══════════════════════════════════════════════════════════ */
-var tr;
-window.addEventListener('resize', function () {
-  clearTimeout(tr);
-  tr = setTimeout(function () {
-    MOB = matchMedia('(max-width: 820px)').matches;
-    tMax = 0; ultimoDash = -1;
-    construirPista();
-    montarRiscas();
-    if (ScrollTrigger.isInViewport && $('.bloco-nao')) {
-      $$('.risca-svg line').forEach(function (l) { l.style.strokeDashoffset = 0; });
+    trigger: '.price-display-box',
+    start: 'top 85%',
+    once: true,
+    onEnter: function () {
+      if (rolos && rolos.length) {
+        gsap.set(rolos, { y: 0 });
+        rolos.forEach(function (r, i) {
+          gsap.to(r, { y: '-' + r.dataset.alvo + 'em', duration: 1.2 + i * 0.2, ease: 'power4.out' });
+        });
+      }
     }
-    ScrollTrigger.refresh();
-  }, 240);
-}, { passive: true });
+  });
 
-window.addEventListener('load', function () { construirPista(); ScrollTrigger.refresh(); });
+  /* ─── RESIZE HANDLER ─── */
+  var tr;
+  window.addEventListener('resize', function () {
+    clearTimeout(tr);
+    tr = setTimeout(function () {
+      MOB = matchMedia('(max-width: 820px)').matches;
+      tMax = 0; ultimoDash = -1;
+      construirPista();
+      ScrollTrigger.refresh();
+    }, 250);
+  }, { passive: true });
+
+  window.addEventListener('load', function () {
+    construirPista();
+    ScrollTrigger.refresh();
+  });
 });
 </script>
 </body>
