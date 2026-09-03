@@ -107,9 +107,11 @@ ul { list-style: none; }
   z-index: 0;
   pointer-events: none;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 56px 56px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 0%, transparent 100%);
 }
 .bg-glow-radial {
   position: fixed;
@@ -119,7 +121,7 @@ ul { list-style: none; }
   width: 90vw;
   height: 60vh;
   max-width: 1200px;
-  background: radial-gradient(ellipse at center, rgba(255, 77, 0, 0.08) 0%, rgba(255, 77, 0, 0) 70%);
+  background: radial-gradient(ellipse at center, rgba(255, 77, 0, 0.05) 0%, rgba(255, 77, 0, 0) 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -342,102 +344,6 @@ ul { list-style: none; }
   transform: translateY(-1px);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CAMADA DE TELEMETRIA E CARRO (DRIFT PATH)
-   ═══════════════════════════════════════════════════════════ */
-.track-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-}
-.track-layer svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-#track-path {
-  fill: none;
-  stroke: none;
-}
-.tire-mark {
-  fill: none;
-  stroke: rgba(255, 77, 0, 0.12);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  mix-blend-mode: screen;
-}
-.tire-mark-inner {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.04);
-  stroke-width: 6;
-  stroke-linecap: round;
-}
-
-/* ─── TACÔMETRO HUD DIGITAL ─── */
-.hud-rpm {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 90;
-  background: rgba(10, 10, 14, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 12px 18px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.7);
-  pointer-events: none;
-  transition: border-color 0.3s ease;
-}
-.hud-gauge {
-  width: 48px;
-  height: 48px;
-  position: relative;
-}
-.hud-gauge svg {
-  transform: rotate(-90deg);
-}
-.hud-circle-bg {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
-  stroke-width: 3.5;
-}
-.hud-circle-prog {
-  fill: none;
-  stroke: var(--orange);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-dasharray: 125.6;
-  stroke-dashoffset: 125.6;
-  transition: stroke-dashoffset 0.1s linear;
-}
-.hud-data {
-  display: flex;
-  flex-direction: column;
-}
-.hud-val {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1;
-  color: var(--white);
-  letter-spacing: 0.04em;
-}
-.hud-lbl {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gray-300);
-  margin-top: 4px;
-}
-@media (max-width: 768px) {
-  .hud-rpm { display: none; }
-}
 
 /* ═══════════════════════════════════════════════════════════
    01 · HERO SECTION
@@ -535,15 +441,24 @@ ul { list-style: none; }
 .blueprint-inner {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  overflow: hidden;
 }
-.blueprint-inner svg {
-  width: 90%;
-  height: 90%;
-  filter: drop-shadow(0 12px 24px rgba(255, 77, 0, 0.15));
+.blueprint-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.06) brightness(0.86) saturate(1.05);
+  transform: scale(1.02);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.car-blueprint:hover .blueprint-inner img { transform: scale(1.06); }
+.blueprint-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 7, 9, 0.10) 0%, rgba(7, 7, 9, 0.20) 55%, rgba(7, 7, 9, 0.88) 100%);
+  pointer-events: none;
 }
 .tech-spec-box {
   position: absolute;
@@ -566,41 +481,48 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
-/* ─── TICKER DE TELEMETRIA ─── */
-.ticker-wrap {
+/* ─── FAIXA DE FOTOS (LOOP CONTÍNUO) ─── */
+.faixa-fotos {
   width: 100%;
   overflow: hidden;
-  padding: 16px 0;
   border-block: 1px solid var(--border);
-  background: rgba(10, 10, 14, 0.4);
   position: relative;
   z-index: 2;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.ticker-move {
+.faixa-move {
   display: flex;
   width: max-content;
-  white-space: nowrap;
-  animation: ticker 32s linear infinite;
+  animation: ticker 58s linear infinite;
 }
 @keyframes ticker {
   0% { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-50%, 0, 0); }
 }
-.ticker-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 24px;
-  padding-inline: 24px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gray-200);
+.faixa-item {
+  flex: none;
+  width: clamp(180px, 24vw, 300px);
+  height: clamp(120px, 15vw, 190px);
+  margin: 0;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
 }
-.ticker-item .accent {
-  color: var(--orange);
+.faixa-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1) contrast(1.06) brightness(0.82);
+  opacity: 0.62;
+  transition: filter 0.5s ease, opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.faixa-item:hover img {
+  filter: grayscale(0) contrast(1.02) brightness(1);
+  opacity: 1;
+  transform: scale(1.04);
+}
+.faixa-fotos:hover .faixa-move { animation-play-state: paused; }
 
 /* ═══════════════════════════════════════════════════════════
    02 · PADDOCK RAW (O CORTE E O RESTO)
@@ -649,6 +571,34 @@ ul { list-style: none; }
     grid-column: span 12;
   }
 }
+
+.media-mock--foto { padding: 16px; }
+.media-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: grayscale(0.35) contrast(1.05) brightness(0.78);
+  transition: filter 0.5s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.media-card:hover .media-foto {
+  filter: grayscale(0) contrast(1.02) brightness(0.92);
+  transform: scale(1.035);
+}
+.media-mock--foto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(7, 7, 9, 0.55) 0%, rgba(7, 7, 9, 0.05) 42%, rgba(7, 7, 9, 0.78) 100%);
+  pointer-events: none;
+}
+.media-mock--foto .media-header,
+.media-mock--foto .media-footer,
+.media-mock--foto .crosshair { position: relative; z-index: 2; }
+.media-mock--foto .crosshair { position: absolute; }
 
 .media-mock {
   position: relative;
@@ -1139,6 +1089,82 @@ ul { list-style: none; }
   .mobile-sticky-cta { display: block; }
 }
 
+/* ─── MARCA REAL (LOGOS EM FUNDO PRETO) ─── */
+.logo-marca {
+  display: block;
+  width: clamp(180px, 26vw, 280px);
+  height: auto;
+  margin: 0 auto clamp(24px, 4vh, 40px);
+  opacity: 0.95;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+}
+.pl-logo {
+  display: block;
+  width: clamp(180px, 46vw, 520px);
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.85));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CURSOR · LUZ LARANJA (DESKTOP)
+   ═══════════════════════════════════════════════════════════ */
+.cursor-luz {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 340px;
+  margin: -170px 0 0 -170px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  background: radial-gradient(circle closest-side,
+    rgba(255, 107, 43, 0.30) 0%,
+    rgba(255, 77, 0, 0.16) 34%,
+    rgba(255, 77, 0, 0.05) 62%,
+    rgba(255, 77, 0, 0) 100%);
+  filter: blur(26px);
+  mix-blend-mode: screen;
+  will-change: transform;
+  transition: opacity 0.4s ease, width 0.35s ease, height 0.35s ease, margin 0.35s ease;
+}
+.cursor-nucleo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  background: var(--orange-light);
+  box-shadow: 0 0 14px rgba(255, 77, 0, 0.9);
+  filter: blur(1px);
+  will-change: transform;
+  transition: opacity 0.4s ease, transform 0.18s ease;
+}
+html.cursor-on .cursor-luz,
+html.cursor-on .cursor-nucleo { opacity: 1; }
+html.cursor-on.cursor-ativo .cursor-luz {
+  width: 460px;
+  height: 460px;
+  margin: -230px 0 0 -230px;
+}
+/* Esconde o ponteiro nativo no desktop */
+@media (hover: hover) and (pointer: fine) {
+  html.cursor-on,
+  html.cursor-on body,
+  html.cursor-on a,
+  html.cursor-on button,
+  html.cursor-on [role="button"],
+  html.cursor-on input,
+  html.cursor-on label { cursor: none; }
+}
+
 /* ═══════════════════════════════════════════════════════════
    REDUCED MOTION
    ═══════════════════════════════════════════════════════════ */
@@ -1149,9 +1175,10 @@ ul { list-style: none; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .track-layer, .hud-rpm, .ticker-wrap { display: none !important; }
+  .faixa-move { animation: none !important; }
+  .faixa-fotos { overflow-x: auto; }
+  .cursor-luz, .cursor-nucleo { display: none !important; }
 }
-html.rm .track-layer, html.rm .hud-rpm { display: none; }
 
 /* ═══════════════════════════════════════════════════════════
    PRELOADER · ABERTURA COM DRIFT (DONUT)
@@ -1307,8 +1334,7 @@ html.pl-on .pl.pl-out .pl-conteudo { opacity: 0; }
 
 /* Estado inicial escondido do conteúdo revelado depois da abertura */
 html.pl-on:not(.pl-reveal) .header-nav,
-html.pl-on:not(.pl-reveal) .hud-rpm,
-html.pl-on:not(.pl-reveal) .ticker-wrap,
+html.pl-on:not(.pl-reveal) .faixa-fotos,
 html.pl-on:not(.pl-reveal) .hero-sec .sec-eyebrow,
 html.pl-on:not(.pl-reveal) .hero-title,
 html.pl-on:not(.pl-reveal) .hero-desc,
@@ -1319,8 +1345,7 @@ html.pl-on:not(.pl-reveal) .hero-visual {
 }
 
 html.pl-reveal .header-nav,
-html.pl-reveal .hud-rpm,
-html.pl-reveal .ticker-wrap,
+html.pl-reveal .faixa-fotos,
 html.pl-reveal .hero-sec .sec-eyebrow,
 html.pl-reveal .hero-title,
 html.pl-reveal .hero-desc,
@@ -1336,11 +1361,11 @@ html.pl-reveal .hero-desc           { transition-delay: 0.30s; }
 html.pl-reveal .hero-actions        { transition-delay: 0.40s; }
 html.pl-reveal .hero-visual         { transition-delay: 0.34s; }
 html.pl-reveal .header-nav          { transition-delay: 0.46s; }
-html.pl-reveal .ticker-wrap         { transition-delay: 0.54s; }
-html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
+html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 
 @media (max-width: 640px) {
-  .pl-brand-sub { letter-spacing: 0.3em; }
+  .pl-brand-sub { letter-spacing: 0.24em; }
+  #pl-vel, .pl-hud-ang { display: none; }
 }
 
 </style>
@@ -1361,8 +1386,8 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
     </div>
 
     <div class="pl-brand">
-      <div class="pl-brand-word">DRIVE <em>CLUB</em></div>
-      <div class="pl-brand-sub">Real Underground</div>
+      <img class="pl-logo" src="img/logo-real-underground.png" alt="Drive It Like Stole It · Real Underground">
+      <div class="pl-brand-sub">Drive Club · Comunidade fechada</div>
     </div>
 
     <div class="pl-hud">
@@ -1372,7 +1397,7 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
       </div>
       <div class="pl-hud-linha">
         <span class="pl-num"><span id="pl-pct">0</span><small>%</small></span>
-        <span>ÂNGULO <span id="pl-ang">00</span>°</span>
+        <span class="pl-hud-ang">ÂNGULO <span id="pl-ang">00</span>°</span>
       </div>
       <div class="pl-barra"><i id="pl-bar"></i></div>
     </div>
@@ -1421,9 +1446,12 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
   var DPR = Math.min(2, window.devicePixelRatio || 1);
   var W = 0, H = 0, cx = 0, cy = 0, Rx = 0, Ry = 0, esc = 1;
 
-  function dimensionar() {
-    W = pl.clientWidth || window.innerWidth;
-    H = pl.clientHeight || window.innerHeight;
+  function dimensionar(porResize) {
+    var nW = pl.clientWidth || window.innerWidth;
+    var nH = pl.clientHeight || window.innerHeight;
+    // Ignora o "pulo" da barra de endereço no mobile: preserva as marcas de pneu
+    if (porResize && nW === W && Math.abs(nH - H) < 140) return;
+    W = nW; H = nH;
     [cMarks, cScene].forEach(function (cv) {
       cv.width = Math.round(W * DPR);
       cv.height = Math.round(H * DPR);
@@ -1433,12 +1461,12 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
     });
     var base = Math.min(W, H);
     cx = W / 2; cy = H * 0.53;
-    Rx = Math.min(W * 0.30, base * 0.44);
-    Ry = Math.min(H * 0.21, base * 0.26);
-    esc = Math.max(0.55, Math.min(1.25, base / 780));
+    Rx = Math.min(W * 0.32, base * 0.40);
+    Ry = Math.min(H * 0.20, base * 0.24);
+    esc = Math.max(0.60, Math.min(1.42, base / 700));
   }
   dimensionar();
-  window.addEventListener('resize', dimensionar);
+  window.addEventListener('resize', function () { dimensionar(true); });
 
   /* ─── Sprite de fumaça pré-renderizado ─── */
   var sprite = document.createElement('canvas');
@@ -1454,7 +1482,7 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
   })();
 
   /* ─── Linha do tempo ─── */
-  var T_ENTRA = 820, T_DONUT = 2050, T_SAI = 660;
+  var T_ENTRA = 760, T_DONUT = 2400, T_SAI = 620;
   var T1 = T_ENTRA, T2 = T1 + T_DONUT, T3 = T2 + T_SAI;
   var A0 = Math.PI, VOLTAS = 2.25, A1 = A0 + Math.PI * 2 * VOLTAS;
 
@@ -1477,7 +1505,7 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
     }
     if (t < T2) {
       var q = (t - T1) / T_DONUT;
-      var ang = A0 + (A1 - A0) * (0.22 * q + 0.78 * q * q);
+      var ang = A0 + (A1 - A0) * (0.52 * q + 0.48 * q * q);
       return elipse(ang);
     }
     var s = clamp((t - T2) / T_SAI, 0, 1);
@@ -1550,10 +1578,10 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
 
     // Faróis
     var fx = g.createLinearGradient(34, 0, 210, 0);
-    fx.addColorStop(0, 'rgba(255, 196, 150, 0.30)');
+    fx.addColorStop(0, 'rgba(255, 196, 150, 0.22)');
     fx.addColorStop(1, 'rgba(255, 110, 0, 0)');
     g.beginPath();
-    g.moveTo(30, -11); g.lineTo(206, -66); g.lineTo(206, 66); g.lineTo(30, 11);
+    g.moveTo(31, -10); g.lineTo(178, -46); g.lineTo(178, 46); g.lineTo(31, 10);
     g.closePath();
     g.fillStyle = fx; g.fill();
     g.restore();
@@ -1658,7 +1686,7 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
     ];
 
     ctxM.globalCompositeOperation = 'destination-out';
-    ctxM.fillStyle = 'rgba(0,0,0,0.010)';
+    ctxM.fillStyle = 'rgba(0,0,0,0.005)';
     ctxM.fillRect(0, 0, W, H);
     ctxM.globalCompositeOperation = 'source-over';
 
@@ -1669,11 +1697,11 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
         ctxM.beginPath();
         ctxM.moveTo(traseiraAnt[i][0], traseiraAnt[i][1]);
         ctxM.lineTo(tr[i][0], tr[i][1]);
-        ctxM.strokeStyle = 'rgba(245, 245, 247, ' + (0.045 * forte).toFixed(3) + ')';
-        ctxM.lineWidth = 7 * esc;
+        ctxM.strokeStyle = 'rgba(245, 245, 247, ' + (0.10 * forte).toFixed(3) + ')';
+        ctxM.lineWidth = 8 * esc;
         ctxM.stroke();
-        ctxM.strokeStyle = 'rgba(255, 77, 0, ' + (0.10 * forte).toFixed(3) + ')';
-        ctxM.lineWidth = 2.4 * esc;
+        ctxM.strokeStyle = 'rgba(255, 77, 0, ' + (0.17 * forte).toFixed(3) + ')';
+        ctxM.lineWidth = 2.6 * esc;
         ctxM.stroke();
       }
     }
@@ -1697,7 +1725,7 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
       s.r += s.cr;
       s.vida -= s.dec;
       if (s.vida <= 0) { fumaca.splice(f, 1); continue; }
-      ctxS.globalAlpha = Math.max(0, s.vida * s.vida * 0.34);
+      ctxS.globalAlpha = Math.max(0, s.vida * s.vida * 0.42);
       ctxS.drawImage(sprite, s.x - s.r, s.y - s.r, s.r * 2, s.r * 2);
     }
     ctxS.globalAlpha = 1;
@@ -1705,9 +1733,9 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
 
     // ── Carro (com rastro de velocidade na saída) ──
     if (fim > T2) {
-      for (var g2 = 3; g2 >= 1; g2--) {
-        var pg = posEm(fim - g2 * 26);
-        desenharCarro(ctxS, pg[0], pg[1], ang, steer, 0.10 * (4 - g2));
+      for (var g2 = 5; g2 >= 1; g2--) {
+        var pg = posEm(fim - g2 * 9);
+        desenharCarro(ctxS, pg[0], pg[1], ang, steer, 0.05 * (6 - g2));
       }
     }
     desenharCarro(ctxS, p[0], p[1], ang, steer, 1);
@@ -1717,7 +1745,7 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
     if (elBar) elBar.style.width = (prog * 100).toFixed(1) + '%';
     if (elPct) elPct.textContent = Math.round(prog * 100);
     if (elAng) elAng.textContent = ('0' + Math.round(Math.abs(dAtual))).slice(-2);
-    if (elVel) elVel.textContent = ('00' + Math.round(velMod * 11 + (fim < T1 ? fim / 12 : 0))).slice(-3) + ' KM/H';
+    if (elVel) elVel.textContent = ('00' + Math.min(999, Math.round(velMod * 1.9 + 18))).slice(-3) + ' KM/H';
     if (fim < T1 * 0.5) status('IGNIÇÃO');
     else if (fim < T1) status('AQUECENDO OS PNEUS');
     else if (fim < T2 - T_DONUT * 0.25) status('ÂNGULO MÁXIMO');
@@ -1749,57 +1777,11 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
 <div class="bg-grid" aria-hidden="true"></div>
 <div class="bg-glow-radial" aria-hidden="true"></div>
 
-<!-- ═══════════ TRACK LAYER (SVG DRIFT & TIRE MARKS) ═══════════ -->
-<div class="track-layer" id="track-layer" aria-hidden="true">
-  <svg id="track-svg" preserveAspectRatio="none">
-    <path id="track-path"></path>
-    <!-- Marcas de pneu -->
-    <path class="tire-mark-inner" id="tire-inner-l"></path>
-    <path class="tire-mark-inner" id="tire-inner-r"></path>
-    <path class="tire-mark" id="tire-l"></path>
-    <path class="tire-mark" id="tire-r"></path>
-    <!-- Carro em perspectiva topo/telemetria minimalista -->
-    <g id="car-vehicle" opacity="0">
-      <g transform="translate(-24, -14)">
-        <!-- Rodas traseiras -->
-        <rect x="7" y="-1" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
-        <rect x="7" y="24.5" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
-        <!-- Rodas dianteiras com contraesterço -->
-        <g id="front-wheels">
-          <rect x="31" y="-1" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
-          <rect x="31" y="24.5" width="10" height="4.5" rx="1.2" fill="#070709" stroke="#FF4D00" stroke-width="1.2"/>
-        </g>
-        <!-- Carroceria minimalista aerodinâmica -->
-        <path d="M6 2h20c6 0 13 2.5 18 9 1 1.2 1 3.6 0 4.8-5 6.5-12 9.2-18 9.2H6c-2.5 0-4-1.5-4-4.2V6.2C2 3.5 3.5 2 6 2Z" 
-              fill="#0D0D14" stroke="#F5F5F7" stroke-width="1.6"/>
-        <!-- Linha de centro neon térmico -->
-        <path d="M10 14h24" stroke="#FF4D00" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Vidros e teto -->
-        <path d="M14 6.5h7l3.5 7.5-3.5 7.5h-7z" fill="rgba(245, 245, 247, 0.85)"/>
-        <!-- Faróis dianteiros LED -->
-        <circle cx="43" cy="6" r="1.5" fill="#FFFFFF"/>
-        <circle cx="43" cy="22" r="1.5" fill="#FFFFFF"/>
-        <!-- Lanternas traseiras LED neon -->
-        <line x1="3" y1="5" x2="3" y2="8" stroke="#FF2A00" stroke-width="2" stroke-linecap="round"/>
-        <line x1="3" y1="20" x2="3" y2="23" stroke="#FF2A00" stroke-width="2" stroke-linecap="round"/>
-      </g>
-    </g>
-  </svg>
-</div>
+<!-- ═══════════ CURSOR DE LUZ LARANJA ═══════════ -->
+<div class="cursor-luz" id="cursor-luz" aria-hidden="true"></div>
+<div class="cursor-nucleo" id="cursor-nucleo" aria-hidden="true"></div>
 
-<!-- ═══════════ HUD RPM INDICATOR ═══════════ -->
-<div class="hud-rpm" id="hud-rpm" aria-hidden="true">
-  <div class="hud-gauge">
-    <svg viewBox="0 0 48 48">
-      <circle class="hud-circle-bg" cx="24" cy="24" r="20"/>
-      <circle class="hud-circle-prog" id="hud-prog" cx="24" cy="24" r="20"/>
-    </svg>
-  </div>
-  <div class="hud-data">
-    <div class="hud-val"><span id="hud-rpm-val">1.2</span>K RPM</div>
-    <div class="hud-lbl">TELEMETRIA // DRIFT</div>
-  </div>
-</div>
+
 
 <!-- ═══════════ HEADER FLUTUANTE GLASS ═══════════ -->
 <header class="header-nav" id="header-nav">
@@ -1871,37 +1853,7 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
       <div class="hero-visual">
         <div class="car-blueprint">
           <div class="blueprint-inner">
-            <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Grid técnico -->
-              <defs>
-                <linearGradient id="glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#FF4D00" stop-opacity="0.8"/>
-                  <stop offset="100%" stop-color="#FF4D00" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <!-- Linhas de fluxo de ar / Túnel de vento -->
-              <path d="M10 80 C 100 70, 180 40, 380 40" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="6 4"/>
-              <path d="M10 120 C 120 120, 200 90, 390 100" stroke="var(--orange)" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.6"/>
-              <path d="M10 160 C 140 160, 220 190, 380 180" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="6 4"/>
-              
-              <!-- Carro Silhueta Wireframe / Drift Angle -->
-              <g transform="rotate(-6 200 120)">
-                <!-- Chassi Wireframe -->
-                <path d="M 60 145 C 80 105, 130 65, 200 65 C 280 65, 320 100, 340 145 C 330 155, 300 160, 200 160 C 100 160, 70 155, 60 145 Z" 
-                      fill="rgba(14, 14, 20, 0.8)" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5"/>
-                <!-- Teto e vidro -->
-                <path d="M 130 95 C 160 75, 230 75, 265 95 L 255 125 L 140 125 Z" 
-                      fill="rgba(255, 77, 0, 0.1)" stroke="var(--orange)" stroke-width="1.8"/>
-                <!-- Rodas e ângulo de esterço -->
-                <ellipse cx="105" cy="148" rx="20" ry="12" fill="#070709" stroke="#F5F5F7" stroke-width="2"/>
-                <ellipse cx="295" cy="148" rx="20" ry="12" fill="#070709" stroke="#FF4D00" stroke-width="2"/>
-                <!-- Eixo de contraesterço -->
-                <line x1="285" y1="135" x2="310" y2="160" stroke="#FF4D00" stroke-width="2"/>
-                <!-- Farol LED Glow -->
-                <circle cx="335" cy="138" r="4" fill="#FFFFFF"/>
-                <circle cx="335" cy="138" r="10" fill="url(#glow-grad)"/>
-              </g>
-            </svg>
+            <img src="img/m4-neblina-noite.jpg" alt="BMW M4 do Drive com portas abertas em estrada de neblina à noite" width="1280" height="853" fetchpriority="high" decoding="async">
           </div>
           <div class="tech-spec-box">
             <span>CHASSI: <strong>SPEC-D // GT</strong></span>
@@ -1915,21 +1867,20 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
 </section>
 
 <!-- ═══════════ TICKER DE TELEMETRIA ═══════════ -->
-<div class="ticker-wrap" aria-hidden="true">
-  <div class="ticker-move">
-    <div class="ticker-item">APEX SPEED <span class="accent">//</span> 142 KM/H</div>
-    <div class="ticker-item">TELEMETRIA <span class="accent">//</span> REAL UNDERGROUND</div>
-    <div class="ticker-item">DRIFT ANGLE <span class="accent">//</span> 52° CONTRAESTERÇO</div>
-    <div class="ticker-item">MEMBRO FUNDADOR <span class="accent">//</span> ACESSO DIRETO</div>
-    <div class="ticker-item">REDLINE <span class="accent">//</span> 8.500 RPM</div>
-    <div class="ticker-item">GARAGEM &amp; SETUPS <span class="accent">//</span> SEM FILTRO</div>
-    <!-- Duplicata para loop contínuo -->
-    <div class="ticker-item">APEX SPEED <span class="accent">//</span> 142 KM/H</div>
-    <div class="ticker-item">TELEMETRIA <span class="accent">//</span> REAL UNDERGROUND</div>
-    <div class="ticker-item">DRIFT ANGLE <span class="accent">//</span> 52° CONTRAESTERÇO</div>
-    <div class="ticker-item">MEMBRO FUNDADOR <span class="accent">//</span> ACESSO DIRETO</div>
-    <div class="ticker-item">REDLINE <span class="accent">//</span> 8.500 RPM</div>
-    <div class="ticker-item">GARAGEM &amp; SETUPS <span class="accent">//</span> SEM FILTRO</div>
+<div class="faixa-fotos" aria-hidden="true">
+  <div class="faixa-move">
+    <figure class="faixa-item"><img src="img/m4-posto.jpg" alt="M4 branca no posto" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-rua-frente.jpg" alt="M4 branca com capô de carbono na rua" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-policia-traseira.jpg" alt="M4 apreendida ao lado da viatura do DEIC" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-deic-portas.jpg" alt="M4 com portas abertas em frente à Polícia Civil" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/deic-story.jpg" alt="Notícia sobre a apreensão da BMW mais famosa do Brasil" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/logo-graffiti.jpg" alt="Logo Drive It Like Stole It em muro grafitado" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-posto.jpg" alt="M4 branca no posto" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-rua-frente.jpg" alt="M4 branca com capô de carbono na rua" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-policia-traseira.jpg" alt="M4 apreendida ao lado da viatura do DEIC" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-deic-portas.jpg" alt="M4 com portas abertas em frente à Polícia Civil" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/deic-story.jpg" alt="Notícia sobre a apreensão da BMW mais famosa do Brasil" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/logo-graffiti.jpg" alt="Logo Drive It Like Stole It em muro grafitado" loading="lazy" decoding="async"></figure>
   </div>
 </div>
 
@@ -1956,7 +1907,8 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
     <!-- FRAMES DE MONITORAMENTO / PLACEHOLDERS TÉCNICOS -->
     <div class="paddock-grid">
       <div class="media-card col-7" data-asset="bastidor-01.jpg">
-        <div class="media-mock" style="aspect-ratio: 16/9;">
+        <div class="media-mock media-mock--foto" style="aspect-ratio: 16/9;">
+          <img class="media-foto" src="img/m4-amarela-pista.jpg" alt="M4 amarela acelerando na pista" width="1320" height="763" loading="lazy" decoding="async">
           <div class="media-header">
             <span class="rec-indicator"><b></b>REC 4K RAW</span>
             <span class="timecode" data-tc>00:14:28:11</span>
@@ -1973,7 +1925,8 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
       </div>
 
       <div class="media-card col-5" data-asset="feed-01.jpg">
-        <div class="media-mock" style="aspect-ratio: 16/9;">
+        <div class="media-mock media-mock--foto" style="aspect-ratio: 16/9;">
+          <img class="media-foto" src="img/m4-preta-rua.jpg" alt="M4 preta fosca em movimento na rua" width="1320" height="474" loading="lazy" decoding="async">
           <div class="media-header">
             <span class="rec-indicator"><b></b>REC 4K RAW</span>
             <span class="timecode" data-tc>00:08:42:04</span>
@@ -1990,7 +1943,8 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
       </div>
 
       <div class="media-card col-4" data-asset="feed-02.jpg">
-        <div class="media-mock" style="aspect-ratio: 4/5;">
+        <div class="media-mock media-mock--foto" style="aspect-ratio: 4/5;">
+          <img class="media-foto" src="img/m4-espanha-vertical.jpg" alt="M4 branca parada em rua histórica" width="1080" height="1920" loading="lazy" decoding="async">
           <div class="media-header">
             <span class="rec-indicator"><b></b>REC 4K RAW</span>
             <span class="timecode" data-tc>00:21:05:19</span>
@@ -2007,7 +1961,8 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
       </div>
 
       <div class="media-card col-8" data-asset="bastidor-02.jpg">
-        <div class="media-mock" style="aspect-ratio: 21/9;">
+        <div class="media-mock media-mock--foto" style="aspect-ratio: 21/9;">
+          <img class="media-foto" src="img/m4-drift-pista.jpg" alt="M4 branca de lado com fumaça na saída de curva" width="1320" height="584" loading="lazy" decoding="async">
           <div class="media-header">
             <span class="rec-indicator"><b></b>REC 4K RAW</span>
             <span class="timecode" data-tc>00:32:19:07</span>
@@ -2398,6 +2353,8 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
       <span class="telemetry-tag">06 // 06 · LINHA DE CHEGADA</span>
     </div>
 
+    <img class="logo-marca" src="img/logo-gta.png" alt="Drive It Like Stole It · Real Underground" width="1280" height="853" loading="lazy" decoding="async">
+
     <h2 class="heading-display manifesto-title">
       Lá fora você continua sendo público.<br>
       <span class="text-orange heading-slant">Aqui você acelera junto.</span>
@@ -2437,7 +2394,6 @@ html.pl-reveal .hud-rpm             { transition-delay: 0.62s; }
 <!-- ═══════════ SCRIPTS & ANIMAÇÕES ═══════════ -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 
 <script>
@@ -2505,6 +2461,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ─── CURSOR: LUZ LARANJA COM BLUR ─── */
+  if (FINO && !RM) {
+    var luz = $('#cursor-luz'), nucleo = $('#cursor-nucleo');
+    if (luz && nucleo) {
+      var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      var lx = mx, ly = my, nx = mx, ny = my, ligado = false;
+
+      window.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        if (!ligado) {
+          ligado = true;
+          lx = nx = mx; ly = ny = my;
+          document.documentElement.classList.add('cursor-on');
+        }
+        var alvo = e.target && e.target.closest
+          ? e.target.closest('a, button, [role="button"], input, textarea, .door-card, .media-card')
+          : null;
+        document.documentElement.classList.toggle('cursor-ativo', !!alvo);
+      }, { passive: true });
+
+      document.addEventListener('mouseleave', function () {
+        document.documentElement.classList.remove('cursor-on');
+        ligado = false;
+      });
+
+      (function seguir() {
+        lx += (mx - lx) * 0.14;   // luz: arrasto suave
+        ly += (my - ly) * 0.14;
+        nx += (mx - nx) * 0.42;   // núcleo: quase colado no ponteiro
+        ny += (my - ny) * 0.42;
+        luz.style.transform = 'translate3d(' + lx.toFixed(1) + 'px,' + ly.toFixed(1) + 'px,0)';
+        nucleo.style.transform = 'translate3d(' + nx.toFixed(1) + 'px,' + ny.toFixed(1) + 'px,0)';
+        requestAnimationFrame(seguir);
+      })();
+    }
+  }
+
   /* ─── HEADER BLUR SCROLL LISTENER ─── */
   var header = $('#header-nav');
   var mobileCta = $('#mobile-sticky-cta');
@@ -2522,7 +2515,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+  gsap.registerPlugin(ScrollTrigger);
 
   /* ─── LENIS SMOOTH SCROLL (DESKTOP) ─── */
   var lenis = null;
@@ -2533,153 +2526,7 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.ticker.lagSmoothing(0);
   }
 
-  /* ═══════════════════════════════════════════════════════════
-     CONSTRUÇÃO DO TRAJETO DE DRIFT DO CARRO
-     ═══════════════════════════════════════════════════════════ */
-  var svgPista = $('#track-svg'), trajeto = $('#track-path');
-  var tireMarks = [$('#tire-l'), $('#tire-r'), $('#tire-inner-l'), $('#tire-inner-r')];
-  var raw = null, tWp = [], pSec = [], comprimentos = [];
 
-  function waypoints() {
-    var amp = MOB ? 0.5 : 0.85;
-    var base = [[.52, -.05], [.18, .16], [.82, .32], [.16, .50], [.84, .68], [.22, .86], [.58, 1.12]];
-    return base.map(function (p) { return [0.5 + (p[0] - 0.5) * amp, p[1]]; });
-  }
-
-  function suavizar(pts) {
-    var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
-    for (var i = 0; i < pts.length - 1; i++) {
-      var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || pts[i + 1];
-      d += ' C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ' ' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) +
-           ',' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ' ' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) +
-           ',' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
-    }
-    return d;
-  }
-
-  function construirPista() {
-    var w = window.innerWidth, h = window.innerHeight;
-    svgPista.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-    svgPista.setAttribute('width', w); svgPista.setAttribute('height', h);
-
-    var pts = waypoints().map(function (p) { return [p[0] * w, p[1] * h]; });
-    trajeto.setAttribute('d', suavizar(pts));
-
-    var L = trajeto.getTotalLength(), N = 500, amostras = [];
-    for (var i = 0; i <= N; i++) amostras.push(trajeto.getPointAtLength(L * i / N));
-    tWp = pts.map(function (p) {
-      var melhor = 0, dm = Infinity;
-      for (var i = 0; i <= N; i++) {
-        var dx = amostras[i].x - p[0], dy = amostras[i].y - p[1], d = dx * dx + dy * dy;
-        if (d < dm) { dm = d; melhor = i; }
-      }
-      return melhor / N;
-    });
-    tWp[0] = 0; tWp[tWp.length - 1] = 1;
-
-    var meia = 12;
-    var polA = '', polB = '';
-    for (var j = 0; j <= N; j++) {
-      var a = amostras[Math.max(0, j - 1)], b = amostras[Math.min(N, j + 1)], c = amostras[j];
-      var tx = b.x - a.x, ty = b.y - a.y, m = Math.hypot(tx, ty) || 1;
-      var nx = -ty / m, ny = tx / m;
-      polA += (j ? 'L' : 'M') + (c.x + nx * meia).toFixed(1) + ' ' + (c.y + ny * meia).toFixed(1);
-      polB += (j ? 'L' : 'M') + (c.x - nx * meia).toFixed(1) + ' ' + (c.y - ny * meia).toFixed(1);
-    }
-    tireMarks[0].setAttribute('d', polA); tireMarks[2].setAttribute('d', polA);
-    tireMarks[1].setAttribute('d', polB); tireMarks[3].setAttribute('d', polB);
-
-    tireMarks.forEach(function (mk, idx) {
-      if (!mk) return;
-      var len = mk.getTotalLength();
-      comprimentos[idx] = len;
-      mk.style.strokeDasharray = len;
-      mk.style.strokeDashoffset = len;
-    });
-
-    raw = MotionPathPlugin.getRawPath(trajeto);
-    MotionPathPlugin.cacheRawPathMeasurements(raw);
-
-    var secs = $$('main .sec'), max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    pSec = [0];
-    for (var k = 1; k < secs.length; k++) {
-      pSec.push(clamp((secs[k].offsetTop - window.innerHeight * 0.5) / max, 0.001, 0.999));
-    }
-    pSec.push(1);
-    for (var q = 1; q < pSec.length; q++) if (pSec[q] <= pSec[q - 1]) pSec[q] = pSec[q - 1] + 0.001;
-  }
-  construirPista();
-
-  function progressoParaT(p) {
-    var n = Math.min(pSec.length, tWp.length);
-    for (var i = 1; i < n; i++) {
-      if (p <= pSec[i]) {
-        var f = (p - pSec[i - 1]) / (pSec[i] - pSec[i - 1] || 1);
-        return tWp[i - 1] + (tWp[i] - tWp[i - 1]) * clamp(f, 0, 1);
-      }
-    }
-    return 1;
-  }
-
-  /* ─── ANIMATION TICKER LOOP ─── */
-  var car = $('#car-vehicle'), frontWheels = $('#front-wheels');
-  gsap.set(car, { svgOrigin: '0 0', opacity: 1 });
-  if (frontWheels) gsap.set(frontWheels, { svgOrigin: '36 12' });
-
-  var setCarX = gsap.quickSetter(car, 'x', 'px'),
-      setCarY = gsap.quickSetter(car, 'y', 'px'),
-      setCarR = gsap.quickSetter(car, 'rotation', 'deg');
-  var setWheels = frontWheels ? gsap.quickSetter(frontWheels, 'rotation', 'deg') : null;
-
-  var hudProg = $('#hud-prog'), hudVal = $('#hud-rpm-val');
-  var yAnt = 0, vel = 0, tAtual = 0, drift = 0, tMax = 0, ultimoDash = -1;
-
-  gsap.ticker.add(function () {
-    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    var y = lenis ? lenis.scroll : window.scrollY;
-    var p = clamp(y / max, 0, 1);
-
-    vel += ((y - yAnt) - vel) * 0.2; yAnt = y;
-    var alvoT = progressoParaT(p);
-    tAtual += (alvoT - tAtual) * 0.12;
-
-    var pos = MotionPathPlugin.getPositionOnPath(raw, tAtual, true);
-    var a1 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual - .008, 0, 1), true);
-    var a2 = MotionPathPlugin.getPositionOnPath(raw, clamp(tAtual + .008, 0, 1), true);
-    var dAng = a2.angle - a1.angle;
-    while (dAng > 180) dAng -= 360; while (dAng < -180) dAng += 360;
-
-    var alvoDrift = clamp(dAng * 1.1 + vel * 0.18 * Math.sign(dAng || 1), -24, 24);
-    drift += (alvoDrift - drift) * 0.1;
-
-    setCarX(pos.x); setCarY(pos.y); setCarR(pos.angle + drift);
-    if (setWheels) setWheels(-drift * 0.85);
-
-    // Marcas de pneu
-    if (tAtual > tMax) {
-      tMax = tAtual;
-      if (Math.abs(tMax - ultimoDash) > 0.0015) {
-        ultimoDash = tMax;
-        tireMarks.forEach(function (mk, idx) {
-          if (mk && comprimentos[idx]) {
-            mk.style.strokeDashoffset = (comprimentos[idx] * (1 - tMax)).toFixed(1);
-          }
-        });
-      }
-    }
-
-    // HUD RPM gauge
-    if (hudProg) {
-      var dashOffset = 125.6 * (1 - p);
-      hudProg.style.strokeDashoffset = dashOffset;
-      if (hudVal) {
-        var rpmCalc = (1.2 + p * 7.4).toFixed(1);
-        hudVal.textContent = rpmCalc;
-      }
-    }
-  });
-
-  /* ─── ANIMAÇÕES DE ENTRADA SCROLLTRIGGER ─── */
   // Revelação de títulos e cards
   ScrollTrigger.batch('.door-card, .media-card, .filter-box', {
     start: 'top 88%',
@@ -2713,14 +2560,11 @@ document.addEventListener('DOMContentLoaded', function () {
     clearTimeout(tr);
     tr = setTimeout(function () {
       MOB = matchMedia('(max-width: 820px)').matches;
-      tMax = 0; ultimoDash = -1;
-      construirPista();
       ScrollTrigger.refresh();
     }, 250);
   }, { passive: true });
 
   window.addEventListener('load', function () {
-    construirPista();
     ScrollTrigger.refresh();
   });
 });
