@@ -11,7 +11,7 @@ Dependências externas: GSAP 3 + ScrollTrigger (cdnjs), Lenis (jsDelivr) e 3 fam
 | O quê | Onde no `index.html` |
 |---|---|
 | `{{LINK_CHECKOUT}}` | 3 `href`: header, CTA da seção 05 e manifesto final |
-| `{{PRECO}}` | `data-valor="{{PRECO}}"` no `#odo` — o odômetro lê os dígitos sozinho (mostra 47 enquanto não trocar) |
+| Preço | `data-valor` do `#odo` (hoje `39`) — o odômetro lê os dígitos sozinho; ajuste também os dois `<span>` de fallback logo abaixo |
 | `{{VAGAS}}` | microcopy ao lado do CTA do hero |
 | Fotos | arquivos em `img/` (ver mapa abaixo) |
 | Domínio e OG (1200×630) | comentários `<!-- TROCAR -->` no `<head>` |

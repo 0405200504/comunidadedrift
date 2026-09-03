@@ -2311,10 +2311,10 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             <div class="price-label">PLANO MENSAL // FUNDADOR</div>
             <div class="price-value-wrap">
               <span class="price-currency">R$</span>
-              <!-- PREÇO: o odômetro lê os dígitos de data-valor. Trocar {{PRECO}} aqui. -->
-              <div class="odo-container" id="odo" data-valor="{{PRECO}}">
-                <span class="odo-col"><span class="odo-roll"><span>4</span></span></span>
-                <span class="odo-col"><span class="odo-roll"><span>7</span></span></span>
+              <!-- PREÇO: o odômetro lê os dígitos de data-valor. -->
+              <div class="odo-container" id="odo" data-valor="39">
+                <span class="odo-col"><span class="odo-roll"><span>3</span></span></span>
+                <span class="odo-col"><span class="odo-roll"><span>9</span></span></span>
               </div>
             </div>
             <div class="price-period">por mês</div>
@@ -2386,7 +2386,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (odo) {
     var bruto = odo.getAttribute('data-valor') || '';
     var m = bruto.match(/\d+/);
-    var digitos = m ? m[0] : '47';
+    var digitos = m ? m[0] : '39';
     odo.innerHTML = '';
     digitos.split('').forEach(function (d) {
       var col = document.createElement('span'); col.className = 'odo-col';
