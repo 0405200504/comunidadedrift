@@ -134,42 +134,27 @@ ul { list-style: none; }
   letter-spacing: -0.035em;
   line-height: 0.95;
 }
-.heading-slant {
-  display: inline-block;
-  transform: skewX(-6deg);
-}
 .text-orange {
   color: var(--orange);
 }
-.text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 20%, var(--gray-200) 60%, rgba(255, 255, 255, 0.4) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.text-gradient-orange {
-  background: linear-gradient(135deg, #FFFFFF 0%, var(--orange-light) 50%, var(--orange) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.telemetry-tag {
+.sec-tag {
   font-family: var(--font-mono);
   font-size: clamp(10px, 0.75vw, 11px);
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--orange);
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
-.telemetry-tag::before {
+.sec-tag::before {
   content: '';
   display: inline-block;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--orange);
-  box-shadow: 0 0 8px var(--orange);
 }
 
 .wrap {
@@ -251,11 +236,10 @@ ul { list-style: none; }
   text-transform: uppercase;
 }
 .brand-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   background: var(--orange);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--orange);
 }
 .header-status {
   display: flex;
@@ -369,7 +353,7 @@ ul { list-style: none; }
   }
 }
 .hero-title {
-  font-size: clamp(2.8rem, 6.2vw, 6.2rem);
+  font-size: clamp(2.5rem, 5.1vw, 5.2rem);
   line-height: 0.96;
   letter-spacing: -0.035em;
   margin-bottom: clamp(20px, 3vh, 32px);
@@ -405,16 +389,10 @@ ul { list-style: none; }
   border: 1px solid var(--border);
 }
 .slots-indicator {
-  width: 8px;
-  height: 8px;
-  background: #00E676;
+  width: 6px;
+  height: 6px;
+  background: #34C759;
   border-radius: 50%;
-  box-shadow: 0 0 10px #00E676;
-  animation: pulse-green 2s infinite ease-in-out;
-}
-@keyframes pulse-green {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
 }
 
 /* ─── HERO VISUAL (BLUEPRINT / AERODYNAMICS) ─── */
@@ -431,10 +409,8 @@ ul { list-style: none; }
   height: 100%;
   position: relative;
   border-radius: var(--radius-xl);
-  background: radial-gradient(circle at 60% 50%, rgba(255, 77, 0, 0.08) 0%, transparent 65%),
-              rgba(14, 14, 20, 0.5);
+  background: var(--bg-card-solid);
   border: 1px solid var(--border);
-  backdrop-filter: blur(12px);
   overflow: hidden;
   box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.9);
 }
@@ -572,7 +548,7 @@ ul { list-style: none; }
   }
 }
 
-.media-mock--foto { padding: 16px; }
+.media-mock--foto { padding: 0; }
 .media-foto {
   position: absolute;
   inset: 0;
@@ -580,120 +556,19 @@ ul { list-style: none; }
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  filter: grayscale(0.35) contrast(1.05) brightness(0.78);
+  filter: grayscale(0.2) contrast(1.03) brightness(0.94);
   transition: filter 0.5s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .media-card:hover .media-foto {
-  filter: grayscale(0) contrast(1.02) brightness(0.92);
-  transform: scale(1.035);
+  filter: grayscale(0) contrast(1.02) brightness(1);
+  transform: scale(1.03);
 }
-.media-mock--foto::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, rgba(7, 7, 9, 0.55) 0%, rgba(7, 7, 9, 0.05) 42%, rgba(7, 7, 9, 0.78) 100%);
-  pointer-events: none;
-}
-.media-mock--foto .media-header,
-.media-mock--foto .media-footer,
-.media-mock--foto .crosshair { position: relative; z-index: 2; }
-.media-mock--foto .crosshair { position: absolute; }
-
 .media-mock {
   position: relative;
   width: 100%;
   height: 100%;
   min-height: 240px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.4) 100%);
-}
-.media-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.rec-indicator {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--white);
-  font-weight: 700;
-}
-.rec-indicator b {
-  width: 8px;
-  height: 8px;
-  background: var(--orange);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--orange);
-  animation: pulse-red 1.5s infinite;
-}
-@keyframes pulse-red {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-.timecode {
-  color: var(--gray-200);
-}
-.crosshair {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
-}
-.media-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  color: var(--gray-200);
-}
-.media-tag {
-  background: rgba(255, 77, 0, 0.12);
-  color: var(--orange);
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.editorial-quote {
-  margin-top: clamp(48px, 6vw, 80px);
-  padding: clamp(28px, 4vw, 48px);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 77, 0, 0.03);
-  border: 1px solid var(--border-bright);
-  display: flex;
-  align-items: center;
-  gap: clamp(20px, 3vw, 40px);
-}
-@media (max-width: 768px) {
-  .editorial-quote { flex-direction: column; align-items: flex-start; }
-}
-.quote-mark {
-  font-family: var(--font-display);
-  font-size: 4rem;
-  line-height: 0.8;
-  color: var(--orange);
-  opacity: 0.8;
-}
-.quote-text {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  color: var(--white);
+  overflow: hidden;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -788,23 +663,6 @@ ul { list-style: none; }
   line-height: 1.6;
   margin-bottom: 24px;
 }
-.door-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.door-badge {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 5px 10px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
-  color: var(--gray-200);
-}
 
 /* ═══════════════════════════════════════════════════════════
    04 · PADDOCK FILTER (QUEM É / NÃO É)
@@ -881,8 +739,6 @@ ul { list-style: none; }
   font-size: 15px;
   color: var(--gray-200);
   line-height: 1.5;
-  text-decoration: line-through;
-  text-decoration-color: rgba(255, 77, 77, 0.4);
 }
 
 .verdict-banner {
@@ -1252,31 +1108,9 @@ html.pl-on:not(.pl-reveal) body { overflow: hidden !important; }
   text-transform: uppercase;
   color: var(--gray-300);
 }
-.pl-hud-linha {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-.pl-status { color: var(--orange); }
-.pl-num {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: clamp(1.6rem, 5vw, 2.6rem);
-  letter-spacing: -0.02em;
-  color: var(--white);
-  line-height: 1;
-}
-.pl-num small {
-  font-size: 0.38em;
-  color: var(--gray-300);
-  margin-left: 4px;
-  letter-spacing: 0.1em;
-}
 .pl-barra {
   position: relative;
-  height: 2px;
+  height: 1px;
   background: var(--border);
   overflow: hidden;
 }
@@ -1293,7 +1127,7 @@ html.pl-on:not(.pl-reveal) body { overflow: hidden !important; }
   padding: clamp(18px, 4vw, 40px);
   z-index: 4;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
   font-family: var(--font-mono);
   font-size: clamp(0.55rem, 1.5vw, 0.68rem);
@@ -1347,7 +1181,6 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 
 @media (max-width: 640px) {
   .pl-brand-sub { letter-spacing: 0.24em; }
-  #pl-vel, .pl-hud-ang { display: none; }
 }
 
 </style>
@@ -1363,8 +1196,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
     <div class="pl-vinheta"></div>
 
     <div class="pl-topo">
-      <span>DRIVE CLUB <b>// 01</b></span>
-      <span class="pl-pular" id="pl-pular">PULAR ↵</span>
+      <span class="pl-pular" id="pl-pular">Pular</span>
     </div>
 
     <div class="pl-brand">
@@ -1373,14 +1205,6 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
     </div>
 
     <div class="pl-hud">
-      <div class="pl-hud-linha">
-        <span class="pl-status" id="pl-status">● IGNIÇÃO</span>
-        <span id="pl-vel">000 KM/H</span>
-      </div>
-      <div class="pl-hud-linha">
-        <span class="pl-num"><span id="pl-pct">0</span><small>%</small></span>
-        <span class="pl-hud-ang">ÂNGULO <span id="pl-ang">00</span>°</span>
-      </div>
       <div class="pl-barra"><i id="pl-bar"></i></div>
     </div>
   </div>
@@ -1617,17 +1441,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
     g.restore();
   }
 
-  /* ─── HUD ─── */
-  var elStatus = document.getElementById('pl-status');
-  var elVel = document.getElementById('pl-vel');
-  var elPct = document.getElementById('pl-pct');
-  var elAng = document.getElementById('pl-ang');
   var elBar = document.getElementById('pl-bar');
-  var statusAtual = '';
-
-  function status(txt) {
-    if (txt !== statusAtual && elStatus) { statusAtual = txt; elStatus.textContent = '● ' + txt; }
-  }
 
   /* ─── Loop ─── */
   var t0 = 0, hAtual = 0, dAtual = 0, temHead = false;
@@ -1722,17 +1536,8 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
     }
     desenharCarro(ctxS, p[0], p[1], ang, steer, 1);
 
-    // ── HUD ──
-    var prog = clamp(fim / T3, 0, 1);
-    if (elBar) elBar.style.width = (prog * 100).toFixed(1) + '%';
-    if (elPct) elPct.textContent = Math.round(prog * 100);
-    if (elAng) elAng.textContent = ('0' + Math.round(Math.abs(dAtual))).slice(-2);
-    if (elVel) elVel.textContent = ('00' + Math.min(999, Math.round(velMod * 1.9 + 18))).slice(-3) + ' KM/H';
-    if (fim < T1 * 0.5) status('IGNIÇÃO');
-    else if (fim < T1) status('AQUECENDO OS PNEUS');
-    else if (fim < T2 - T_DONUT * 0.25) status('ÂNGULO MÁXIMO');
-    else if (fim < T2) status('CONTRAESTERÇO');
-    else status('SAÍDA · ENTRANDO NO CLUB');
+    // ── Barra de progresso da abertura ──
+    if (elBar) elBar.style.width = (clamp(fim / T3, 0, 1) * 100).toFixed(1) + '%';
 
     if (t >= T3 + 90) { encerrar(false); return; }
     raf = requestAnimationFrame(loop);
@@ -1770,13 +1575,8 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
   <div class="header-glass">
     <a class="brand" href="#hero">
       <span class="brand-dot"></span>
-      DRIVE CLUB // 01
+      Drive Club
     </a>
-    <div class="header-status">
-      <span>● LIVE PADDOCK</span>
-      <span style="opacity: 0.4">|</span>
-      <span>VAGAS DISPONÍVEIS</span>
-    </div>
     <!-- TROCAR: {{LINK_CHECKOUT}} -->
     <a class="btn-primary btn-sm" href="{{LINK_CHECKOUT}}">
       Acessar Club
@@ -1799,19 +1599,19 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
     <div class="hero-grid-align">
       <div>
         <div class="sec-eyebrow">
-          <span class="telemetry-tag">TELEMETRIA 01 // COMUNIDADE PRIVADA</span>
+          <span class="sec-tag">Comunidade fechada</span>
           <span class="line"></span>
         </div>
 
         <h1 class="heading-display hero-title">
           <span>Você vê o Drive</span>
           <span>dos vídeos.</span>
-          <span class="text-gradient-orange heading-slant">Aqui você entra</span>
-          <span class="text-gradient heading-slant">no carro.</span>
+          <span class="text-orange">Aqui você entra</span>
+          <span>no carro.</span>
         </h1>
 
         <p class="hero-desc">
-          O <strong>Drive Club</strong> é onde o rolê continua depois que a câmera desliga. Bastidores sem filtro, telemetria de pista, garagem exclusiva e a oportunidade real de andar de lado com o melhor professor de drift do país.
+          O <strong>Drive Club</strong> é onde o rolê continua depois que a câmera desliga: bastidores sem corte, a garagem dos membros, encontros e track days — e a chance de andar de lado com quem vive disso.
         </p>
 
         <div class="hero-actions">
@@ -1836,11 +1636,6 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
         <div class="car-blueprint">
           <div class="blueprint-inner">
             <img src="img/m4-neblina-noite.jpg" alt="BMW M4 do Drive com portas abertas em estrada de neblina à noite" width="1280" height="853" fetchpriority="high" decoding="async">
-          </div>
-          <div class="tech-spec-box">
-            <span>CHASSI: <strong>SPEC-D // GT</strong></span>
-            <span>DRIFT ANGLE: <strong>48.5°</strong></span>
-            <span>STATUS: <strong>LOCKED IN</strong></span>
           </div>
         </div>
       </div>
@@ -1872,101 +1667,47 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <section class="sec" id="corte">
   <div class="wrap">
     <div class="sec-eyebrow">
-      <span class="telemetry-tag">02 // 06 · PADDOCK RAW</span>
+      <span class="sec-tag">Bastidores</span>
       <span class="line"></span>
     </div>
 
     <div class="sec-title-area">
       <h2 class="heading-display sec-title">
         Todo mundo assiste.<br>
-        Poucos <span class="text-orange heading-slant">entram.</span>
+        Poucos <span class="text-orange">entram.</span>
       </h2>
       <p class="sec-desc">
-        Na internet você vê o take cortado de 30 segundos, o resultado polido e a edição do feed. No <strong>Drive Club</strong> você acompanha a realidade crua da pista: o acerto mecânico, o calor do motor, os erros, as vitórias e a resenha de quem vive no limite.
+        No feed você vê o corte de 30 segundos e o resultado já editado. No <strong>Drive Club</strong> você acompanha o resto: o acerto do carro, o que quebrou, o que deu certo e a conversa que vem depois da volta.
       </p>
     </div>
 
     <!-- FRAMES DE MONITORAMENTO / PLACEHOLDERS TÉCNICOS -->
     <div class="paddock-grid">
-      <div class="media-card col-7" data-asset="bastidor-01.jpg">
+      <div class="media-card col-7">
         <div class="media-mock media-mock--foto" style="aspect-ratio: 16/9;">
           <img class="media-foto" src="img/m4-amarela-pista.jpg" alt="M4 amarela acelerando na pista" width="1320" height="763" loading="lazy" decoding="async">
-          <div class="media-header">
-            <span class="rec-indicator"><b></b>REC 4K RAW</span>
-            <span class="timecode" data-tc>00:14:28:11</span>
-          </div>
-          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-          <div class="media-footer">
-            <span>CAM_01 // BASTIDOR DE PISTA</span>
-            <span class="media-tag">OFF-CAMERA</span>
-          </div>
         </div>
       </div>
 
-      <div class="media-card col-5" data-asset="feed-01.jpg">
+      <div class="media-card col-5">
         <div class="media-mock media-mock--foto" style="aspect-ratio: 16/9;">
           <img class="media-foto" src="img/m4-preta-rua.jpg" alt="M4 preta fosca em movimento na rua" width="1320" height="474" loading="lazy" decoding="async">
-          <div class="media-header">
-            <span class="rec-indicator"><b></b>REC 4K RAW</span>
-            <span class="timecode" data-tc>00:08:42:04</span>
-          </div>
-          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-          <div class="media-footer">
-            <span>CAM_02 // COCKPIT TELEMETRY</span>
-            <span class="media-tag">NO FEED</span>
-          </div>
         </div>
       </div>
 
-      <div class="media-card col-4" data-asset="feed-02.jpg">
+      <div class="media-card col-4">
         <div class="media-mock media-mock--foto" style="aspect-ratio: 4/5;">
           <img class="media-foto" src="img/m4-espanha-vertical.jpg" alt="M4 branca parada em rua histórica" width="1080" height="1920" loading="lazy" decoding="async">
-          <div class="media-header">
-            <span class="rec-indicator"><b></b>REC 4K RAW</span>
-            <span class="timecode" data-tc>00:21:05:19</span>
-          </div>
-          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-          <div class="media-footer">
-            <span>CAM_03 // APEX CORNER</span>
-            <span class="media-tag">GARAGEM</span>
-          </div>
         </div>
       </div>
 
-      <div class="media-card col-8" data-asset="bastidor-02.jpg">
+      <div class="media-card col-8">
         <div class="media-mock media-mock--foto" style="aspect-ratio: 21/9;">
           <img class="media-foto" src="img/m4-drift-pista.jpg" alt="M4 branca de lado com fumaça na saída de curva" width="1320" height="584" loading="lazy" decoding="async">
-          <div class="media-header">
-            <span class="rec-indicator"><b></b>REC 4K RAW</span>
-            <span class="timecode" data-tc>00:32:19:07</span>
-          </div>
-          <svg class="crosshair" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M16 4V10M16 22V28M4 16H10M22 16H28" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-          <div class="media-footer">
-            <span>CAM_04 // NIGHT TOUGE RUN</span>
-            <span class="media-tag">UNFILTERED</span>
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="editorial-quote">
-      <div class="quote-mark">“</div>
-      <p class="quote-text">
-        O Drive faz o que os outros não têm coragem na pista. O Club é o único lugar onde você senta no banco do passageiro e vive isso por dentro.
-      </p>
-    </div>
   </div>
 </section>
 
@@ -1978,16 +1719,16 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <section class="sec" id="dentro">
   <div class="wrap">
     <div class="sec-eyebrow">
-      <span class="telemetry-tag">03 // 06 · SEIS PILARES DE ACESSO</span>
+      <span class="sec-tag">O que tem dentro</span>
       <span class="line"></span>
     </div>
 
     <div class="sec-title-area">
       <h2 class="heading-display sec-title">
-        O que tá <span class="text-orange heading-slant">dentro</span>
+        O que tem <span class="text-orange">dentro</span>
       </h2>
       <p class="sec-desc">
-        Uma estrutura completa desenhada para quem respira cultura automotiva, preparação e automobilismo real.
+        Seis frentes que rodam o ano inteiro — do bastidor da garagem ao track day.
       </p>
     </div>
 
@@ -2002,17 +1743,12 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
                 <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
               </svg>
             </div>
-            <span class="door-num">// 01</span>
+            <span class="door-num">01</span>
           </div>
           <h3 class="door-title">A Drive — O Lado Oculto</h3>
           <p class="door-desc">
             Bastidores sem cortes, Q&amp;A direto no chat, e o sistema de votação: você define as próximas modificações de projeto e novos conteúdos.
           </p>
-        </div>
-        <div class="door-tags">
-          <span class="door-badge">Bastidor Real</span>
-          <span class="door-badge">Q&amp;A Semanal</span>
-          <span class="door-badge">Voto Direto</span>
         </div>
       </article>
 
@@ -2028,17 +1764,12 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
                 <circle cx="17" cy="17" r="2"/>
               </svg>
             </div>
-            <span class="door-num">// 02</span>
+            <span class="door-num">02</span>
           </div>
           <h3 class="door-title">Garagem dos Membros</h3>
           <p class="door-desc">
             Espaço para exibir seu projeto, setup de suspensão, ficha técnica e evolução antes-e-depois com feedback de quem entende.
           </p>
-        </div>
-        <div class="door-tags">
-          <span class="door-badge">Projetos</span>
-          <span class="door-badge">Setups</span>
-          <span class="door-badge">Zero Julgamento</span>
         </div>
       </article>
 
@@ -2052,16 +1783,12 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
                 <path d="M13 5v2M13 11v2M13 17v2"/>
               </svg>
             </div>
-            <span class="door-num">// 03</span>
+            <span class="door-num">03</span>
           </div>
           <h3 class="door-title">Rifa com Chance 10x</h3>
           <p class="door-desc">
             Sorteios exclusivos de peças de alta performance, cotas especiais e experiências que multiplicam sua probabilidade de vitória por 10.
           </p>
-        </div>
-        <div class="door-tags">
-          <span class="door-badge">Peças Forjadas</span>
-          <span class="door-badge">Cotas 10x</span>
         </div>
       </article>
 
@@ -2077,16 +1804,12 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
                 <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34c2.5-.66 4-3.03 4-5.66V4H6v5c0 2.63 1.5 5 4 5.66Z"/>
               </svg>
             </div>
-            <span class="door-num">// 04</span>
+            <span class="door-num">04</span>
           </div>
           <h3 class="door-title">Ranking &amp; Desafios</h3>
           <p class="door-desc">
             Batalha mensal de projetos, fotografia automotiva e desafios de pista. Suba no placar, ganhe insígnias de honra e prêmios.
           </p>
-        </div>
-        <div class="door-tags">
-          <span class="door-badge">Competição</span>
-          <span class="door-badge">Prêmios Mensais</span>
         </div>
       </article>
 
@@ -2100,17 +1823,12 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
                 <line x1="4" y1="22" x2="4" y2="15"/>
               </svg>
             </div>
-            <span class="door-num">// 05</span>
+            <span class="door-num">05</span>
           </div>
           <h3 class="door-title">Experiências de Pista</h3>
           <p class="door-desc">
             Track days fechados, encontros no autódromo, sessões de kart e gravações presenciais exclusivas ao lado do Drive.
           </p>
-        </div>
-        <div class="door-tags">
-          <span class="door-badge">Presencial</span>
-          <span class="door-badge">Track Day</span>
-          <span class="door-badge">Hot Lap</span>
         </div>
       </article>
 
@@ -2124,17 +1842,12 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
                 <path d="M7 7h.01"/>
               </svg>
             </div>
-            <span class="door-num">// 06</span>
+            <span class="door-num">06</span>
           </div>
           <h3 class="door-title">Parceiros &amp; Desapego</h3>
           <p class="door-desc">
             Descontos pesados em oficinas especializadas, PPF, pneus e peças. Mercado interno e seguro de compra e venda entre membros.
           </p>
-        </div>
-        <div class="door-tags">
-          <span class="door-badge">Cupons</span>
-          <span class="door-badge">Peças Raras</span>
-          <span class="door-badge">Marketplace</span>
         </div>
       </article>
     </div>
@@ -2149,14 +1862,14 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <section class="sec" id="filtro">
   <div class="wrap">
     <div class="sec-eyebrow">
-      <span class="telemetry-tag">04 // 06 · CRITÉRIO DE ENTRADA</span>
+      <span class="sec-tag">Para quem é</span>
       <span class="line"></span>
     </div>
 
     <div class="sec-title-area">
       <h2 class="heading-display sec-title">
         Sem meio termo.<br>
-        <span class="text-orange heading-slant">Quem entra</span> vs <span class="heading-slant text-gradient">Quem fica fora</span>
+        Quem entra e <span class="text-orange">quem fica de fora</span>.
       </h2>
     </div>
 
@@ -2167,26 +1880,24 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          GREEN FLAG // É PARA VOCÊ SE:
+          É para você se
         </div>
         <ul class="filter-list">
           <li>
             <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              <polyline points="20 6 9 17 4 12"/>
             </svg>
             <span class="filter-text-yes">Carro para você é paixão, engenharia e estilo de vida, não apenas um meio de transporte.</span>
           </li>
           <li>
             <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <polyline points="13 17 18 12 13 7"/>
-              <polyline points="6 17 11 12 6 7"/>
+              <polyline points="20 6 9 17 4 12"/>
             </svg>
             <span class="filter-text-yes">Você quer aprender drift, acerto de suspensão e mecânica de verdade com quem pratica.</span>
           </li>
           <li>
             <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="m10 15 5-3-5-3v6Z"/>
+              <polyline points="20 6 9 17 4 12"/>
             </svg>
             <span class="filter-text-yes">Você quer estar dentro do paddock trocando ideia direto com o Drive, não aplaudindo de longe.</span>
           </li>
@@ -2200,7 +1911,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
-          RED FLAG // NÃO É PARA VOCÊ SE:
+          Não é para você se
         </div>
         <ul class="filter-list">
           <li>
@@ -2245,7 +1956,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <section class="sec" id="oferta">
   <div class="wrap">
     <div class="sec-eyebrow">
-      <span class="telemetry-tag">05 // 06 · PASSE DE FUNDADOR</span>
+      <span class="sec-tag">Assinatura</span>
       <span class="line"></span>
     </div>
 
@@ -2256,10 +1967,10 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
             </svg>
-            Condição Especial // 1ª Leva
+            Condição de 1ª leva
           </span>
           <h2 class="heading-display sec-title">
-            Entra no <span class="text-orange heading-slant">Cockpit</span>
+            Entra no <span class="text-orange">cockpit</span>
           </h2>
           <p class="sec-desc">
             Garanta seu acesso imediato com valor de membro fundador travado permanentemente enquanto sua assinatura estiver ativa.
@@ -2308,7 +2019,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
         <!-- MOSTRADOR DIGITAL / ODÔMETRO -->
         <div>
           <div class="price-display-box">
-            <div class="price-label">PLANO MENSAL // FUNDADOR</div>
+            <div class="price-label">Plano mensal · fundador</div>
             <div class="price-value-wrap">
               <span class="price-currency">R$</span>
               <!-- PREÇO: o odômetro lê os dígitos de data-valor. -->
@@ -2332,14 +2043,14 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <section class="sec manifesto-sec" id="fim">
   <div class="wrap wrap--narrow">
     <div class="sec-eyebrow" style="justify-content: center;">
-      <span class="telemetry-tag">06 // 06 · LINHA DE CHEGADA</span>
+      <span class="sec-tag">Entrar</span>
     </div>
 
     <img class="logo-marca" src="img/logo-gta.png" alt="Drive It Like Stole It · Real Underground" width="1280" height="853" loading="lazy" decoding="async">
 
     <h2 class="heading-display manifesto-title">
       Lá fora você continua sendo público.<br>
-      <span class="text-orange heading-slant">Aqui você acelera junto.</span>
+      <span class="text-orange">Aqui você acelera junto.</span>
     </h2>
 
     <a class="btn-primary btn-lg" href="{{LINK_CHECKOUT}}">
@@ -2399,24 +2110,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     rolos.forEach(function (r) { r.style.transform = 'translateY(-' + r.dataset.alvo + 'em)'; });
   }
-
-  /* ─── TIMECODE DINÂMICO NOS FRAMES ─── */
-  (function () {
-    var tcs = $$('[data-tc]'), t0 = 0;
-    var obs = new IntersectionObserver(function (ents) {
-      ents.forEach(function (e) { e.target.dataset.on = e.isIntersecting ? '1' : '0'; });
-    }, { rootMargin: '80px' });
-    tcs.forEach(function (el, i) { obs.observe(el); el.dataset.off = i * 137; });
-    setInterval(function () {
-      t0 += 1;
-      tcs.forEach(function (el) {
-        if (el.dataset.on !== '1') return;
-        var q = t0 + parseInt(el.dataset.off, 10);
-        var s = Math.floor(q / 12) % 60, min = Math.floor(q / 720) % 60, f = q % 12;
-        el.textContent = ('0' + min).slice(-2) + ':' + ('0' + s).slice(-2) + ':' + ('0' + f * 2).slice(-2);
-      });
-    }, 90);
-  })();
 
   /* ─── SPOTLIGHT EFFECT NOS CARDS NO MOUSEMOVE ─── */
   if (FINO) {

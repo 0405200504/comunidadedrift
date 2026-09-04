@@ -21,7 +21,7 @@ Dependências externas: GSAP 3 + ScrollTrigger (cdnjs), Lenis (jsDelivr) e 3 fam
 | Arquivo | Onde aparece |
 |---|---|
 | `m4-neblina-noite.jpg` | quadro do hero |
-| `m4-amarela-pista.jpg`, `m4-preta-rua.jpg`, `m4-espanha-vertical.jpg`, `m4-drift-pista.jpg` | 4 frames de câmera da seção 02 (16:9, 16:9, 4:5, 21:9) |
+| `m4-amarela-pista.jpg`, `m4-preta-rua.jpg`, `m4-espanha-vertical.jpg`, `m4-drift-pista.jpg` | grade de fotos da seção 02 (16:9, 16:9, 4:5, 21:9) |
 | `m4-posto.jpg`, `m4-rua-frente.jpg`, `m4-policia-traseira.jpg`, `m4-deic-portas.jpg`, `deic-story.jpg`, `logo-graffiti.jpg` | faixa de fotos em loop, logo abaixo do hero |
 | `logo-real-underground.png` | marca no centro da abertura (PNG com fundo recortado) |
 | `logo-gta.png` | marca acima do manifesto final |
@@ -34,6 +34,7 @@ Antes da página aparecer, um carro entra de lado e faz donuts em volta da marca
 
 - Tudo em canvas 2D puro, sem biblioteca, num `<script>` inline no topo do `<body>` — roda antes do GSAP carregar.
 - Duração: `T_ENTRA` (760ms) + `T_DONUT` (2400ms, `VOLTAS = 2.25`) + `T_SAI` (620ms) + cortina (860ms). Clique, `Esc`, `Enter` ou espaço pulam.
+- Sem contador de porcentagem nem leitura de telemetria: só a marca, a animação e uma barra fina de progresso.
 - `prefers-reduced-motion` → a abertura nem aparece (a classe `pl-on` só é aplicada fora desse caso), e há um timeout de segurança que nunca deixa a página presa.
 - Marcas de pneu ficam num canvas próprio que só esmaece (`destination-out`); a fumaça é um sprite radial pré-renderizado reaproveitado por partícula.
 
@@ -45,3 +46,7 @@ Antes da página aparecer, um carro entra de lado e faz donuts em volta da marca
 - Não existe mais carro percorrendo a página conforme o scroll (removido na V3 junto do HUD de RPM).
 
 Cores em `:root` (`--bg`, `--orange`, escala de cinzas). Tipografia display/body/mono também em `:root`.
+
+## Direção
+
+Nada de dado inventado na interface: sem "REC 4K", timecode correndo, ficha técnica falsa no hero, status "ao vivo" no header ou depoimento sem autor. Fotos aparecem como fotos; rótulos de seção são palavras, não códigos (`02 // 06`). Títulos usam cor sólida — sem gradiente em texto nem itálico postiço.
