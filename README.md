@@ -10,9 +10,9 @@ Dependências externas: GSAP 3 + ScrollTrigger (cdnjs), Lenis (jsDelivr) e 3 fam
 
 | O quê | Onde no `index.html` |
 |---|---|
-| `{{LINK_CHECKOUT}}` | 3 `href`: header, CTA da seção 05 e manifesto final |
+| Link de checkout | 3 `href` com o valor fictício `https://pay.driveclub.com.br/fundador`: header, CTA da seção 05 e manifesto final |
 | Preço | `data-valor` do `#odo` (hoje `39`) — o odômetro lê os dígitos sozinho; ajuste também os dois `<span>` de fallback logo abaixo |
-| `{{VAGAS}}` | microcopy ao lado do CTA do hero |
+| Vagas | número fictício `150` no microcopy ao lado do CTA do hero |
 | Fotos | arquivos em `img/` (ver mapa abaixo) |
 | Domínio e OG (1200×630) | comentários `<!-- TROCAR -->` no `<head>` |
 
