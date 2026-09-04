@@ -4,7 +4,7 @@ Página de vendas de arquivo único da comunidade fechada do [@driveitlikestolei
 
 Sem build, sem framework: `index.html` + a pasta `img/`. Sobe direto na Vercel ou no Netlify (sem build command, output `/`).
 
-Dependências externas: GSAP 3 + ScrollTrigger (cdnjs), Lenis (jsDelivr) e 3 famílias do Google Fonts (Plus Jakarta Sans, Space Grotesk, JetBrains Mono). Ícones são SVG desenhados no próprio arquivo.
+Dependências externas: GSAP 3 + ScrollTrigger (cdnjs), Lenis (jsDelivr) e 4 famílias do Google Fonts (Anton para os títulos, Plus Jakarta Sans, Space Grotesk, JetBrains Mono). Ícones são SVG desenhados no próprio arquivo.
 
 ## O que trocar
 
@@ -48,5 +48,13 @@ Antes da página aparecer, um carro entra de lado e faz donuts em volta da marca
 Cores em `:root` (`--bg`, `--orange`, escala de cinzas). Tipografia display/body/mono também em `:root`.
 
 ## Direção
+
+Referência: corrida de rua à noite — asfalto, poste de sódio e neon frio, não painel de simulador.
+
+- **Tipografia**: Anton (condensada, pesada, caixa alta) nos títulos, número dos cards e no preço; Space Grotesk no texto corrido; JetBrains Mono nos rótulos. Nas duas primeiras linhas do hero o texto é vazado (`-webkit-text-stroke`) e vira sólido na virada — de fora se olha, de dentro se anda.
+- **Cor**: laranja `--orange` como marca e um frio de poste `--neon` (#2FB4FF) em doses pequenas (etiqueta de vagas, lista positiva, brilho interno dos cards). Fundo com duas poças de luz e vinheta.
+- **Textura**: granulado de filme em duas camadas — uma parada no fundo, outra animada por cima de tudo (`.bg-grao`, desligada em `prefers-reduced-motion`) — via `feTurbulence` embutido em data URI, sem imagem externa.
+- **Formas**: cantos praticamente retos (`--radius-*` entre 2 e 6px), botões com canto chanfrado no lugar de pílula, divisor de seção em zebrado diagonal e faixa de fotos inclinada 1,1°.
+- **Fotos**: contraste alto e brilho baixo, com estouro quente no topo e sombra fria embaixo; voltam ao normal no hover.
 
 Nada de dado inventado na interface: sem "REC 4K", timecode correndo, ficha técnica falsa no hero, status "ao vivo" no header ou depoimento sem autor. Fotos aparecem como fotos; rótulos de seção são palavras, não códigos (`02 // 06`). Títulos usam cor sólida — sem gradiente em texto nem itálico postiço.
