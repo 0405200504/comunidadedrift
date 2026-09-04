@@ -4,7 +4,7 @@ Página de vendas de arquivo único da comunidade fechada do [@driveitlikestolei
 
 Sem build, sem framework: `index.html` + a pasta `img/`. Sobe direto na Vercel ou no Netlify (sem build command, output `/`).
 
-Dependências externas: GSAP 3 + ScrollTrigger (cdnjs), Lenis (jsDelivr) e 4 famílias do Google Fonts (Anton para os títulos, Plus Jakarta Sans, Space Grotesk, JetBrains Mono). Ícones são SVG desenhados no próprio arquivo.
+Dependências externas: GSAP 3 + ScrollTrigger (cdnjs), Lenis (jsDelivr) e 4 famílias do Google Fonts (Chakra Petch nos títulos e botões, Plus Jakarta Sans, Space Grotesk, JetBrains Mono). Ícones são SVG desenhados no próprio arquivo.
 
 ## O que trocar
 
@@ -51,10 +51,13 @@ Cores em `:root` (`--bg`, `--orange`, escala de cinzas). Tipografia display/body
 
 Referência: corrida de rua à noite — asfalto, poste de sódio e neon frio, não painel de simulador.
 
-- **Tipografia**: Anton (condensada, pesada, caixa alta) nos títulos, número dos cards e no preço; Space Grotesk no texto corrido; JetBrains Mono nos rótulos. Nas duas primeiras linhas do hero o texto é vazado (`-webkit-text-stroke`) e vira sólido na virada — de fora se olha, de dentro se anda.
+- **Tipografia**: Chakra Petch 700 itálico (angular, com itálico de verdade — nada de `skew`) nos títulos, número dos cards, preço, marca e botões; Space Grotesk no texto corrido; JetBrains Mono nos rótulos. Nas duas primeiras linhas do hero o texto é vazado (`-webkit-text-stroke`) e vira sólido na virada — de fora se olha, de dentro se anda.
 - **Cor**: laranja `--orange` como marca e um frio de poste `--neon` (#2FB4FF) em doses pequenas (etiqueta de vagas, lista positiva, brilho interno dos cards). Fundo com duas poças de luz e vinheta.
 - **Textura**: granulado de filme em duas camadas — uma parada no fundo, outra animada por cima de tudo (`.bg-grao`, desligada em `prefers-reduced-motion`) — via `feTurbulence` embutido em data URI, sem imagem externa.
 - **Formas**: cantos praticamente retos (`--radius-*` entre 2 e 6px), botões com canto chanfrado no lugar de pílula, divisor de seção em zebrado diagonal e faixa de fotos inclinada 1,1°.
 - **Fotos**: contraste alto e brilho baixo, com estouro quente no topo e sombra fria embaixo; voltam ao normal no hover.
+- **Marcas de pneu** (`.rastro`): SVG inline de duas bandas paralelas com textura de banda de rodagem e ponta que some no gradiente. Em três lugares — saindo do hero (branco, quase imperceptível), cruzando a seção clara (escuro, é o grafismo principal) e atrás do fecho (espelhado).
+- **Seção clara** (`.sec--claro`, o "para quem é"): papel/concreto `#E7E3DC` com granulado em `multiply`, zebrado preto nas duas bordas, caixas brancas com sombra dura e o veredito num bloco preto. É a única quebra de luz da página — serve de respiro entre o miolo e a oferta.
+- **Cara de jogo**: cantoneiras de mira que aparecem no hover dos cards e das fotos, e um brilho que varre os botões — feedback de HUD, sem inventar dado na tela.
 
 Nada de dado inventado na interface: sem "REC 4K", timecode correndo, ficha técnica falsa no hero, status "ao vivo" no header ou depoimento sem autor. Fotos aparecem como fotos; rótulos de seção são palavras, não códigos (`02 // 06`). Títulos usam cor sólida — sem gradiente em texto nem itálico postiço.

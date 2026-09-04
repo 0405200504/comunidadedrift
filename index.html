@@ -25,7 +25,7 @@
 <!-- ═══════════ FONTES ═══════════ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700;1,800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script>
   (function(){
@@ -66,7 +66,7 @@
   --border-bright: rgba(255, 255, 255, 0.16);
   --border-active: rgba(255, 77, 0, 0.5);
 
-  --font-poster: 'Anton', 'Arial Narrow', system-ui, sans-serif;
+  --font-poster: 'Chakra Petch', 'Eurostile', 'Arial Narrow', system-ui, sans-serif;
   --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -147,15 +147,16 @@ html.rm .bg-grao { animation: none; }
 /* ─── TIPOGRAFIA DE ALTA PERFORMANCE ─── */
 .heading-display {
   font-family: var(--font-poster);
-  font-weight: 400;
+  font-weight: 700;
+  font-style: italic;
   text-transform: uppercase;
-  letter-spacing: 0.005em;
-  line-height: 0.88;
+  letter-spacing: -0.015em;
+  line-height: 0.94;
 }
 /* Contorno: o lado de fora é oco, o de dentro é sólido */
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: clamp(1px, 0.14vw, 2px) rgba(245, 245, 247, 0.72);
+  -webkit-text-stroke: clamp(1.4px, 0.18vw, 2.4px) rgba(245, 245, 247, 0.78);
 }
 .text-orange {
   color: var(--orange);
@@ -256,9 +257,10 @@ html.rm .bg-grao { animation: none; }
   align-items: center;
   gap: 10px;
   font-family: var(--font-poster);
-  font-weight: 400;
+  font-weight: 700;
+  font-style: italic;
   font-size: 17px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 .brand-dot {
@@ -290,10 +292,11 @@ html.rm .bg-grao { animation: none; }
   gap: 14px;
   background: var(--orange);
   color: #000000;
-  font-family: var(--font-mono);
+  font-family: var(--font-poster);
   font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 16px 30px;
   border-radius: 0;
@@ -313,6 +316,23 @@ html.rm .bg-grao { animation: none; }
 .btn-primary:active {
   transform: translateY(0) scale(0.98);
 }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-18deg);
+}
+.btn-primary:hover::after { animation: varrer 0.65s ease; }
+@keyframes varrer {
+  from { left: -70%; }
+  to   { left: 130%; }
+}
+html.rm .btn-primary:hover::after { animation: none; }
 .btn-primary .icon-arrow {
   display: flex;
   align-items: center;
@@ -664,6 +684,36 @@ html.rm .bg-grao { animation: none; }
 .door-card:hover::before {
   opacity: 1;
 }
+
+/* Cantoneiras de mira (HUD) */
+.door-card::after,
+.media-card::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, inset 0.25s ease;
+  background-image:
+    linear-gradient(var(--orange), var(--orange)), linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)), linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)), linear-gradient(var(--orange), var(--orange)),
+    linear-gradient(var(--orange), var(--orange)), linear-gradient(var(--orange), var(--orange));
+  background-repeat: no-repeat;
+  background-size: 16px 2px, 2px 16px, 16px 2px, 2px 16px, 16px 2px, 2px 16px, 16px 2px, 2px 16px;
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom;
+}
+.door-card:hover::after,
+.media-card:hover::after {
+  opacity: 0.95;
+  inset: 12px;
+}
+
 .door-card-content {
   position: relative;
   z-index: 1;
@@ -687,8 +737,9 @@ html.rm .bg-grao { animation: none; }
 }
 .door-num {
   font-family: var(--font-poster);
-  font-weight: 400;
-  font-size: clamp(2rem, 3vw, 2.9rem);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(2.2rem, 3.2vw, 3.1rem);
   line-height: 0.8;
   letter-spacing: 0.01em;
   color: transparent;
@@ -700,7 +751,7 @@ html.rm .bg-grao { animation: none; }
 }
 .door-title {
   font-family: var(--font-poster);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   font-size: clamp(1.3rem, 1.7vw, 1.65rem);
   letter-spacing: 0.01em;
@@ -802,7 +853,8 @@ html.rm .bg-grao { animation: none; }
 }
 .verdict-title {
   font-family: var(--font-poster);
-  font-weight: 400;
+  font-weight: 700;
+  font-style: italic;
   text-transform: uppercase;
   font-size: clamp(1.4rem, 2.5vw, 2.2rem);
   letter-spacing: -0.02em;
@@ -906,7 +958,8 @@ html.rm .bg-grao { animation: none; }
 }
 .price-currency {
   font-family: var(--font-poster);
-  font-weight: 400;
+  font-weight: 700;
+  font-style: italic;
   font-size: clamp(1.8rem, 2.8vw, 2.6rem);
   color: var(--gray-200);
 }
@@ -916,9 +969,10 @@ html.rm .bg-grao { animation: none; }
   height: 1em;
   line-height: 1;
   font-family: var(--font-poster);
-  font-weight: 400;
+  font-weight: 700;
+  font-style: italic;
   font-size: clamp(4.4rem, 7.5vw, 6.8rem);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--white);
   font-variant-numeric: tabular-nums;
 }
@@ -955,6 +1009,7 @@ html.rm .bg-grao { animation: none; }
    06 · FECHAMENTO & FOOTER
    ═══════════════════════════════════════════════════════════ */
 .manifesto-sec {
+  overflow: hidden;
   text-align: center;
   padding: clamp(90px, 12vw, 160px) 0 clamp(40px, 5vw, 70px);
 }
@@ -1003,6 +1058,85 @@ html.rm .bg-grao { animation: none; }
   height: auto;
   margin: 0 auto;
   filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.85));
+}
+
+/* ─── MARCAS DE PNEU (GRAFISMO) ─── */
+.rastro {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  width: 118%;
+  left: -9%;
+}
+.rastro svg { width: 100%; height: 100%; display: block; }
+.rastro--hero  { bottom: -70px; height: 250px; }
+.rastro--claro { top: 8%; height: 76%; }
+.rastro--fim   { top: 6%; height: 68%; transform: scaleX(-1); }
+
+/* ═══════════════════════════════════════════════════════════
+   SEÇÃO CLARA · FOLHA DE VISTORIA
+   ═══════════════════════════════════════════════════════════ */
+.sec--claro {
+  --papel: #E7E3DC;
+  background: var(--papel);
+  color: #14131A;
+  isolation: isolate;
+  overflow: hidden;
+  border-block: 2px solid #14131A;
+}
+.sec--claro::before,
+.sec--claro::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+  z-index: 4;
+  background: repeating-linear-gradient(-45deg,
+    #14131A 0 10px, rgba(0, 0, 0, 0) 10px 20px);
+  opacity: 0.85;
+}
+.sec--claro::before { top: 0; }
+.sec--claro::after  { bottom: 0; }
+.sec--claro .wrap { z-index: 3; }
+.sec--claro .sec-title { color: #0F0E13; }
+.sec--claro .sec-title .text-orange { color: #DB3B00; }
+.sec--claro .sec-desc { color: #4A4750; }
+.sec--claro .sec-tag { color: #C23600; }
+.sec--claro .sec-tag::before { background: #C23600; }
+.sec--claro .sec-eyebrow .line { background: rgba(20, 19, 26, 0.22); }
+
+.sec--claro .filter-box {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: none;
+  border: 1.5px solid rgba(20, 19, 26, 0.55);
+  box-shadow: 6px 6px 0 rgba(20, 19, 26, 0.12);
+}
+.sec--claro .filter-header.green { color: #0F0E13; }
+.sec--claro .filter-header.red { color: #C1121F; }
+.sec--claro .filter-icon-yes { color: #0F0E13; }
+.sec--claro .filter-icon-no { color: #C1121F; }
+.sec--claro .filter-text-yes { color: #14131A; }
+.sec--claro .filter-text-no { color: #57545E; }
+.sec--claro .filter-list li { border-bottom: 1px solid rgba(20, 19, 26, 0.14); }
+.sec--claro .filter-list li:last-child { border-bottom: none; }
+
+.sec--claro .verdict-banner {
+  background: #14131A;
+  border: none;
+}
+.sec--claro .verdict-title { color: var(--white); }
+.sec--claro .verdict-title .text-orange { color: var(--orange); }
+
+.sec--claro .grao-papel {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27180%27%20height%3D%27180%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.82%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27180%27%20height%3D%27180%27%20filter%3D%27url%28%23g%29%27%2F%3E%3C%2Fsvg%3E");
+  background-size: 170px 170px;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1710,9 +1844,10 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
       </div>
     </div>
   </div>
+  <div class="rastro rastro--hero" aria-hidden="true"><svg viewBox="0 0 1400 460" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="fade-hero" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.14" stop-color="#FFFFFF" stop-opacity="0.07"/><stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.053"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient></defs><g fill="none" stroke="url(#fade-hero)" stroke-linecap="round" stroke-width="19"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g><g fill="none" stroke="url(#fade-hero)" stroke-width="19" stroke-dasharray="3 7 2 12" opacity="0.9"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g></svg></div>
 </section>
 
-<!-- ═══════════ TICKER DE TELEMETRIA ═══════════ -->
+<!-- ═══════════ FAIXA DE FOTOS ═══════════ -->
 <div class="faixa-fotos" aria-hidden="true">
   <div class="faixa-move">
     <figure class="faixa-item"><img src="img/m4-posto.jpg" alt="M4 branca no posto" loading="lazy" decoding="async"></figure>
@@ -1928,7 +2063,9 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <!-- ═══════════════════════════════════════════════════════════
      04 · PADDOCK FILTER (PRA QUEM É / PRA QUEM NÃO É)
      ═══════════════════════════════════════════════════════════ -->
-<section class="sec" id="filtro">
+<section class="sec sec--claro" id="filtro">
+  <div class="rastro rastro--claro" aria-hidden="true"><svg viewBox="0 0 1400 460" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="fade-claro" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#14131A" stop-opacity="0"/><stop offset="0.14" stop-color="#14131A" stop-opacity="0.22"/><stop offset="0.55" stop-color="#14131A" stop-opacity="0.165"/><stop offset="1" stop-color="#14131A" stop-opacity="0"/></linearGradient></defs><g fill="none" stroke="url(#fade-claro)" stroke-linecap="round" stroke-width="19"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g><g fill="none" stroke="url(#fade-claro)" stroke-width="19" stroke-dasharray="3 7 2 12" opacity="0.9"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g></svg></div>
+  <div class="grao-papel" aria-hidden="true"></div>
   <div class="wrap">
     <div class="sec-eyebrow">
       <span class="sec-tag">Para quem é</span>
@@ -2110,6 +2247,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
      06 · MANIFESTO FINAL & RODAPÉ
      ═══════════════════════════════════════════════════════════ -->
 <section class="sec manifesto-sec" id="fim">
+  <div class="rastro rastro--fim" aria-hidden="true"><svg viewBox="0 0 1400 460" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="fade-fim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.14" stop-color="#FFFFFF" stop-opacity="0.09"/><stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.068"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient></defs><g fill="none" stroke="url(#fade-fim)" stroke-linecap="round" stroke-width="19"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g><g fill="none" stroke="url(#fade-fim)" stroke-width="19" stroke-dasharray="3 7 2 12" opacity="0.9"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g></svg></div>
   <div class="wrap wrap--narrow">
     <div class="sec-eyebrow" style="justify-content: center;">
       <span class="sec-tag">Entrar</span>
