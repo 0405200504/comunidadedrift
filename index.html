@@ -652,9 +652,7 @@ html.rm .btn-primary:hover::after { animation: none; }
 
 .door-card {
   position: relative;
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(17, 17, 24, 0.92);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   padding: clamp(28px, 3vw, 38px);
@@ -786,13 +784,11 @@ html.rm .btn-primary:hover::after { animation: none; }
   overflow: hidden;
 }
 .filter-box-yes {
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
+  background: rgba(17, 17, 24, 0.92);
   border: 1px solid rgba(47, 180, 255, 0.22);
 }
 .filter-box-no {
-  background: rgba(18, 12, 12, 0.7);
-  backdrop-filter: blur(16px);
+  background: rgba(20, 13, 13, 0.92);
   border: 1px solid rgba(255, 45, 45, 0.2);
 }
 .filter-header {
@@ -1139,64 +1135,6 @@ html.rm .btn-primary:hover::after { animation: none; }
   mix-blend-mode: multiply;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CURSOR · LUZ LARANJA (DESKTOP)
-   ═══════════════════════════════════════════════════════════ */
-.cursor-luz {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 340px;
-  height: 340px;
-  margin: -170px 0 0 -170px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0;
-  background: radial-gradient(circle closest-side,
-    rgba(255, 107, 43, 0.30) 0%,
-    rgba(255, 77, 0, 0.16) 34%,
-    rgba(255, 77, 0, 0.05) 62%,
-    rgba(255, 77, 0, 0) 100%);
-  filter: blur(26px);
-  mix-blend-mode: screen;
-  will-change: transform;
-  transition: opacity 0.4s ease, width 0.35s ease, height 0.35s ease, margin 0.35s ease;
-}
-.cursor-nucleo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  background: var(--orange-light);
-  box-shadow: 0 0 14px rgba(255, 77, 0, 0.9);
-  filter: blur(1px);
-  will-change: transform;
-  transition: opacity 0.4s ease, transform 0.18s ease;
-}
-html.cursor-on .cursor-luz,
-html.cursor-on .cursor-nucleo { opacity: 1; }
-html.cursor-on.cursor-ativo .cursor-luz {
-  width: 460px;
-  height: 460px;
-  margin: -230px 0 0 -230px;
-}
-/* Esconde o ponteiro nativo no desktop */
-@media (hover: hover) and (pointer: fine) {
-  html.cursor-on,
-  html.cursor-on body,
-  html.cursor-on a,
-  html.cursor-on button,
-  html.cursor-on [role="button"],
-  html.cursor-on input,
-  html.cursor-on label { cursor: none; }
-}
 
 /* ═══════════════════════════════════════════════════════════
    REDUCED MOTION
@@ -1210,7 +1148,6 @@ html.cursor-on.cursor-ativo .cursor-luz {
   }
   .faixa-move { animation: none !important; }
   .faixa-fotos { overflow-x: auto; }
-  .cursor-luz, .cursor-nucleo { display: none !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1767,9 +1704,6 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <div class="bg-luz" aria-hidden="true"></div>
 <div class="bg-grao" aria-hidden="true"></div>
 
-<!-- ═══════════ CURSOR DE LUZ LARANJA ═══════════ -->
-<div class="cursor-luz" id="cursor-luz" aria-hidden="true"></div>
-<div class="cursor-nucleo" id="cursor-nucleo" aria-hidden="true"></div>
 
 
 
@@ -2329,43 +2263,6 @@ document.addEventListener('DOMContentLoaded', function () {
         card.style.setProperty('--mouse-y', y + 'px');
       }, { passive: true });
     });
-  }
-
-  /* ─── CURSOR: LUZ LARANJA COM BLUR ─── */
-  if (FINO && !RM) {
-    var luz = $('#cursor-luz'), nucleo = $('#cursor-nucleo');
-    if (luz && nucleo) {
-      var mx = window.innerWidth / 2, my = window.innerHeight / 2;
-      var lx = mx, ly = my, nx = mx, ny = my, ligado = false;
-
-      window.addEventListener('mousemove', function (e) {
-        mx = e.clientX; my = e.clientY;
-        if (!ligado) {
-          ligado = true;
-          lx = nx = mx; ly = ny = my;
-          document.documentElement.classList.add('cursor-on');
-        }
-        var alvo = e.target && e.target.closest
-          ? e.target.closest('a, button, [role="button"], input, textarea, .door-card, .media-card')
-          : null;
-        document.documentElement.classList.toggle('cursor-ativo', !!alvo);
-      }, { passive: true });
-
-      document.addEventListener('mouseleave', function () {
-        document.documentElement.classList.remove('cursor-on');
-        ligado = false;
-      });
-
-      (function seguir() {
-        lx += (mx - lx) * 0.14;   // luz: arrasto suave
-        ly += (my - ly) * 0.14;
-        nx += (mx - nx) * 0.42;   // núcleo: quase colado no ponteiro
-        ny += (my - ny) * 0.42;
-        luz.style.transform = 'translate3d(' + lx.toFixed(1) + 'px,' + ly.toFixed(1) + 'px,0)';
-        nucleo.style.transform = 'translate3d(' + nx.toFixed(1) + 'px,' + ny.toFixed(1) + 'px,0)';
-        requestAnimationFrame(seguir);
-      })();
-    }
   }
 
   /* ─── HEADER BLUR SCROLL LISTENER ─── */

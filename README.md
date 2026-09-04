@@ -40,9 +40,10 @@ Antes da página aparecer, um carro entra de lado e faz donuts em volta da marca
 
 ## Movimento e interação
 
-- **Cursor**: no desktop (`hover:hover`), o ponteiro nativo some e vira uma luz laranja com blur (arrasto suave) + um núcleo pequeno quase colado no ponteiro; a luz cresce sobre links, botões e cards.
+- **Cursor**: nativo. A luz laranja com blur que existia aqui foi removida — `filter: blur()` + `mix-blend-mode` num elemento que se move a cada frame repintava a tela inteira e derrubava o FPS no desktop.
 - **Scroll**: Lenis no desktop; revelações de cards e odômetro do preço via ScrollTrigger.
 - **Faixa de fotos**: marquee CSS infinito, pausa no hover; sob `prefers-reduced-motion` vira faixa com rolagem horizontal.
+- **Custo de pintura**: `backdrop-filter` ficou só no header (área pequena e fixa) — os cards e as caixas do filtro usam fundo quase opaco, que dá o mesmo resultado sem recompor o que está atrás a cada scroll.
 - Não existe mais carro percorrendo a página conforme o scroll (removido na V3 junto do HUD de RPM).
 
 Cores em `:root` (`--bg`, `--orange`, escala de cinzas). Tipografia display/body/mono também em `:root`.
