@@ -653,6 +653,51 @@ html.rm .btn-primary:hover::after { animation: none; }
   background: #0b0b10;
 }
 
+/* ─── BOTÃO DE SOM ─── */
+.reel-som {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(8, 8, 12, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.reel-som:hover {
+  background: rgba(8, 8, 12, 0.95);
+  border-color: rgba(255, 77, 0, 0.7);
+  color: var(--orange);
+}
+.reel-som:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+/* Ligado: fica laranja sólido pra deixar claro qual vídeo tem o som */
+.reel-som[aria-pressed="true"] {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #14131A;
+}
+.reel-som .ic-som { display: none; }
+.reel-som[aria-pressed="true"] .ic-mudo { display: none; }
+.reel-som[aria-pressed="true"] .ic-som { display: block; }
+@media (max-width: 520px) {
+  .reel-som-txt { display: none; }
+  .reel-som { padding: 10px; right: 10px; bottom: 10px; }
+}
+
 /* ═══════════════════════════════════════════════════════════
    03 · AS SETE PORTAS (PILARES DE ACESSO)
    ═══════════════════════════════════════════════════════════ */
@@ -1955,28 +2000,48 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
     </div>
 
     <!-- TRÊS REELS LADO A LADO -->
-    <!-- Os vídeos só começam a baixar quando entram na tela (preload="none" + observer
-         em data-src). Fora da tela eles pausam, pra não gastar CPU rolando a página. -->
+    <!-- Tocam desde o carregamento da página (autoplay mudo) e não pausam ao sair
+         da tela, pra já estarem rodando quando a pessoa chega aqui. O botão de som
+         desmuta um por vez: ligar um mudo os outros dois. -->
     <div class="reels-grid">
+      <!-- Este clipe não tem faixa de áudio: por isso vai sem botão de som. -->
       <div class="reel-card">
-        <video class="reel-video" data-src="video/reel-01-estrada-noite.mp4"
-               poster="img/poster-reel-01.jpg" width="720" height="1280"
-               muted loop playsinline preload="none" disablepictureinpicture
+        <video class="reel-video" src="video/reel-01-estrada-noite.mp4"
+               poster="img/poster-reel-01.jpg" width="540" height="960"
+               autoplay muted loop playsinline preload="auto" disablepictureinpicture
                aria-label="M4 branca subindo a serra à noite"></video>
       </div>
 
       <div class="reel-card">
-        <video class="reel-video" data-src="video/reel-02-saida-noite.mp4"
-               poster="img/poster-reel-02.jpg" width="720" height="1280"
-               muted loop playsinline preload="none" disablepictureinpicture
+        <video class="reel-video" src="video/reel-02-saida-noite.mp4"
+               poster="img/poster-reel-02.jpg" width="540" height="960"
+               autoplay muted loop playsinline preload="auto" disablepictureinpicture
                aria-label="Saída noturna com os carros do rolê"></video>
+        <button class="reel-som" type="button" aria-pressed="false" aria-label="Ativar o som deste vídeo">
+          <svg class="ic-mudo" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>
+          </svg>
+          <svg class="ic-som" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+          </svg>
+          <span class="reel-som-txt">Som</span>
+        </button>
       </div>
 
       <div class="reel-card">
-        <video class="reel-video" data-src="video/reel-03-m4-amarela.mp4"
-               poster="img/poster-reel-03.jpg" width="720" height="1280"
-               muted loop playsinline preload="none" disablepictureinpicture
+        <video class="reel-video" src="video/reel-03-m4-amarela.mp4"
+               poster="img/poster-reel-03.jpg" width="540" height="960"
+               autoplay muted loop playsinline preload="auto" disablepictureinpicture
                aria-label="M4 amarela manobrando no estacionamento"></video>
+        <button class="reel-som" type="button" aria-pressed="false" aria-label="Ativar o som deste vídeo">
+          <svg class="ic-mudo" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>
+          </svg>
+          <svg class="ic-som" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+          </svg>
+          <span class="reel-som-txt">Som</span>
+        </button>
       </div>
     </div>
 
@@ -2448,36 +2513,43 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ═══════════════════════════════════════════════════════════
-     REELS: só baixa e só toca o que está na tela
+     REELS: tocam desde a abertura e o som é exclusivo
      ═══════════════════════════════════════════════════════════ */
   (function () {
     var videos = $$('.reel-video');
     if (!videos.length) return;
 
-    function ligar(v) {
-      if (!v.getAttribute('src')) {
-        if (!v.dataset.src) return;
-        v.setAttribute('src', v.dataset.src);
-      }
-      // Com "reduzir movimento" ligado, não empurra o vídeo: entrega o controle.
-      if (RM) { v.controls = true; return; }
+    // O atributo autoplay já dá conta na maioria dos casos; este empurrão
+    // cobre o resto. Se o navegador recusar, entrega os controles nativos
+    // em vez de deixar um quadro congelado.
+    videos.forEach(function (v) {
+      if (RM) { v.controls = true; v.pause(); return; }
       var p = v.play();
       if (p && p.catch) p.catch(function () { v.controls = true; });
-    }
+    });
 
-    if (typeof IntersectionObserver === 'undefined') {
-      videos.forEach(ligar);
-      return;
-    }
+    // Som: só um vídeo por vez, senão vira three-way de áudio.
+    $$('.reel-som').forEach(function (btn) {
+      var video = btn.parentNode.querySelector('.reel-video');
+      if (!video) return;
+      btn.addEventListener('click', function () {
+        var ligando = video.muted;
+        // Zera todo mundo antes, inclusive o próprio.
+        videos.forEach(function (v) { v.muted = true; });
+        $$('.reel-som').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
 
-    var obs = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (e) {
-        if (e.isIntersecting) ligar(e.target);
-        else if (!e.target.paused) e.target.pause();
+        if (ligando) {
+          video.muted = false;
+          video.volume = 1;
+          btn.setAttribute('aria-pressed', 'true');
+          btn.setAttribute('aria-label', 'Silenciar este vídeo');
+          // O clique é o gesto que libera áudio; se estava parado, retoma.
+          if (video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+        } else {
+          btn.setAttribute('aria-label', 'Ativar o som deste vídeo');
+        }
       });
-    }, { rootMargin: '250px 0px', threshold: 0.1 });
-
-    videos.forEach(function (v) { obs.observe(v); });
+    });
   })();
 
   /* ─── SPOTLIGHT EFFECT NOS CARDS NO MOUSEMOVE ─── */
