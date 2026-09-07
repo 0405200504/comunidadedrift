@@ -5,20 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <!-- ═══════════ META ═══════════ -->
-<title>Drive Club — Você vê o Drive dos vídeos. Aqui você entra no carro.</title>
-<meta name="description" content="Comunidade fechada do @driveitlikestoleit. Bastidores sem filtro, garagem dos membros, rifa 10x, ranking, experiências e descontos com parceiros.">
+<title>Drive Club — Ele não mostra o rosto. Agora abre a porta da M4.</title>
+<meta name="description" content="Comunidade fechada do @driveitlikestoleit. Bastidor sem corte, garagem dos membros, rifa 10x, ranking, track days, drops da Real Underground e marketplace fechado.">
 <meta name="theme-color" content="#070709">
 <link rel="canonical" href="https://driveclub.com.br/"><!-- TROCAR: domínio final -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Drive Club">
-<meta property="og:title" content="Drive Club — Aqui você entra no carro.">
-<meta property="og:description" content="Real Underground · Comunidade fechada. O rolê continua depois que a câmera desliga.">
+<meta property="og:title" content="Drive Club — Agora abre a porta da M4.">
+<meta property="og:description" content="Real Underground · Comunidade fechada. Sem rosto, sem freio, sem pedir permissão.">
 <meta property="og:url" content="https://driveclub.com.br/"><!-- TROCAR -->
 <meta property="og:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR: 1200x630 -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Drive Club — Aqui você entra no carro.">
-<meta name="twitter:description" content="Real Underground · Comunidade fechada.">
+<meta name="twitter:title" content="Drive Club — Agora abre a porta da M4.">
+<meta name="twitter:description" content="Real Underground · Comunidade fechada. Só os 50 primeiros.">
 <meta name="twitter:image" content="https://driveclub.com.br/og.jpg"><!-- TROCAR -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23070709'/%3E%3Cpath d='M4 25C11 25 9 7 16 7s5 18 12 18' stroke='%23FF4D00' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='12' r='2' fill='%23FF4D00'/%3E%3C/svg%3E">
 
@@ -484,6 +484,59 @@ html.rm .btn-primary:hover::after { animation: none; }
   background: linear-gradient(180deg, rgba(7, 7, 9, 0.10) 0%, rgba(7, 7, 9, 0.20) 55%, rgba(7, 7, 9, 0.88) 100%);
   pointer-events: none;
 }
+/* ─── RETRATO DO PERSONAGEM (INSET NO HERO) ─── */
+.personagem-card {
+  position: absolute;
+  left: clamp(14px, 2vw, 22px);
+  bottom: clamp(14px, 2vw, 22px);
+  z-index: 2;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px 10px 10px;
+  background: rgba(8, 8, 12, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 16px 34px -14px rgba(0, 0, 0, 0.95);
+}
+.personagem-card img {
+  width: clamp(52px, 5.5vw, 68px);
+  height: clamp(52px, 5.5vw, 68px);
+  flex: none;
+  object-fit: cover;
+  border-radius: 3px;
+  display: block;
+  filter: contrast(1.06) saturate(1.04);
+}
+.personagem-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+.personagem-card figcaption strong {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.personagem-card figcaption span {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+@media (max-width: 520px) {
+  .personagem-card { padding: 8px 12px 8px 8px; gap: 10px; }
+  .personagem-card figcaption strong { font-size: 11.5px; }
+  .personagem-card figcaption span { font-size: 9px; }
+}
+
 .tech-spec-box {
   position: absolute;
   bottom: 20px;
@@ -569,74 +622,47 @@ html.rm .btn-primary:hover::after { animation: none; }
   line-height: 1.6;
 }
 
-.paddock-grid {
+/* ─── TRÊS REELS LADO A LADO ─── */
+.reels-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: clamp(16px, 2vw, 24px);
 }
-.media-card {
+@media (max-width: 860px) {
+  .reels-grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+}
+.reel-card {
   position: relative;
   background: var(--bg-card-solid);
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   overflow: hidden;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
   box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
 }
-.media-card:hover {
+.reel-card:hover {
   border-color: rgba(255, 77, 0, 0.55);
   transform: translateY(-3px);
-  box-shadow: 0 22px 44px -14px rgba(0, 0, 0, 0.9),
-              inset 0 0 0 1px rgba(47, 180, 255, 0.18);
+  box-shadow: 0 22px 44px -14px rgba(0, 0, 0, 0.9);
 }
-.media-card.col-7 { grid-column: span 7; }
-.media-card.col-5 { grid-column: span 5; }
-.media-card.col-4 { grid-column: span 4; }
-.media-card.col-8 { grid-column: span 8; }
-@media (max-width: 992px) {
-  .media-card.col-7, .media-card.col-5, .media-card.col-4, .media-card.col-8 {
-    grid-column: span 12;
-  }
-}
-
-.media-mock--foto { padding: 0; }
-.media-foto {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  filter: contrast(1.16) saturate(0.92) brightness(0.86);
-  transition: filter 0.45s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.media-card:hover .media-foto {
-  filter: contrast(1.10) saturate(1.06) brightness(1);
-  transform: scale(1.035);
-}
-/* Sombra fria por baixo + estouro quente no topo: rua à noite */
-.media-mock--foto::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(255, 92, 0, 0.10) 0%, transparent 38%),
-    linear-gradient(0deg, rgba(6, 10, 20, 0.55) 0%, transparent 55%);
-  mix-blend-mode: screen;
-  opacity: 0.9;
-}
-.media-mock {
+.reel-frame {
   position: relative;
   width: 100%;
+  /* o embed do Instagram traz cabeçalho e rodapé próprios; folga vertical evita corte */
+  aspect-ratio: 9 / 15;
+  background: #0b0b10;
+}
+.reel-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
   height: 100%;
-  min-height: 240px;
-  overflow: hidden;
+  border: 0;
+  display: block;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   03 · AS SEIS PORTAS (PILARE DE ACESSO)
+   03 · AS SETE PORTAS (PILARES DE ACESSO)
    ═══════════════════════════════════════════════════════════ */
 .doors-grid {
   display: grid;
@@ -684,8 +710,7 @@ html.rm .btn-primary:hover::after { animation: none; }
 }
 
 /* Cantoneiras de mira (HUD) */
-.door-card::after,
-.media-card::after {
+.door-card::after {
   content: "";
   position: absolute;
   inset: 9px;
@@ -706,8 +731,7 @@ html.rm .btn-primary:hover::after { animation: none; }
     left bottom, left bottom,
     right bottom, right bottom;
 }
-.door-card:hover::after,
-.media-card:hover::after {
+.door-card:hover::after {
   opacity: 0.95;
   inset: 12px;
 }
@@ -762,6 +786,24 @@ html.rm .btn-primary:hover::after { animation: none; }
   font-size: 14.5px;
   line-height: 1.6;
   margin-bottom: 24px;
+}
+
+/* Card 07 ocupa a linha inteira e distribui em duas colunas */
+.door-card--wide { grid-column: 1 / -1; }
+@media (min-width: 641px) {
+  .door-card--wide .door-card-content {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.32fr) 1fr;
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+  }
+  .door-card--wide .door-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 0;
+  }
+  .door-card--wide .door-desc { margin-bottom: 0; max-width: 62ch; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -928,6 +970,55 @@ html.rm .btn-primary:hover::after { animation: none; }
   flex-shrink: 0;
 }
 
+/* ─── LISTA DE INCLUSOS ─── */
+.offer-inclusos {
+  margin: 28px 0 32px;
+  display: grid;
+  gap: 2px;
+}
+.offer-inclusos li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--gray-100);
+}
+.offer-inclusos li:last-child { border-bottom: none; }
+.offer-inclusos svg {
+  color: var(--orange);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ─── BOX DE BÔNUS (50 PRIMEIROS) ─── */
+.bonus-box {
+  padding: clamp(20px, 2.6vw, 28px);
+  border-radius: var(--radius-lg);
+  border: 1px dashed rgba(255, 77, 0, 0.55);
+  background: linear-gradient(160deg, rgba(255, 77, 0, 0.12) 0%, rgba(255, 77, 0, 0.02) 70%);
+}
+.bonus-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.bonus-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-100);
+}
+.bonus-desc strong { color: var(--white); font-weight: 700; }
+
 /* ─── PAINEL DE PREÇO DIGITAL / ODÔMETRO ─── */
 .price-display-box {
   background: rgba(7, 7, 10, 0.85);
@@ -992,6 +1083,18 @@ html.rm .btn-primary:hover::after { animation: none; }
   color: var(--orange);
   margin-top: 8px;
 }
+.price-ancora {
+  margin: 16px auto 22px;
+  max-width: 30ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-200);
+}
+.btn-block {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+}
 .price-micro {
   margin-top: 14px;
   font-family: var(--font-mono);
@@ -999,6 +1102,14 @@ html.rm .btn-primary:hover::after { animation: none; }
   letter-spacing: 0.1em;
   color: var(--gray-300);
   text-transform: uppercase;
+}
+.price-travado {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--gray-300);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1014,7 +1125,22 @@ html.rm .btn-primary:hover::after { animation: none; }
   line-height: 1.05;
   letter-spacing: -0.03em;
   max-width: 22ch;
+  margin: 0 auto clamp(20px, 3vh, 28px);
+}
+.manifesto-sub {
+  max-width: 54ch;
   margin: 0 auto clamp(32px, 5vh, 48px);
+  font-size: clamp(15px, 1.1vw, 17.5px);
+  line-height: 1.6;
+  color: var(--gray-200);
+}
+.manifesto-micro {
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-300);
 }
 .footer-bar {
   margin-top: clamp(60px, 8vw, 120px);
@@ -1741,14 +1867,14 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
         </div>
 
         <h1 class="heading-display hero-title">
-          <span class="text-outline">Você vê o Drive</span>
-          <span class="text-outline">dos vídeos.</span>
-          <span class="text-orange">Aqui você entra</span>
-          <span>no carro.</span>
+          <span class="text-outline">Ele não mostra</span>
+          <span class="text-outline">o rosto.</span>
+          <span>Não respeita as leis.</span>
+          <span class="text-orange">Agora abre a porta da M4.</span>
         </h1>
 
         <p class="hero-desc">
-          O <strong>Drive Club</strong> é onde o rolê continua depois que a câmera desliga: bastidores sem corte, a garagem dos membros, encontros e track days — e a chance de andar de lado com quem vive disso.
+          Sem rosto, sem freio, sem pedir permissão. O <strong>Drive Club</strong> é onde a lenda para de ser vídeo e vira convite: bastidor sem corte, a garagem dos membros, encontros e track days. A chance de andar de lado com quem vive no limite, não com quem só assiste.
         </p>
 
         <div class="hero-actions">
@@ -1763,7 +1889,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
           <!-- FICTÍCIO: trocar pelo número real de vagas -->
           <div class="hero-slots">
             <span class="slots-indicator"></span>
-            <span><strong>150</strong> vagas na 1ª leva</span>
+            <span>só os <strong>50</strong> primeiros</span>
           </div>
         </div>
       </div>
@@ -1774,6 +1900,15 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
           <div class="blueprint-inner">
             <img src="img/m4-neblina-noite.jpg" alt="BMW M4 do Drive com portas abertas em estrada de neblina à noite" width="1280" height="853" fetchpriority="high" decoding="async">
           </div>
+
+          <!-- RETRATO DO PERSONAGEM -->
+          <figure class="personagem-card">
+            <img src="img/drive-personagem.jpg" alt="O Drive — personagem mascarado do Drive It Like Stole It" width="640" height="640" fetchpriority="high" decoding="async">
+            <figcaption>
+              <strong>O Drive</strong>
+              <span>Sem rosto · sem freio</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </div>
@@ -1785,15 +1920,23 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <div class="faixa-fotos" aria-hidden="true">
   <div class="faixa-move">
     <figure class="faixa-item"><img src="img/m4-posto.jpg" alt="M4 branca no posto" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-amarela-pista.jpg" alt="M4 amarela acelerando na pista" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/m4-rua-frente.jpg" alt="M4 branca com capô de carbono na rua" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-preta-rua.jpg" alt="M4 preta fosca em movimento na rua" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/m4-policia-traseira.jpg" alt="M4 apreendida ao lado da viatura do DEIC" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/m4-deic-portas.jpg" alt="M4 com portas abertas em frente à Polícia Civil" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-neblina-noite.jpg" alt="M4 com porta aberta em estrada de neblina à noite" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-drift-pista.jpg" alt="M4 branca de lado com fumaça na saída de curva" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/deic-story.jpg" alt="Notícia sobre a apreensão da BMW mais famosa do Brasil" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/logo-graffiti.jpg" alt="Logo Drive It Like Stole It em muro grafitado" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/m4-posto.jpg" alt="M4 branca no posto" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-amarela-pista.jpg" alt="M4 amarela acelerando na pista" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/m4-rua-frente.jpg" alt="M4 branca com capô de carbono na rua" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-preta-rua.jpg" alt="M4 preta fosca em movimento na rua" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/m4-policia-traseira.jpg" alt="M4 apreendida ao lado da viatura do DEIC" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/m4-deic-portas.jpg" alt="M4 com portas abertas em frente à Polícia Civil" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-neblina-noite.jpg" alt="M4 com porta aberta em estrada de neblina à noite" loading="lazy" decoding="async"></figure>
+    <figure class="faixa-item"><img src="img/m4-drift-pista.jpg" alt="M4 branca de lado com fumaça na saída de curva" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/deic-story.jpg" alt="Notícia sobre a apreensão da BMW mais famosa do Brasil" loading="lazy" decoding="async"></figure>
     <figure class="faixa-item"><img src="img/logo-graffiti.jpg" alt="Logo Drive It Like Stole It em muro grafitado" loading="lazy" decoding="async"></figure>
   </div>
@@ -1815,33 +1958,27 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
         Poucos <span class="text-orange">entram.</span>
       </h2>
       <p class="sec-desc">
-        No feed você vê o corte de 30 segundos e o resultado já editado. No <strong>Drive Club</strong> você acompanha o resto: o acerto do carro, o que quebrou, o que deu certo e a conversa que vem depois da volta.
+        No feed você vê 30 segundos cortados e o final já bonitinho. No <strong>Drive Club</strong> você vê o resto: o carro sendo acertado, o que quebrou, o que deu certo e o papo que rola depois que o motor esfria.
       </p>
     </div>
 
-    <!-- FRAMES DE MONITORAMENTO / PLACEHOLDERS TÉCNICOS -->
-    <div class="paddock-grid">
-      <div class="media-card col-7">
-        <div class="media-mock media-mock--foto" style="aspect-ratio: 16/9;">
-          <img class="media-foto" src="img/m4-amarela-pista.jpg" alt="M4 amarela acelerando na pista" width="1320" height="763" loading="lazy" decoding="async">
+    <!-- TRÊS REELS LADO A LADO -->
+    <div class="reels-grid">
+      <div class="reel-card">
+        <div class="reel-frame">
+          <iframe src="https://www.instagram.com/reel/DObkIRGCXcu/embed/" title="Reel do Drive It Like Stole It" loading="lazy" allowfullscreen scrolling="no" frameborder="0"></iframe>
         </div>
       </div>
 
-      <div class="media-card col-5">
-        <div class="media-mock media-mock--foto" style="aspect-ratio: 16/9;">
-          <img class="media-foto" src="img/m4-preta-rua.jpg" alt="M4 preta fosca em movimento na rua" width="1320" height="474" loading="lazy" decoding="async">
+      <div class="reel-card">
+        <div class="reel-frame">
+          <iframe src="https://www.instagram.com/reel/Dai-gNQvYb-/embed/" title="Reel do Drive It Like Stole It" loading="lazy" allowfullscreen scrolling="no" frameborder="0"></iframe>
         </div>
       </div>
 
-      <div class="media-card col-4">
-        <div class="media-mock media-mock--foto" style="aspect-ratio: 4/5;">
-          <img class="media-foto" src="img/m4-espanha-vertical.jpg" alt="M4 branca parada em rua histórica" width="1080" height="1920" loading="lazy" decoding="async">
-        </div>
-      </div>
-
-      <div class="media-card col-8">
-        <div class="media-mock media-mock--foto" style="aspect-ratio: 21/9;">
-          <img class="media-foto" src="img/m4-drift-pista.jpg" alt="M4 branca de lado com fumaça na saída de curva" width="1320" height="584" loading="lazy" decoding="async">
+      <div class="reel-card">
+        <div class="reel-frame">
+          <iframe src="https://www.instagram.com/reel/DZVlSWTPVDt/embed/" title="Reel do Drive It Like Stole It" loading="lazy" allowfullscreen scrolling="no" frameborder="0"></iframe>
         </div>
       </div>
     </div>
@@ -1852,7 +1989,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 <div class="sec-divider"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     03 · AS SEIS PORTAS (O QUE TÁ DENTRO)
+     03 · AS SETE PORTAS (O QUE TÁ DENTRO)
      ═══════════════════════════════════════════════════════════ -->
 <section class="sec" id="dentro">
   <div class="wrap">
@@ -1863,10 +2000,10 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 
     <div class="sec-title-area">
       <h2 class="heading-display sec-title">
-        O que tem <span class="text-orange">dentro</span>
+        O que tem dentro do <span class="text-orange">Drive Club</span>
       </h2>
       <p class="sec-desc">
-        Seis frentes que rodam o ano inteiro — do bastidor da garagem ao track day.
+        Sete frentes que rodam o ano inteiro — do bastidor da garagem ao track day.
       </p>
     </div>
 
@@ -1883,9 +2020,9 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             </div>
             <span class="door-num">01</span>
           </div>
-          <h3 class="door-title">A Drive — O Lado Oculto</h3>
+          <h3 class="door-title">O Drive, sem edição</h3>
           <p class="door-desc">
-            Bastidores sem cortes, Q&amp;A direto no chat, e o sistema de votação: você define as próximas modificações de projeto e novos conteúdos.
+            O que não vai pro feed: bastidor bruto, perguntas direto no chat e voto de membro. Você decide o próximo mod do projeto e o que vem depois. Aqui você manda junto.
           </p>
         </div>
       </article>
@@ -1904,9 +2041,9 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             </div>
             <span class="door-num">02</span>
           </div>
-          <h3 class="door-title">Garagem dos Membros</h3>
+          <h3 class="door-title">Sua garagem no jogo</h3>
           <p class="door-desc">
-            Espaço para exibir seu projeto, setup de suspensão, ficha técnica e evolução antes-e-depois com feedback de quem entende.
+            Mostra teu projeto pra quem entende de verdade: setup, ficha técnica, antes e depois. Feedback real de quem entende, não elogio de comentário.
           </p>
         </div>
       </article>
@@ -1923,9 +2060,9 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             </div>
             <span class="door-num">03</span>
           </div>
-          <h3 class="door-title">Rifa com Chance 10x</h3>
+          <h3 class="door-title">Rifa com 10x de chance</h3>
           <p class="door-desc">
-            Sorteios exclusivos de peças de alta performance, cotas especiais e experiências que multiplicam sua probabilidade de vitória por 10.
+            Cota especial da BMW M4 e rifas de peças exclusivas. Membro da comunidade paga mais barato e ainda tem 10x mais chance de levar.
           </p>
         </div>
       </article>
@@ -1946,7 +2083,7 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
           </div>
           <h3 class="door-title">Ranking &amp; Desafios</h3>
           <p class="door-desc">
-            Batalha mensal de projetos, fotografia automotiva e desafios de pista. Suba no placar, ganhe insígnias de honra e prêmios.
+            Batalha mensal de projeto, foto automotiva e desafio de pista. Sobe no placar, fatura insígnia e prêmio. Aqui teu carro tem nome e reputação.
           </p>
         </div>
       </article>
@@ -1963,9 +2100,9 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             </div>
             <span class="door-num">05</span>
           </div>
-          <h3 class="door-title">Experiências de Pista</h3>
+          <h3 class="door-title">Experiência de verdade</h3>
           <p class="door-desc">
-            Track days fechados, encontros no autódromo, sessões de kart e gravações presenciais exclusivas ao lado do Drive.
+            Encontros exclusivos, track day fechado, autódromo, sessão de kart e gravação presencial do lado do Drive. Não é só assistir. É participar.
           </p>
         </div>
       </article>
@@ -1975,17 +2112,37 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
         <div class="door-card-content">
           <div class="door-top">
             <div class="door-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+              </svg>
+            </div>
+            <span class="door-num">06</span>
+          </div>
+          <h3 class="door-title">Drop antes de todo mundo</h3>
+          <p class="door-desc">
+            Acesso antecipado aos drops da Real Underground e peças que não vão pra loja. Roupa exclusiva de quem tá dentro. Lá fora esgota antes de você ver. Aqui você já tá com a sua.
+          </p>
+        </div>
+      </article>
+
+      <!-- PORTA 07 -->
+      <article class="door-card door-card--wide">
+        <div class="door-card-content">
+          <div class="door-top">
+            <div class="door-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/>
                 <path d="M7 7h.01"/>
               </svg>
             </div>
-            <span class="door-num">06</span>
+            <span class="door-num">07</span>
           </div>
-          <h3 class="door-title">Parceiros &amp; Desapego</h3>
-          <p class="door-desc">
-            Descontos pesados em oficinas especializadas, PPF, pneus e peças. Mercado interno e seguro de compra e venda entre membros.
-          </p>
+          <div class="door-body">
+            <h3 class="door-title">Marketplace fechado: preço e desapego</h3>
+            <p class="door-desc">
+              Desconto pesado em oficina, PPF, pneu e peça. Mercado interno de membro pra membro, compra e venda segura. O que lá fora sai caro, aqui sai no preço de membro.
+            </p>
+          </div>
         </div>
       </article>
     </div>
@@ -2008,8 +2165,8 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 
     <div class="sec-title-area">
       <h2 class="heading-display sec-title">
-        Sem meio termo.<br>
-        Quem entra e <span class="text-orange">quem fica de fora</span>.
+        Ou você vive isso,<br>
+        ou você <span class="text-orange">só assiste</span>.
       </h2>
     </div>
 
@@ -2027,19 +2184,19 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
             <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            <span class="filter-text-yes">Carro para você é paixão e engenharia, não meio de transporte.</span>
+            <span class="filter-text-yes">Carro pra você é paixão e engenharia, não meio de transporte.</span>
           </li>
           <li>
             <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            <span class="filter-text-yes">Quer aprender drift, acerto de suspensão e mecânica com quem está na pista.</span>
+            <span class="filter-text-yes">Você quer aprender drift, acerto de suspensão e mecânica com o melhor, não com tutorial de YouTube.</span>
           </li>
           <li>
             <svg class="filter-icon-yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            <span class="filter-text-yes">Quer trocar ideia dentro do rolê, não aplaudir de longe.</span>
+            <span class="filter-text-yes">Você quer estar dentro do rolê e botar a mão, não bater palma de longe.</span>
           </li>
         </ul>
       </div>
@@ -2059,21 +2216,21 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
               <circle cx="12" cy="12" r="10"/>
               <line x1="15" y1="9" x2="9" y2="15"/>
             </svg>
-            <span class="filter-text-no">Carro, para você, serve só para ir do ponto A ao ponto B.</span>
+            <span class="filter-text-no">Carro, pra você, é só ir do ponto A ao ponto B.</span>
           </li>
           <li>
             <svg class="filter-icon-no" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"/>
               <line x1="15" y1="9" x2="9" y2="15"/>
             </svg>
-            <span class="filter-text-no">Procura mais um grupo parado, só de conversa.</span>
+            <span class="filter-text-no">Você quer mais um grupo parado, cheio de figurinha e conversa fiada.</span>
           </li>
           <li>
             <svg class="filter-icon-no" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"/>
               <line x1="15" y1="9" x2="9" y2="15"/>
             </svg>
-            <span class="filter-text-no">Prefere carro de vitrine, sem tirar da garagem.</span>
+            <span class="filter-text-no">Seu carro vive de vitrine, limpo, sem nunca queimar um pneu.</span>
           </li>
         </ul>
       </div>
@@ -2081,8 +2238,8 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
 
     <div class="verdict-banner">
       <h3 class="verdict-title">
-        O Drive Club não é para todo mundo.<br>
-        <span class="text-orange">É para quem acelera de verdade.</span>
+        Se você chegou até aqui, você já sabe.<br>
+        <span class="text-orange">O resto só vai assistir.</span>
       </h3>
     </div>
   </div>
@@ -2105,54 +2262,61 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
         <div>
           <span class="offer-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
             </svg>
-            Condição de 1ª leva
+            Condição de 1ª leva · só os 50 primeiros
           </span>
           <h2 class="heading-display sec-title">
-            Entra no <span class="text-orange">cockpit</span>
+            O que você leva ao entrar no <span class="text-orange">Drive Club</span>
           </h2>
           <p class="sec-desc">
-            Entra agora e trava o valor de fundador. Enquanto a assinatura estiver de pé, o preço não sobe.
+            O Drive Club vive dentro de um Discord fechado, só pra membro. É lá que tudo acontece em tempo real: bastidor, papo direto com o Drive, os encontros, a rifa e os drops. Você não assiste de fora. Você entra na sala.
           </p>
 
-          <div class="offer-perks">
-            <div class="offer-perk-item">
+          <ul class="offer-inclusos">
+            <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Acesso Completo ao Club</span>
-            </div>
-            <div class="offer-perk-item">
+              <span>Acesso completo ao Discord fechado do Drive Club</span>
+            </li>
+            <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Bastidores Sem Filtro</span>
-            </div>
-            <div class="offer-perk-item">
+              <span>Bastidor sem filtro e Q&amp;A direto com o Drive</span>
+            </li>
+            <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Garagem &amp; Setups</span>
-            </div>
-            <div class="offer-perk-item">
+              <span>Garagem dos membros: mostra teu projeto e recebe setup de quem entende</span>
+            </li>
+            <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Rifa com Chance 10x</span>
-            </div>
-            <div class="offer-perk-item">
+              <span>Track days, encontros e experiências presenciais</span>
+            </li>
+            <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Track Days &amp; Encontros</span>
-            </div>
-            <div class="offer-perk-item">
+              <span>Rifa com 10x mais chance e preço de membro</span>
+            </li>
+            <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>Descontos com Parceiros</span>
-            </div>
-          </div>
+              <span>Drop da Real Underground antes de todo mundo</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Desconto pesado com oficinas e parceiros</span>
+            </li>
+          </ul>
 
-          <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
-            <!-- FICTÍCIO: trocar pelo link real de checkout -->
-            <a class="btn-primary btn-lg" href="https://pay.driveclub.com.br/fundador">
-              Entrar no Drive Club
-              <span class="icon-arrow">
-                <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
-                  <path d="M8 1L13 6M13 6L8 11M13 6H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </a>
+          <!-- ⚠️ DEV: remover este box inteiro quando fecharem as 50 vagas. -->
+          <div class="bonus-box" id="bonus-50">
+            <div class="bonus-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="8" width="18" height="4" rx="1"/>
+                <path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>
+                <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>
+              </svg>
+              Presente dos 50 primeiros
+            </div>
+            <p class="bonus-desc">
+              Os 50 primeiros assinantes recebem uma <strong>peça física do novo drop da Real Underground</strong>. De graça, na sua casa. Depois que fecharem as 50 vagas, essa condição morre.
+            </p>
           </div>
         </div>
 
@@ -2169,7 +2333,35 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
               </div>
             </div>
             <div class="price-period">por mês</div>
+
+            <!--
+              ⚠️ DEV — LINHA DE ANCORAGEM (trocar após o lançamento)
+              VERSÃO 1 (no ar agora, enquanto as 50 vagas estiverem abertas):
+                "R$ 39 é menos que um tanque. E ainda leva uma peça que custa mais que isso."
+              VERSÃO 2 (assim que fecharem as 50 vagas):
+                "R$ 39 é menos que um tanque. Por um mês inteiro dentro do club."
+              Ao fechar as 50 vagas: trocar por V2, remover o box #bonus-50
+              e tirar o selo "só os 50 primeiros". Manter o bullet do drop —
+              acesso antecipado é benefício fixo de membro.
+            -->
+            <p class="price-ancora" id="price-ancora">
+              R$&nbsp;39 é menos que um tanque. E ainda leva uma peça que custa mais que isso.
+            </p>
+
+            <!-- FICTÍCIO: trocar pelo link real de checkout -->
+            <a class="btn-primary btn-lg btn-block" href="https://pay.driveclub.com.br/fundador">
+              Garantir Minha Vaga
+              <span class="icon-arrow">
+                <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+                  <path d="M8 1L13 6M13 6L8 11M13 6H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+
             <div class="price-micro">Sem fidelidade · Cancele quando quiser com 1 clique</div>
+            <p class="price-travado">
+              Preço de fundador travado. Enquanto sua assinatura tiver de pé, ele nunca sobe. Quem entrar depois, paga mais.
+            </p>
           </div>
         </div>
       </div>
@@ -2184,15 +2376,19 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
   <div class="rastro rastro--fim" aria-hidden="true"><svg viewBox="0 0 1400 460" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="fade-fim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.14" stop-color="#FFFFFF" stop-opacity="0.09"/><stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.068"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient></defs><g fill="none" stroke="url(#fade-fim)" stroke-linecap="round" stroke-width="19"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g><g fill="none" stroke="url(#fade-fim)" stroke-width="19" stroke-dasharray="3 7 2 12" opacity="0.9"><path d="M-70 396 C 280 384, 400 176, 742 196 C 1000 212, 1130 318, 1470 266"/><path d="M-70 344 C 280 332, 400 124, 742 144 C 1000 160, 1130 266, 1470 214"/></g></svg></div>
   <div class="wrap wrap--narrow">
     <div class="sec-eyebrow" style="justify-content: center;">
-      <span class="sec-tag">Entrar</span>
+      <span class="sec-tag">Última chamada</span>
     </div>
 
     <img class="logo-marca" src="img/logo-gta.png" alt="Drive It Like Stole It · Real Underground" width="1280" height="853" loading="lazy" decoding="async">
 
     <h2 class="heading-display manifesto-title">
-      Lá fora você continua sendo público.<br>
-      <span class="text-orange">Aqui você acelera junto.</span>
+      Lá fora você assiste.<br>
+      <span class="text-orange">Aqui você acelera.</span>
     </h2>
+
+    <p class="manifesto-sub">
+      O portão do Drive Club não fica aberto pra sempre. As 50 chaves de fundador saem uma vez só. Depois que fechar, fechou.
+    </p>
 
     <a class="btn-primary btn-lg" href="https://pay.driveclub.com.br/fundador">
       Garantir Minha Chave de Acesso
@@ -2202,6 +2398,10 @@ html.pl-reveal .faixa-fotos        { transition-delay: 0.54s; }
         </svg>
       </span>
     </a>
+
+    <p class="manifesto-micro">
+      Sem fidelidade. Sai quando quiser. Mas quem sai, perde a chave de fundador.
+    </p>
 
     <footer class="footer-bar">
       <span>DRIVE CLUB // REAL UNDERGROUND</span>
@@ -2293,7 +2493,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // Revelação de títulos e cards
-  ScrollTrigger.batch('.door-card, .media-card, .filter-box', {
+  ScrollTrigger.batch('.door-card, .reel-card, .filter-box', {
     start: 'top 88%',
     once: true,
     onEnter: function (batch) {
